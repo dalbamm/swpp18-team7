@@ -191,14 +191,14 @@ setCurrentUser(userId: number): Request backend to set the user as currently sig
 addUser(User: user): Request backend to add the user in database.</br>
 updateUserInfo(userId: number):Request backend to update the user information in database.</br>
 
-3. article-service
+##### 3. article-service
 getArticlesByISBN(isbn: number): Request the backend to get Article entity and return the article list that has matched isbn.</br>
 getArticlesByAuthor(authorId: number): Request the backend to get Article entity and return the article list that has matched authorId.</br>
 deleteArticle(articleId: number): Request the backend to delete matched Article entity.</br>
 addArticle(Article: article):Request the backend to add matched Article entity.</br>
 updateArticle(articleId: number):Request the backend to update matched Article entity.</br>
 
-4. comment-service
+##### 4. comment-service
 getCommentsByArticleId(articleId: number): Request the backend to get commentList entity and return the article list that has matched articleId.</br>
 addComment():Request the backend to add matched Comment entity.</br>
 deleteComment():Request the backend to delete matched Comment entity.</br>
