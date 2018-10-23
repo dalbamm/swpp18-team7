@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+.logo-text {
+  font-size: 40px;
+  font-style: sans-serif;
+}
+
+.buttons {
+  font-size: 15px;
+  font-style: sans-serif;
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+}
