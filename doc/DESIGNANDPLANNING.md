@@ -232,13 +232,13 @@ This diagram is formatted in accordance with the MVC model. Views are arranged o
  
 ### Back-end API
 The application will access the database by making http requests to the appropriate url in the following table.
-|Model|API|GET|POST|PUT|DELETE|
+| Model | API | GET | POST | PUT | DELETE |
 |-----|---|---|----|---|------|
-|User|/sign_up/X|Create new account|X|X|
-||/sign_in|X|Log in|X|X|
-||/sign_out|Log out|X|X|X|
-||/user/:id|Get specified user|X|Edit user information|X|
-|Book|/book/:isbn|Get specified book|X|X|X|
+| User | /sign_up/X | Create new account | X | X |
+|  | /sign_in | X | Log in | X | X |
+|  | /sign_out | Log out | X | X | X |
+|  | /user/:id | Get specified user | X | Edit user information | X |
+| Book | /book/:isbn | Get specified book | X | X | X |
 
  
 ### Implementation Plan
