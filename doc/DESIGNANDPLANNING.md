@@ -6,6 +6,8 @@ Version 1.0 </br>
 ## System Architecture
 
 ### Model Design
+
+![system architecture] (/doc/img/01_sysarc.jpg)
  
 The above diagram illustrates the entity relationship of our model design. Each rectangle corresponds to a model and the lines and ovals between the models represent their relationship. The numbers along the lines indicate the cardinality constraints of each relation. The cardinality constraints are rather straightforward with the exception of that between an article and its author. We have indicated that an Article entity may be mapped to no User entity(0..*) in the case that the article is not one created by a Boogle user, but one that was crawled from different used book trade websites.
 For all entities except the Book entity, id is the primary key. The primary key of Book is isbn, since the ISBN already distinguishes different books. The Book and User entities are connected via a join table. This join table will be used to maintain the list of books that a user is interested in, as well as the list of users that will need to be notified when a new entry of a specified book is uploaded. Since this will be a many-to-many relationship between the two models, we have decided to implement it with a join table.
