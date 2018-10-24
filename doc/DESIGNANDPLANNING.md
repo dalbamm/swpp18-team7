@@ -245,8 +245,7 @@ The application will access the database by making http requests to the appropri
 | Article | /articles | Get article list | Create new article | X | X |
 |  | /articles/:id | Get specified article | X | Edit specified article | Delete specified article |
 | Comment | /comments | Get comments | Create new comment | X | X |
-|  | /comments/:id | Get specified comment | X | Edit specified comment | Delete specified comment | 
- 
+|  | /comments/:id | Get specified comment | X | Edit specified comment | Delete specified comment | 
 ### Implementation Plan
 
 We plan to divide the tasks by feature, and break down each task into smaller subtasks. The key function that we need to implement before we can move on to other features is the search feature. We plan to order the implementation of the tasks based on the working dependency chart presented above in the document. We have assigned one or two major features to each sprint. In each sprint from sprint 3 through sprint 5, we plan to implement specific features, and while doing so we will be performing unit tests and functional tests for each functionality that we implement in that sprint. The specific implementation plans for each sprint are as follow.
