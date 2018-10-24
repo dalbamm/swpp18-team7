@@ -1,18 +1,18 @@
-Boogle
-Design and Planning Document 
-10/16/18
-Version 1.0
+# Boogle
+##### Design and Planning Document 
+##### 10/16/18
+##### Version 1.0
 
-System Architecture
- 
+## System Architecture
+![system architecture](/doc/img/01_sysarc.jpg)</br>
   There are 8 views and 4 models. Front-end(Angular) communicates with back-end(Django) and django communicates with database and crawls data from external sites.
 
-Front-End Architecture
- 
+### Front-End Architecture
+![front-end architecture](/doc/img/02_frontendarc.jpg)</br>
   Above is the architecture of our front-end. Black lines connect components and blue lines connect back-end with and front-end components.
 
-Back-End Architecture
- 
+### Back-End Architecture
+![back-end architecture](/doc/img/01_backendarc.jpg)</br> 
   This diagram illustrates our back-end architecture. Django is used to communicate data between the front-end and the database. Sale articles and user information will be in our database, and book data will be crawled from external sites.
  
 Model Design
