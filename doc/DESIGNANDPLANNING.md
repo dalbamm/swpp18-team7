@@ -240,8 +240,12 @@ The application will access the database by making http requests to the appropri
 |  | /sign_out | Log out | X | X | X |
 |  | /user/:id | Get specified user | X | Edit user information | X |
 | Book | /book/:isbn | Get specified book | X | X | X |
-|  | JoinTable | /join_table/:id | Get list of books that the </br> specified user is interested in| X | Add book to speicifed user's</br> interested books list | Delete book from specified</br> user's interested books list |
-
+| JoinTable | /join_table/:id | Get list of books that the specified user is interested in| X | Add book to speicifed user's interested books list | Delete book from specified user's interested books list |
+|  | /join_table/:isbn | Get list of users to notify for new entries of specified book | X | Add user to list of users to notify for specified book | Delete user from list of users to notify for specified book |
+| Article | /articles | Get article list | Create new article | X | X |
+|  | /articles/:id | Get specified article | X | Edit specified article | Delete specified article |
+| Comment | /comments | Get comments | Create new comment | X | X |
+|  | /comments/:id | Get specified comment | X | Edit specified comment | Delete specified comment | 
  
 ### Implementation Plan
 
