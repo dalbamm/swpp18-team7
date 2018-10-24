@@ -26,7 +26,7 @@ This is a diagram that shows through which property each pair of entities is rel
 The distinction between Book and Article may need some clarification. An article is a sale entry of a specific book. There can be multiple articles about a book, but one article may only reference a single book. A Book object, on the other hand, corresponds to a book prototype, and not to a specific sale entry. It will help in identifying exactly which book an article is about and in retrieving book information mainly based on the ISBN system.
  
 ### Views
-![views](/doc/img/06_erschema.jpg)</br>
+![views](/doc/img/06_views.jpg)</br>
  
 ### View Description
 
