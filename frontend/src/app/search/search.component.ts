@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-
-  constructor() { }
+  
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    // Check if the user is authenticated or not
+    //if()
+
+  	document.write('Hello')
   }
 
 }
