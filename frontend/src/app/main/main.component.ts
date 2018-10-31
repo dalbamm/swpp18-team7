@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -7,16 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   goSalePage(): void {
-    alert('sale button is clicked');
+    alert("sale button is clicked");
   }
 
   goSearchPage(): void {
-    alert('search button is clicked');
+    alert("search button is clicked");
+    this.router.navigateByUrl("/search")
   }
 }
