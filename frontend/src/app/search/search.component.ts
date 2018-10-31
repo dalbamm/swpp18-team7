@@ -15,8 +15,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     // Check if the user is authenticated or not
     //if()
-
-  	document.write('Hello')
+  	//document.write('Hello')
   }
-
+  
 }
