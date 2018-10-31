@@ -13,10 +13,10 @@ export class MainComponent implements OnInit {
   }
 
   goSalePage(): void {
-  	alert("sale button is clicked");
+    alert('sale button is clicked');
   }
 
   goSearchPage(): void {
-  	alert("search button is clicked");
+    alert('search button is clicked');
   }
 }
