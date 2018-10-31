@@ -1,13 +1,22 @@
-<button class="buttons" id="goSale-button" (click)="goSalePage()" align="right">
-판매하기
-</button>
-<button class="buttons" id="search-button" (click)="onClickSearch()">
-검색
-</button>
-<button class="buttons" id="goDirect" (click)="onClickGoDirect()">
-최저가 링크
-</button>
-<button class="buttons" id="interested" (click)="onClickInterested()">
-관심 책 등록
-</button>
-    
+<div align="right">
+  <button class="buttons" id="goSale-button" (click)="goSalePage()">
+  판매하기
+  </button>
+</div>
+<div align="center">
+  <div>
+  <input id="searchInput" [(ngModel)]="searchQueryStr">
+  <button class="buttons" id="search-button" (click)="onClickSearch()">
+  검색
+  </button>
+
+  <button class="buttons" id="goDirect" (click)="onClickGoDirect()">
+  최저가 링크
+  </button>
+  </div>
+  <div align="right">
+  <button class="buttons" id="interested" (click)="onClickInterested()">
+  관심 책 등록
+  </button>
+  </div>
+</div>
