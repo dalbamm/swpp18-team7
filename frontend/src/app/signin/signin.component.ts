@@ -15,13 +15,15 @@ export class SigninComponent implements OnInit {
   ngOnInit() {
   }
 
-  verifyInputInformation() {
+
+
+  onClickSignin() {
   	let signinForm = document.forms["form"];
 
   	let emailInput = signinForm["email"];
   	let passwordInput = signinForm["password"];
 
-
+  	this.userService.authenticate(emailInput, passwordInput);
   }
 
 }
