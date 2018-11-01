@@ -3,12 +3,15 @@ from django.http import HttpResponse, HttpResponseNotAllowed
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 import json
 
+
+@csrf_exempt
 def signin(request):
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())
-        username = req_data['username']
+        username = req_data['email']
         password = req_data['password']
         user = authenticate(request, username=username, password=password)
 
@@ -16,8 +19,15 @@ def signin(request):
             login(request, user)
             return HttpResponse(status=204)
         else:
-            return httpResponse(status=401)
+            return HttpResponse(status=401)
 
     else:
         return HttpResponseNotAllowed(['POST'])
-    
+
+
+@ensure_csrf_cookie
+def token(request):
+    if request.method == 'GET':
+        return HttpResponse(status=204)
+    else:
+        return HttpResponseNotAllowed(['GET'])
