@@ -5,12 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { AppRoutingModule } from './/app-routing.module';
+import { SigninComponent } from './signin/signin.component';
 import { SearchComponent } from './search/search.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
+    SigninComponent
     SearchComponent
   ],
   imports: [
