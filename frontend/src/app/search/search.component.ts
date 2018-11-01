@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit {
   searchQueryStr: string //Will be binded with searchInput
+  candidateList//: CandidateList
+  resultList//: ArticleList
   constructor(
     private router: Router
   ) { }
@@ -21,6 +23,9 @@ export class SearchComponent implements OnInit {
   }
   onClickSearch(){
     alert("You want to search "+this.searchQueryStr)
+    //Send a request Backend to get result via ArticleService
+    //articleService.send(this.searchQueryStr)
+    //this.resultList = articleService.receive(this.searchQueryStr)
   }
   onClickGoDirect(){
     alert("GoDirect clicked")
@@ -28,4 +33,6 @@ export class SearchComponent implements OnInit {
   onClickInterested(){
     alert("Interested clicked")
   }
+  getArticleList(){}
+  getCandidateList(){}
 }
