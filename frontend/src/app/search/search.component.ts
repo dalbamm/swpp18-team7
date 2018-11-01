@@ -23,6 +23,9 @@ export class SearchComponent implements OnInit {
   }
   onClickSearch(){
     alert("You want to search "+this.searchQueryStr)
+    //Send a request Backend to get result via ArticleService
+    //articleService.send(this.searchQueryStr)
+    //this.resultList = articleService.receive(this.searchQueryStr)
   }
   onClickGoDirect(){
     alert("GoDirect clicked")
