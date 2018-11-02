@@ -25,6 +25,20 @@ def signin(request):
         return HttpResponseNotAllowed(['POST'])
 
 
+@csrf_exempt
+def signup(request):
+    if request.method == 'POST':
+        req_data = json.loads(request.body.decode())
+        email = req_data['email']
+        password = req_data['password']
+        phone = req_data['phone']
+        newuser = User.objects.create_user(
+            username=email, password=password)
+        return HttpResponse(status=201)
+    else:
+        return HttpResponseNotAllowed(['POST'])
+
+
 @ensure_csrf_cookie
 def token(request):
     if request.method == 'GET':

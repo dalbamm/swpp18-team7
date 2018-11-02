@@ -11,6 +11,7 @@ export class UserService {
 
 	currentUser: User;
 	signinUrl = 'api/signin';
+	signupUrl = 'api/signup';
 
 	httpOptions = {
   	headers: new HttpHeaders({
@@ -35,7 +36,14 @@ export class UserService {
   }
 
   signUp(email: string, password: string, phone: string){
-
+  	this.http.post<User>(this.signupUrl, {"email": email, "password":password, "phone":phone}, this.httpOptions).subscribe(
+  		resposne => {
+  			console.log("signed up successfully!");
+  		},
+  		(error: HttpErrorResponse) => {
+  			console.log(error.status);
+  			alert("Please check the input again");
+  		})
   }
 
 }
