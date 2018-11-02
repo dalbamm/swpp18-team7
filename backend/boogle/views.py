@@ -17,10 +17,16 @@ def signin(request):
 
         if user is not None:
             login(request, user)
-            return HttpResponse(status=204)
+            userJson = json.dumps({
+                "id": user.id,
+                "email": user.username,
+                "password": user.password,
+                "name": "no_name_field_yet",
+                "signed_in": user.is_authenticated
+            })
+            return HttpResponse(userJson, status=204)
         else:
             return HttpResponse(status=401)
-
     else:
         return HttpResponseNotAllowed(['POST'])
 
@@ -29,14 +35,47 @@ def signin(request):
 def signup(request):
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())
+
         email = req_data['email']
         password = req_data['password']
         phone = req_data['phone']
-        newuser = User.objects.create_user(
+
+        User.objects.create_user(
             username=email, password=password)
         return HttpResponse(status=201)
     else:
         return HttpResponseNotAllowed(['POST'])
+
+
+@csrf_exempt
+def signout(request):
+    if request.method == 'GET':
+        if request.user.is_authenticated:
+            logout(request)
+            return HttpResponse(status=204)
+        else:
+            return HttpResponse(status=401)
+    else:
+        return HttpResponseNotAllowed(['GET'])
+
+
+@csrf_exempt
+def user(request):
+    if request.method == 'GET':
+        user = request.user
+
+        resp_json = json.dumps({
+            "id": user.id,
+            "email": user.username,
+            "password": user.password,
+            "name": "no_name_field_yet",
+            "signed_in": user.is_authenticated
+        })
+
+        return HttpResponse(resp_json)
+    else:
+        # TODO add POST method
+        return HttpResponseNotAllowed(['GET'])
 
 
 @ensure_csrf_cookie

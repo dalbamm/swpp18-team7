@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { User } from './user';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-root',
@@ -14,22 +15,29 @@ export class AppComponent {
   user: User = null;
   isMain = true;
   
-  constructor (private router: Router) {
-    router.events.subscribe((val) => {
-      if ( val instanceof NavigationEnd ) {
-        if ( val.url == '/main')
-          this.isMain = true;
-        else
-          this.isMain = false;
-      }
-    })
+  constructor (
+    private router: Router,
+    private userService: UserService
+    ) {
+      router.events.subscribe((val) => {
+        if ( val instanceof NavigationEnd ) {
+          if ( val.url == '/main')
+            this.isMain = true;
+          else
+            this.isMain = false;
+        }
+      })
+    }
+
+  onClickSignin(): void {
+    this.router.navigateByUrl('signin');
   }
 
-  goSignIn(): void {
-    alert('sign-in button is clicked');
+  onClickSignout(): void {
+    this.userService.signOut();
   }
 
-  goUserInfo(): void {
-    alert('user-info button is clicked');
+  onClickUserInfo(): void {
+    alert('clicked user info');
   }
 }
