@@ -9,6 +9,7 @@ import { User } from './user';
 })
 export class UserService {
 
+	currentUser: User;
 	signinUrl = 'api/signin';
 
 	httpOptions = {
@@ -31,6 +32,10 @@ export class UserService {
   			console.log(error.status);
   			alert("Please check your information again");
   		});
+  }
+
+  signUp(email: string, password: string, phone: string){
+
   }
 
 }

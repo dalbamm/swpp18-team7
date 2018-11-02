@@ -20,10 +20,11 @@ export class SigninComponent implements OnInit {
   onClickSignin() {
   	let signinForm = document.forms["form"];
 
-  	let emailInput = signinForm["email"];
-  	let passwordInput = signinForm["password"];
+  	let emailInput = signinForm["email"].value;
+  	let passwordInput = signinForm["password"].value;
   	
   	this.userService.authenticate(emailInput, passwordInput);
+  	signinForm["password"].value = "";
   }
 
 }
