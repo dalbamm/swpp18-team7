@@ -17,7 +17,7 @@ export class MainComponent implements OnInit {
   }
 
   goSearchPage(): void {
-    alert("search button is clicked");
+    //alert("search button is clicked");
     this.router.navigateByUrl("/search")
   }
 }
