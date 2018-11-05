@@ -16,6 +16,8 @@ export class UserService {
 	signoutUrl = 'api/signout';
 	userUrl = 'api/user';
 
+  private signedIn: boolean;
+
 	httpOptions = {
   	headers: new HttpHeaders({
     'Content-Type':  'application/json',
@@ -26,13 +28,20 @@ export class UserService {
   constructor(
   	private http: HttpClient,
   	private router: Router
-  	) { }
+  	) {
+        this.signedIn = false;
+     }
 
-  authenticate(email: string, password: string) {
+  isAuthenticated(): boolean {
+    return this.signedIn;
+  }
+
+  signIn(email: string, password: string) {
   	this.http.post<Response>(this.signinUrl, {"email": email, "password": password}, this.httpOptions).subscribe(
   		(response: Response) => {
   			console.log("signed in successfully");
-  			this.getCurrentUser();
+        this.signedIn = true;
+        this.getCurrentUser();
   			this.router.navigateByUrl('main');
   		},
   		(error: HttpErrorResponse) => {
@@ -56,7 +65,8 @@ export class UserService {
   getCurrentUser(){
   	this.http.get<Response>(this.userUrl).subscribe(
   		(response: Response) => {
-  			console.log(response);
+  			let user:User = response as User;
+        console.log(user);
   		},
   		(error: HttpErrorResponse) => {
   			console.log(error.status);

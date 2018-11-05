@@ -14,20 +14,28 @@ export class AppComponent {
   title = 'Boogle';
   user: User = null;
   isMain = true;
-  
+
+  signedIn = false;
+
   constructor (
     private router: Router,
     private userService: UserService
     ) {
       router.events.subscribe((val) => {
         if ( val instanceof NavigationEnd ) {
-          if ( val.url == '/main')
+          if ( val.url == '/main'){
             this.isMain = true;
-          else
+          }
+          else{
             this.isMain = false;
+          }
+
+          this.signedIn = this.userService.isAuthenticated();
         }
       })
     }
+  ngOnInit() {
+  }
 
   onClickSignin(): void {
     this.router.navigateByUrl('signin');
@@ -35,6 +43,7 @@ export class AppComponent {
 
   onClickSignout(): void {
     this.userService.signOut();
+    this.signedIn = false;
   }
 
   onClickUserInfo(): void {
