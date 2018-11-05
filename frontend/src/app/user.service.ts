@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 
 import { User } from './user';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +18,7 @@ export class UserService {
 	userUrl = 'api/user';
 
   private signedIn: boolean;
+  private currUser: User;
 
 	httpOptions = {
   	headers: new HttpHeaders({
@@ -36,12 +38,18 @@ export class UserService {
     return this.signedIn;
   }
 
+
+  getCurrentUser(): User {
+    return this.currUser;
+  }
+
+
   signIn(email: string, password: string) {
   	this.http.post<Response>(this.signinUrl, {"email": email, "password": password}, this.httpOptions).subscribe(
   		(response: Response) => {
   			console.log("signed in successfully");
         this.signedIn = true;
-        this.getCurrentUser();
+        this.setCurrentUser();
   			this.router.navigateByUrl('main');
   		},
   		(error: HttpErrorResponse) => {
@@ -51,7 +59,7 @@ export class UserService {
   }
 
   signUp(email: string, password: string, phone: string){
-  	this.http.post<User>(this.signupUrl, {"email": email, "password":password, "phone":phone}, this.httpOptions).subscribe(
+    this.http.post<User>(this.signupUrl, {"email": email, "password":password, "phone":phone}, this.httpOptions).subscribe(
   		response => {
   			console.log("signed up successfully!");
   			this.router.navigateByUrl('signin');
@@ -62,15 +70,19 @@ export class UserService {
   		})
   }
 
-  getCurrentUser(){
+  setCurrentUser(){
+    let user: User = null;
   	this.http.get<Response>(this.userUrl).subscribe(
   		(response: Response) => {
-  			let user:User = response as User;
-        console.log(user);
+        let id = response['id'];
+        let email = response['email'];
+        let password = response['password'];
+        let signedIn = response['signedIn'];
+
+        this.currUser = {id: id, email: email, password: password, signedIn: signedIn} as User;
   		},
   		(error: HttpErrorResponse) => {
-  			console.log(error.status);
-  			console.log(error.message);
+  			console.log("[" + error.status + "] " + error.message);
   		});
   }
 

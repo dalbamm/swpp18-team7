@@ -22,7 +22,7 @@ def signin(request):
                 "email": user.username,
                 "password": user.password,
                 "name": "no_name_field_yet",
-                "signed_in": user.is_authenticated
+                "signedIn": user.is_authenticated
             })
             return HttpResponse(userJson, status=204)
         else:

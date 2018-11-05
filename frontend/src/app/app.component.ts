@@ -29,7 +29,8 @@ export class AppComponent {
           else{
             this.isMain = false;
           }
-
+          this.user = this.userService.getCurrentUser();
+          console.log(this.user);
           this.signedIn = this.userService.isAuthenticated();
         }
       })
@@ -42,8 +43,9 @@ export class AppComponent {
   }
 
   onClickSignout(): void {
-    this.userService.signOut();
+    this.user = null;
     this.signedIn = false;
+    this.userService.signOut();
   }
 
   onClickUserInfo(): void {

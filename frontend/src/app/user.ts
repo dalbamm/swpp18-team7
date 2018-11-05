@@ -6,7 +6,7 @@ export class User {
   email: string;
   password: string;
   phone?: string;
-  signed_in: boolean;
+  signedIn: boolean;
   interestedBookList?: Book[];
   articleList?: Article[];
 }
