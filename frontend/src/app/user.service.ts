@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Response } from '@angular/http';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { User } from './user';
 
@@ -38,7 +39,6 @@ export class UserService {
     return this.signedIn;
   }
 
-
   getCurrentUser(): User {
     return this.currUser;
   }
@@ -47,9 +47,9 @@ export class UserService {
   signIn(email: string, password: string) {
   	this.http.post<Response>(this.signinUrl, {"email": email, "password": password}, this.httpOptions).subscribe(
   		(response: Response) => {
+        this.getRequestUser().subscribe(user => this.currUser = user);
   			console.log("signed in successfully");
         this.signedIn = true;
-        this.setCurrentUser();
   			this.router.navigateByUrl('main');
   		},
   		(error: HttpErrorResponse) => {
@@ -62,7 +62,7 @@ export class UserService {
     this.http.post<User>(this.signupUrl, {"email": email, "password":password, "phone":phone}, this.httpOptions).subscribe(
   		response => {
   			console.log("signed up successfully!");
-  			this.router.navigateByUrl('signin');
+        this.router.navigateByUrl('signin');
   		},
   		(error: HttpErrorResponse) => {
   			console.log(error.status);
@@ -70,20 +70,16 @@ export class UserService {
   		})
   }
 
-  setCurrentUser(){
-    let user: User = null;
-  	this.http.get<Response>(this.userUrl).subscribe(
-  		(response: Response) => {
-        let id = response['id'];
-        let email = response['email'];
-        let password = response['password'];
-        let signedIn = response['signedIn'];
-
-        this.currUser = {id: id, email: email, password: password, signedIn: signedIn} as User;
-  		},
-  		(error: HttpErrorResponse) => {
-  			console.log("[" + error.status + "] " + error.message);
-  		});
+  getRequestUser(): Observable<User>{
+    return this.http.get<User>(this.userUrl);
+  	// this.http.get<User>(this.userUrl).subscribe(
+  	// 	(response: User) => {
+    //   console.log(response);
+    //
+  	// 	},
+  	// 	(error: HttpErrorResponse) => {
+  	// 		console.log("[" + error.status + "] " + error.message);
+  	// 	});
   }
 
   signOut(){
