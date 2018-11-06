@@ -25,7 +25,7 @@ export class SigninComponent implements OnInit {
   	let emailInput = signinForm["email"].value;
   	let passwordInput = signinForm["password"].value;
   	
-  	this.userService.authenticate(emailInput, passwordInput);
+  	this.userService.signIn(emailInput, passwordInput);
   	signinForm["password"].value = "";
   }
 

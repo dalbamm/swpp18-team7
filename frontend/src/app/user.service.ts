@@ -28,7 +28,7 @@ export class UserService {
   	private router: Router
   	) { }
 
-  authenticate(email: string, password: string) {
+  signIn(email: string, password: string) {
   	this.http.post<Response>(this.signinUrl, {"email": email, "password": password}, this.httpOptions).subscribe(
   		(response: Response) => {
   			console.log("signed in successfully");
@@ -75,4 +75,6 @@ export class UserService {
   			console.log(error.message);
   		});
   }
+
+
 }
