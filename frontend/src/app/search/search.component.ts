@@ -23,7 +23,10 @@ export class SearchComponent implements OnInit {
     alert("goSalePage clicked")
   }
   onClickSearch(){
-    alert("You want to search "+this.searchQueryStr)
+    if(this.searchQueryStr === undefined || this.searchQueryStr === "")
+      alert("Input your query in the blank")
+    else
+      alert("You want to search "+this.searchQueryStr)
     //Send a request Backend to get result via ArticleService
     //articleService.send(this.searchQueryStr)
     //this.resultList = articleService.receive(this.searchQueryStr)

@@ -32,7 +32,10 @@ describe('SearchComponent', () => {
     spyOn(window,"alert");
     component.onClickSearch();
     fixture.autoDetectChanges();
-    expect(window.alert).toHaveBeenCalledWith("You want to search "+component.searchQueryStr);
+    if(component.searchQueryStr===undefined || component.searchQueryStr==="")
+      expect(window.alert).toHaveBeenCalledWith("Input your query in the blank");
+    else
+      expect(window.alert).toHaveBeenCalledWith("You want to search "+component.searchQueryStr);
   });
 
   it('should alert when click goDirect', () => {
