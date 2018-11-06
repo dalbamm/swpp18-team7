@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +14,7 @@ export class SearchComponent implements OnInit {
   constructor(
     private router: Router
   ) { }
-
+    
   ngOnInit() {
     // Check if the user is authenticated or not
     //if(authenticated == false)  router.navigateByUrl('')
