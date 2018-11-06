@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +14,7 @@ export class SearchComponent implements OnInit {
   constructor(
     private router: Router
   ) { }
-
+    
   ngOnInit() {
     // Check if the user is authenticated or not
     //if(authenticated == false)  router.navigateByUrl('')
@@ -22,7 +23,10 @@ export class SearchComponent implements OnInit {
     alert("goSalePage clicked")
   }
   onClickSearch(){
-    alert("You want to search "+this.searchQueryStr)
+    if(this.searchQueryStr === undefined || this.searchQueryStr === "")
+      alert("Input your query in the blank")
+    else
+      alert("You want to search "+this.searchQueryStr)
     //Send a request Backend to get result via ArticleService
     //articleService.send(this.searchQueryStr)
     //this.resultList = articleService.receive(this.searchQueryStr)
