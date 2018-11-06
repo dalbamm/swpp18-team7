@@ -3,8 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Response } from '@angular/http';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { User } from './user';
+
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +18,9 @@ export class UserService {
 	signoutUrl = 'api/signout';
 	userUrl = 'api/user';
 
+  private signedIn: boolean;
+  private currUser: User;
+
 	httpOptions = {
   	headers: new HttpHeaders({
     'Content-Type':  'application/json',
@@ -26,13 +31,25 @@ export class UserService {
   constructor(
   	private http: HttpClient,
   	private router: Router
-  	) { }
+  	) {
+        this.signedIn = false;
+     }
+
+  isAuthenticated(): boolean {
+    return this.signedIn;
+  }
+
+  getCurrentUser(): User {
+    return this.currUser;
+  }
+
 
   signIn(email: string, password: string) {
   	this.http.post<Response>(this.signinUrl, {"email": email, "password": password}, this.httpOptions).subscribe(
   		(response: Response) => {
+        this.getRequestUser().subscribe(user => this.currUser = user);
   			console.log("signed in successfully");
-  			this.getCurrentUser();
+        this.signedIn = true;
   			this.router.navigateByUrl('main');
   		},
   		(error: HttpErrorResponse) => {
@@ -42,10 +59,10 @@ export class UserService {
   }
 
   signUp(email: string, password: string, phone: string){
-  	this.http.post<User>(this.signupUrl, {"email": email, "password":password, "phone":phone}, this.httpOptions).subscribe(
+    this.http.post<User>(this.signupUrl, {"email": email, "password":password, "phone":phone}, this.httpOptions).subscribe(
   		response => {
   			console.log("signed up successfully!");
-  			this.router.navigateByUrl('signin');
+        this.router.navigateByUrl('signin');
   		},
   		(error: HttpErrorResponse) => {
   			console.log(error.status);
@@ -53,15 +70,16 @@ export class UserService {
   		})
   }
 
-  getCurrentUser(){
-  	this.http.get<Response>(this.userUrl).subscribe(
-  		(response: Response) => {
-  			console.log(response);
-  		},
-  		(error: HttpErrorResponse) => {
-  			console.log(error.status);
-  			console.log(error.message);
-  		});
+  getRequestUser(): Observable<User>{
+    return this.http.get<User>(this.userUrl);
+  	// this.http.get<User>(this.userUrl).subscribe(
+  	// 	(response: User) => {
+    //   console.log(response);
+    //
+  	// 	},
+  	// 	(error: HttpErrorResponse) => {
+  	// 		console.log("[" + error.status + "] " + error.message);
+  	// 	});
   }
 
   signOut(){

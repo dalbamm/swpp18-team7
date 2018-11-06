@@ -8,15 +8,15 @@
       </td>
       <td style="width: 60%;"></td>
       <td style="width: 15%;">
-        <button *ngIf="user" class="buttons" id="user-info-button" (click)="goUserInfo()">
-          {{user.email}}      
+        <button *ngIf="user" class="buttons" id="user-info-button" (click)="onClickUserInfo()">
+          {{user.email}}
         </button>
       </td>
       <td style="width: 10%;">
-        <button class="buttons" id="sign-in" (click)="onClickSignin()">
+        <button *ngIf="!signedIn" class="buttons" id="sign-in" (click)="onClickSignin()">
           Sign In
         </button>
-        <button class="buttons" id="sign-out" (click)="onClickSignout()">
+        <button *ngIf="signedIn" class="buttons" id="sign-out" (click)="onClickSignout()">
           Sign Out
         </button>
       </td>
