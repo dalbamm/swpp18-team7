@@ -30,34 +30,67 @@ describe('UserService', () => {
   }));
 
 
-  it('should sign in user', async(() => {
-  	let user: User = {id: 1, email: "fake@fake.com", password:"12345", signedIn: true};
+ 	describe(': signIn', () => {
+	  it('should sign in user', async(() => {
+	  	let user: User = {id: 1, email: "fake@fake.com", password:"12345", signedIn: true};
 
-  	userService.signIn(user.email, user.password);
-  	
-  	const reqSignin = httpTestingController.expectOne(userService.signinUrl);
-  	expect(reqSignin.request.method).toEqual('POST');
-  
-  	reqSignin.flush({status: 204});
+	  	userService.signIn(user.email, user.password);
+	  	
+	  	const reqSignin = httpTestingController.expectOne(userService.signinUrl);
+	  	expect(reqSignin.request.method).toEqual('POST');
+	  
+	  	reqSignin.flush({status: 204});
 
-  	const reqUser = httpTestingController.expectOne(userService.userUrl);
-  	expect(reqUser.request.method).toEqual('GET');
-  	
-  	reqUser.flush(user);
-  	expect(userService.isAuthenticated()).toEqual(true);
-  }));
+	  	const reqUser = httpTestingController.expectOne(userService.userUrl);
+	  	expect(reqUser.request.method).toEqual('GET');
+	  	
+	  	reqUser.flush(user);
+	  	expect(userService.isAuthenticated()).toEqual(true);
+	  }));
 
-  it('should throw error when login information is incorrect', async(() => {
-  	userService.signIn('wrong', 'wrong');
+	  it('should throw an error when login information is incorrect', async(() => {
+	  	userService.signIn('wrong', 'wrong');
 
-  	const req = httpTestingController.expectOne(userService.signinUrl);
-  	expect(req.request.method).toEqual('POST');
+	  	const req = httpTestingController.expectOne(userService.signinUrl);
+	  	expect(req.request.method).toEqual('POST');
 
-  	req.flush({status: 403});
+	  	req.flush({status: 403});
 
-  	expect(userService.isAuthenticated()).toEqual(false);
-  	expect(userService.getCurrentUser()).toEqual(null);
-  }));
+	  	expect(userService.isAuthenticated()).toEqual(false);
+	  	expect(userService.getCurrentUser()).toBeFalsy();
+	  }));
+	});
+
+	describe(': signOut', () => {
+
+		it('should sign out user successfully', () => {
+			userService.signOut();
+
+			const req = httpTestingController.expectOne(userService.signoutUrl);
+			expect(req.request.method).toEqual('GET');
+
+			req.flush({status: 204});
+
+			const spy = routerSpy.navigateByUrl;
+			const navArgs = spy.calls.first().args[0];
+
+			expect(navArgs).toBe('main');
+		});
+
+		it('should throw error when not signed in', () => {
+			userService.signOut();
+
+			const req = httpTestingController.expectOne(userService.signoutUrl);
+			expect(req.request.method).toEqual('GET');
+
+			req.flush({status: 403});
+		});
+
+
+	});
+
+
+
 
 
 });
