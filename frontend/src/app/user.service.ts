@@ -47,10 +47,13 @@ export class UserService {
   signIn(email: string, password: string) {
   	this.http.post<Response>(this.signinUrl, {"email": email, "password": password}, this.httpOptions).subscribe(
   		(response: Response) => {
-        this.getRequestUser().subscribe(user => this.currUser = user);
-  			console.log("signed in successfully");
-        this.signedIn = true;
-  			this.router.navigateByUrl('main');
+        this.getRequestUser().subscribe(user => {
+          this.currUser = user;
+          console.log("signed in successfully");
+          this.signedIn = true;
+          this.router.navigateByUrl('main');
+        });
+
   		},
   		(error: HttpErrorResponse) => {
   			console.log(error.status);
@@ -67,24 +70,18 @@ export class UserService {
   		(error: HttpErrorResponse) => {
   			console.log(error.status);
   			alert("Please check the input again");
-  		})
+  		});
   }
 
-  getRequestUser(): Observable<User>{
+  // used within the service
+  private getRequestUser(): Observable<User>{
     return this.http.get<User>(this.userUrl);
-  	// this.http.get<User>(this.userUrl).subscribe(
-  	// 	(response: User) => {
-    //   console.log(response);
-    //
-  	// 	},
-  	// 	(error: HttpErrorResponse) => {
-  	// 		console.log("[" + error.status + "] " + error.message);
-  	// 	});
   }
 
   signOut(){
   	this.http.get<Response>(this.signoutUrl).subscribe(
   		(response: Response) => {
+        this.currUser = null;
   			console.log("signed out successfully");
   			this.router.navigateByUrl('main');
   		},
@@ -93,4 +90,6 @@ export class UserService {
   			console.log(error.message);
   		});
   }
+
+
 }
