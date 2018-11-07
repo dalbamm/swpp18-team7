@@ -70,7 +70,7 @@ export class UserService {
   		(error: HttpErrorResponse) => {
   			console.log(error.status);
   			alert("Please check the input again");
-  		})
+  		});
   }
 
   // used within the service
