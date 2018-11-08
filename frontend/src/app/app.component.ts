@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
-import { User } from './user';
-import { UserService } from './user.service';
+import { User } from './models/user';
+import { UserService } from './service/user.service';
 
 @Component({
   selector: 'app-root',
