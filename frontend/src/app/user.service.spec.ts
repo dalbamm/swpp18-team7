@@ -14,6 +14,7 @@ let routerSpy;
 describe('UserService', () => {
   beforeEach(() => {
     routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
+
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule ],
       providers: [
