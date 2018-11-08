@@ -5,7 +5,7 @@ import { Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { User } from './user';
+import { User } from '../models/user';
 
 
 @Injectable({
