@@ -51,9 +51,9 @@ export class SignupComponent implements OnInit {
       else {
         alert("The password should be at least 8 characters long and contain at least one upper case letter, one number and one lower case letter");
       }
-      signupForm["password"].value = "";
-      signupForm["passwordConfirmation"].value="";
     }
+    signupForm["password"].value = "";
+    signupForm["passwordConfirmation"].value="";
 
   }
 
