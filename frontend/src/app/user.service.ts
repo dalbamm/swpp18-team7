@@ -66,7 +66,6 @@ export class UserService {
   		response => {
   			console.log("signed up successfully!");
         this.router.navigateByUrl('signin');
-        alert("Welcome " + email + "!\n Please sign in.");
   		},
   		(error: HttpErrorResponse) => {
         if(error.status==418){
@@ -74,7 +73,7 @@ export class UserService {
         }
         else {
           console.log(error.status);
-  			     alert("unknown error");
+  			  alert("unknown error");
         }
   		});
   }

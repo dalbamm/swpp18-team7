@@ -29,6 +29,6 @@ describe('SignupComponent: ', () => {
   });
 
   describe('confirm input information: ', () => {
-
+    
   });
 });
