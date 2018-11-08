@@ -1,0 +1,7 @@
+total 20
+drwxrwxr-x 4 bahducoup bahducoup 4096 Nov  6 19:48 backend
+drwxrwxr-x 3 bahducoup bahducoup 4096 Nov  1 13:05 doc
+drwxrwxr-x 5 bahducoup bahducoup 4096 Nov  7 02:00 frontend
+-rw-rw-r-- 1 bahducoup bahducoup    0 Nov  7 18:17 grep
+-rw-rw-r-- 1 bahducoup bahducoup   10 Oct 24 17:03 README.md
+drwxrwxr-x 5 bahducoup bahducoup 4096 Oct 24 17:03 venv
