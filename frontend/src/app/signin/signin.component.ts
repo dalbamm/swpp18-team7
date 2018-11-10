@@ -20,8 +20,6 @@ export class SigninComponent implements OnInit {
     }
   }
 
-
-
   onClickSignin() {
   	let signinForm = document.forms["form"];
 

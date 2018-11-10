@@ -2,12 +2,10 @@ import { async, TestBed, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { UserService } from './user.service';
-import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from '../models/user';
 
 let userService: UserService;
-let httpClient: HttpClient;
 let httpTestingController: HttpTestingController;
 let routerSpy;
 
@@ -23,7 +21,6 @@ describe('UserService', () => {
     });
 
     userService = TestBed.get(UserService);
-    httpClient = TestBed.get(HttpClient);
     httpTestingController = TestBed.get(HttpTestingController);
   });
 
@@ -63,6 +60,7 @@ describe('UserService', () => {
 	  }));
 	});
 
+
 	describe(': signOut', () => {
 		it('should sign out user successfully', () => {
 			userService.signOut();
@@ -88,6 +86,7 @@ describe('UserService', () => {
 		});
 	});
 
+
   describe(': signUp', () =>{
     it('should sign up new user successfully and redirect to signin page', () => {
       userService.signUp("hello@hello.com", "12345", null);
@@ -103,9 +102,4 @@ describe('UserService', () => {
       expect(navArgs).toBe("signin");
     });
   });
-
-
-
-
-
 });

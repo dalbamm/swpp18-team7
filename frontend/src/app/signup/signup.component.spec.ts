@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
-import { By } from "@angular/platform-browser";
 
 import { UserService } from '../service/user.service';
 import { SignupComponent } from './signup.component';
@@ -10,7 +9,7 @@ import { SignupComponent } from './signup.component';
 describe('SignupComponent: ', () => {
   let component: SignupComponent;
   let fixture: ComponentFixture<SignupComponent>;
-  let routerSpy;
+  let routerSpy: jasmine.SpyObj<Router>;
   let userServiceSpy: jasmine.SpyObj<UserService>;
 
   beforeEach(async(() => {
@@ -43,7 +42,7 @@ describe('SignupComponent: ', () => {
   });
 
 
-  it('should navigate to /signin when user clicks cancel', () => {
+  it('should navigate to /signin when user clicks cancel button', () => {
     component.onClickCancel();
 
     const spy = routerSpy.navigateByUrl;
