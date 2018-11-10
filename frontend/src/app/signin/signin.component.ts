@@ -15,6 +15,9 @@ export class SigninComponent implements OnInit {
   	) { }
 
   ngOnInit() {
+    if(this.userService.isAuthenticated()){
+      this.router.navigateByUrl('main');
+    }
   }
 
 
