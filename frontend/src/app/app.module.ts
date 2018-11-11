@@ -10,6 +10,7 @@ import { SigninComponent } from './signin/signin.component';
 import { SearchComponent } from './search/search.component';
 import { SignupComponent } from './signup/signup.component';
 
+import { BookService } from './service/book.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SignupComponent } from './signup/signup.component';
     AppRoutingModule
   ],
   providers: [
-    HttpClient
+    HttpClient,
+    BookService,
   ],
   bootstrap: [AppComponent]
 })

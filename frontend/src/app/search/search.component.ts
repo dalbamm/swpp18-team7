@@ -18,7 +18,9 @@ export class SearchComponent implements OnInit {
   candidateList; // CandidateList
   resultList; // ArticleList
   constructor(
-    private router: Router
+    private router: Router,
+    private articleService: ArticleService,
+    private bookService: BookService,
   ) { }
   ngOnInit() {
     // Check if the user is authenticated or not
@@ -32,6 +34,8 @@ export class SearchComponent implements OnInit {
       alert('Input your query in the blank');
     } else {
       alert('You want to search ' + this.searchQueryStr);
+      this.getSearchResult();
+      // this.getArticleList();
     // Send a request Backend to get result via ArticleService
     // articleService.send(this.searchQueryStr)
     // this.resultList = articleService.receive(this.searchQueryStr)
@@ -43,6 +47,10 @@ export class SearchComponent implements OnInit {
   onClickInterested() {
     alert('Interested clicked');
   }
-  getArticleList() {}
-  getCandidateList() {}
+  getArticleList() {  }
+  getSearchResult() {
+    this.bookService.getBooksByTitle(this.searchQueryStr);
+    this.bookService.getCandidateList();
+  }
+  isValidQuery() {}
 }

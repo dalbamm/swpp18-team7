@@ -14,10 +14,9 @@ export class BookService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      'Authorization': 'my-auth-token',
     })
   };
-
+  url = 'api/';
   constructor(
     private http: HttpClient,
     private router: Router
@@ -26,7 +25,8 @@ export class BookService {
   getBooksByISBN() {
   }
 
-  getBooksByTitle() {
+  getBooksByTitle( queryFromUser: String) {
+    this.http.get<Book[]>(this.url + queryFromUser);
   }
 
   getCandidateList() {
