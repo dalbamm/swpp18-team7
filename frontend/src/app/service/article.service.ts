@@ -19,7 +19,7 @@ export class ArticleService {
       'Authorization': 'my-auth-token',
     })
   };
-  url = 'api/search/';
+  url = 'api/search/isbn/';
   constructor(
     private http: HttpClient,
     private router: Router
@@ -31,8 +31,8 @@ export class ArticleService {
   getArticleByAuthor() {
   }
 
-  getExternalArticle(queryFromUser: String): Promise<Article[]> {
-    return this.http.get<Article[]>(this.url + queryFromUser.trim(), this.httpOptions)
+  getExternalArticles(isbn: String): Promise<Article[]> {
+    return this.http.get<Article[]>(this.url + isbn, this.httpOptions)
     .toPromise();
   }
 

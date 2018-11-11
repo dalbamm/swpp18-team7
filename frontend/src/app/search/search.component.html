@@ -3,34 +3,39 @@
   판매하기
   </button>
 </div>
-<div align="center">
-  <div>
-  <input id="searchInput" [(ngModel)]="searchQueryStr">
-  <button class="buttons" id="search-button" (click)="onClickSearch()">
-  검색
-  </button>
+<div>
+  <div class="searchInputContainer">
+    <input id="searchInput" [(ngModel)]="searchQueryStr" class="searchInput">
+    <button class="buttons" id="search-button" (click)="onClickSearch()">
+      검색
+    </button>
 
-  <button class="buttons" id="goDirect" (click)="onClickGoDirect()">
-  최저가 링크
-  </button>
-  </div>
-  <div align="right">
-  <button class="buttons" id="interested" (click)="onClickInterested()">
-  관심 책 등록
-  </button>
+    <button class="buttons" id="goDirect" (click)="onClickGoDirect()">
+      최저가 링크
+    </button>
   </div>
 </div>
-<div *ngIf="displayFlag===true" align="center">
+<div class="resultPart"> 
+  <!-- *ngIf="displayFlag===true"  -->
   <div class="showCandidates">
-    <ul>
+    검색 후보
+    <div class="empty" *ngIf="displayCandidatesFlag===false"></div>
+    <ul *ngIf="displayCandidatesFlag===true">
       <li *ngFor="let candidate of candidateList">
-        image: <img src="{{candidate.imageLink}}">
+        <div class="candidateElement" (click)="onClickCandidate(candidate)">
+          <!-- ??? Need to send what candidate is clicked. -->
+            <img src="{{candidate.imageLink}}">
+        </div>
       </li>
     </ul>
   </div>
   <div class="showResult">
-    <ul>
-      <li *ngFor="let result of resultList">
+    검색 결과
+    <div class="empty" *ngIf="displayResultFlag===false">검색된 중고도서가 없습니다.<br/>
+      <button class="buttons" (click)="onClickInterested()">관심등록</button>으로 알림을 받아보세요!
+    </div>
+    <ul *ngIf="displayResultFlag===true">
+      <li *ngFor="let result of resultList" (click)="onClickResult(result)">
         isExternal: {{result.external}}<br/>
         price: {{result.price}}<br/>
         link: {{result.link}}<br/>
