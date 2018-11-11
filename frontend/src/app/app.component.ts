@@ -4,6 +4,9 @@ import { Router, NavigationEnd } from '@angular/router';
 import { User } from './models/user';
 import { UserService } from './service/user.service';
 
+import { Article } from './models/article';
+import { ArticleService } from './service/article.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,7 +22,8 @@ export class AppComponent {
 
   constructor (
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private articleService: ArticleService
     ) {
       router.events.subscribe((val) => {
         if ( val instanceof NavigationEnd ) {
