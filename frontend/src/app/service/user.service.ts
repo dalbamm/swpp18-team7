@@ -68,8 +68,13 @@ export class UserService {
         this.router.navigateByUrl('signin');
   		},
   		(error: HttpErrorResponse) => {
-  			console.log(error.status);
-  			alert("Please check the input again");
+        if(error.status==418){
+          alert("An account with email '" + email +"' already exists");
+        }
+        else {
+          console.log(error.status);
+  			  alert("unknown error");
+        }
   		});
   }
 

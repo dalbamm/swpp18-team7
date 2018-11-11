@@ -40,9 +40,11 @@ def signup(request):
         password = req_data['password']
         phone = req_data['phone']
 
-        User.objects.create_user(
-            username=email, password=password)
-        return HttpResponse(status=201)
+        if User.objects.filter(username=email).exists():
+            return HttpResponse('An account already exists with email {:}'.format(email), status=418)
+        else:
+            User.objects.create_user(username=email, password=password)
+            return HttpResponse(status=201)
     else:
         return HttpResponseNotAllowed(['POST'])
 
