@@ -45,7 +45,8 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  onClickCandidate(isbn) {
+  onClickCandidate(clickedCandidate) {
+    const isbn = clickedCandidate.ISBN;
     console.log('ipt: ' + isbn);
     this.getSearchResult(isbn);
   }
@@ -58,16 +59,21 @@ export class SearchComponent implements OnInit {
     alert('Interested clicked');
   }
 
+  onClickResult(clickedResult) {
+    const goLink = clickedResult.link;
+    this.router.navigateByUrl(goLink);
+  }
   getArticleList() {  }
 
   getSearchResult(isbn) {
-    this.articleService.getExternalArticle(this.searchQueryStr.trim(), isbn)
+    this.articleService.getExternalArticles(isbn)
     .then( function(response) {// Initialize to fulfill missed properties
       this.initExternalArticles(response);
     })
     .then( function(response) {
       // Starts to display result list after the promise is resolved.
-      this.displayFlag = true;
+      this.resultList = response;
+      this.displayResultFlag = true;
       console.log('displayFlag is renewed');
     })
     .catch(function(err) {
@@ -101,7 +107,7 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  initBooks(response) {
+  initBooks(response: Book[]) {
     return new Promise(function(resolve, reject) {
       console.log('response: ' + response);
       const len = response.length;

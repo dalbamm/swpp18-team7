@@ -17,7 +17,7 @@ export class BookService {
       'Authorization': 'my-auth-token',
     })
   };
-  url = 'api/search/candidate/';
+  url = 'api/search/candidates/';
   constructor(
     private http: HttpClient,
     private router: Router

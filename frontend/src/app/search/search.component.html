@@ -22,11 +22,10 @@
     <div class="empty" *ngIf="displayCandidatesFlag===false"></div>
     <ul *ngIf="displayCandidatesFlag===true">
       <li *ngFor="let candidate of candidateList">
-        <div class="candidateElement" (click)="onClickCandidate()">
+        <div class="candidateElement" (click)="onClickCandidate(candidate)">
           <!-- ??? Need to send what candidate is clicked. -->
             <img src="{{candidate.imageLink}}">
         </div>
-        
       </li>
     </ul>
   </div>
@@ -36,7 +35,7 @@
       <button class="buttons" (click)="onClickInterested()">관심등록</button>으로 알림을 받아보세요!
     </div>
     <ul *ngIf="displayResultFlag===true">
-      <li *ngFor="let result of resultList">
+      <li *ngFor="let result of resultList" (click)="onClickResult(result)">
         isExternal: {{result.external}}<br/>
         price: {{result.price}}<br/>
         link: {{result.link}}<br/>
