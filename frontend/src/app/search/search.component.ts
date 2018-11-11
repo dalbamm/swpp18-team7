@@ -51,20 +51,27 @@ export class SearchComponent implements OnInit {
   }
   getArticleList() {  }
   getSearchResult() {
-    this.articleService.getExternalArticle(this.searchQueryStr)
+    this.articleService.getExternalArticle(this.searchQueryStr.trim())
     .then( // Initialize to fulfill missed properties
-      function(response) {
-        console.log('response: ' + response);
-        const len = response.length;
-        for (let i = 0 ; i < len ; ++i) {
-          this.articleService.initExternalArticle(response[i]);
-        }
-      }
-    )
+      this.initExternalArticles)
     .then( function(response) {
       // Starts to display result list after the promise is resolved.
       this.displayFlag = true;
       console.log('displayFlag is renewed');
+    })
+    .catch(function(err) {
+      console.log('error occured during getSearchResult: ' + err);
+    });
+  }
+  initExternalArticles(response) {
+    return new Promise(function(resolve, reject) {
+      console.log('response: ' + response);
+      const len = response.length;
+      for (let i = 0 ; i < len ; ++i) {
+        this.articleService.initExternalArticle(response[i]);
+      }
+      this.resultList = response;
+      resolve(response);
     });
   }
 

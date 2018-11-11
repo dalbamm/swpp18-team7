@@ -22,12 +22,11 @@
 </div>
 <div *ngIf="displayFlag===true" align="center">
   <div>
-    hello~~~~~~~
     <ul>
-      <li *ngFor="let article of articles">
-        isExternal: {{article.external}}<br/>
-        price: {{article.price}}<br/>
-        link: {{article.link}}<br/>
+      <li *ngFor="let result of resultList">
+        isExternal: {{result.external}}<br/>
+        price: {{result.price}}<br/>
+        link: {{result.link}}<br/>
       </li>
     </ul>
   </div>
