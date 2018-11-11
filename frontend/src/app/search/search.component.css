@@ -1,0 +1,27 @@
+.resultPart{
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+    /* letter-spacing: +.4px; */
+    font-weight: 550;
+    
+}
+.showCandidates{
+    border: solid 1px black;
+    flex: 1;
+    padding-top: 20px;
+    text-align: center;
+    justify-content: center;
+    border-radius: 25px;
+}
+.showResult{
+    border: solid 1px black;
+    flex: 3;
+    margin-left: 20px;
+    padding-left: 50px;
+    padding-top: 20px;
+    border-radius: 25px;
+}
+.empty{
+    padding: 50px 0;
+}

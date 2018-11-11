@@ -20,16 +20,23 @@
   </button>
   </div>
 </div>
-<div *ngIf="displayFlag===true" align="center">
+<div class="resultPart"> 
+  <!-- *ngIf="displayFlag===true"  -->
   <div class="showCandidates">
-    <ul>
+    검색 후보
+    <div class="empty" *ngIf="displayFlag===false"></div>
+    <ul *ngIf="displayFlag===true">
       <li *ngFor="let candidate of candidateList">
         image: <img src="{{candidate.imageLink}}">
       </li>
     </ul>
   </div>
   <div class="showResult">
-    <ul>
+    검색 결과
+    <div class="empty" *ngIf="displayFlag===false">검색된 중고도서가 없습니다.<br/>
+      <button class="buttons">관심등록</button>으로 알림을 받아보세요!
+    </div>
+    <ul *ngIf="displayFlag===true">
       <li *ngFor="let result of resultList">
         isExternal: {{result.external}}<br/>
         price: {{result.price}}<br/>
