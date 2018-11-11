@@ -15,8 +15,8 @@ import { BookService } from '../service/book.service';
 })
 export class SearchComponent implements OnInit {
   searchQueryStr: string; // Will be binded with searchInput
-  candidateList; // CandidateList
-  resultList; // ArticleList
+  candidateList: Book[]; // CandidateList
+  resultList: Article[]; // ArticleList
   displayFlag = false;
   constructor(
     private router: Router,
@@ -37,10 +37,6 @@ export class SearchComponent implements OnInit {
     } else {
       alert('You want to search ' + this.searchQueryStr);
       this.getSearchResult();
-      // this.getArticleList();
-    // Send a request Backend to get result via ArticleService
-    // articleService.send(this.searchQueryStr)
-    // this.resultList = articleService.receive(this.searchQueryStr)
     }
   }
   onClickGoDirect() {

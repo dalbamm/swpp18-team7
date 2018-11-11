@@ -6,5 +6,5 @@ export class Book {
     publisher?: string;
     publishedYear?: number;
     marketPrice?: number;
+    imageLink?: string;
   }
-  
