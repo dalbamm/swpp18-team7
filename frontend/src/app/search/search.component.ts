@@ -50,7 +50,10 @@ export class SearchComponent implements OnInit {
   getArticleList() {  }
   getSearchResult() {
     this.articleService.getExternalArticle(this.searchQueryStr)
-    .then(); // Starts to display result list after the promise is resolved.
+    .then(
+      function(response) {console.log('response: ' + response); }
+    ); // Starts to display result list after the promise is resolved.
   }
+
   isValidQuery() {}
 }
