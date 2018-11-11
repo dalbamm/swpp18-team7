@@ -22,6 +22,21 @@ export class ArticleService {
   constructor(
     private http: HttpClient,
     private router: Router
-    ) {}
+  ) {}
+
+  getArticleByISBN() {
+  }
+
+  getArticleByAuthor() {
+  }
+
+  addArticle() {
+  }
+
+  deleteArticle() {
+  }
+
+  updateArticle() {
+  }
 
 }

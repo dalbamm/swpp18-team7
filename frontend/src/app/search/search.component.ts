@@ -26,7 +26,7 @@ export class SearchComponent implements OnInit {
   }
   onClickSearch() {
     if (this.searchQueryStr === undefined || this.searchQueryStr === '') {
-      alert('Input your query in the blank')
+      alert('Input your query in the blank');
     } else {
       alert('You want to search ' + this.searchQueryStr);
     // Send a request Backend to get result via ArticleService
