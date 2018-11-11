@@ -49,8 +49,8 @@ export class SearchComponent implements OnInit {
   }
   getArticleList() {  }
   getSearchResult() {
-    this.bookService.getBooksByTitle(this.searchQueryStr);
-    this.bookService.getCandidateList();
+    this.articleService.getExternalArticle(this.searchQueryStr)
+    .then(); // Starts to display result list after the promise is resolved.
   }
   isValidQuery() {}
 }

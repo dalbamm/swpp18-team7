@@ -26,7 +26,7 @@ export class BookService {
   }
 
   getBooksByTitle( queryFromUser: String) {
-    this.http.get<Book[]>(this.url + queryFromUser);
+    // this.http.get<Book[]>(this.url + queryFromUser);
   }
 
   getCandidateList() {

@@ -17,7 +17,7 @@ export class ArticleService {
       'Content-Type':  'application/json',
     })
   };
-
+  url = 'api/';
   constructor(
     private http: HttpClient,
     private router: Router
@@ -27,6 +27,12 @@ export class ArticleService {
   }
 
   getArticleByAuthor() {
+  }
+
+  getExternalArticle(queryFromUser: String) {
+      return new Promise(function(resolve, reject) {
+        this.http.get(this.url + queryFromUser);
+      });
   }
 
   addArticle() {
