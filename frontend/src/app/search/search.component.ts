@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { Article } from '../models/article';
 import { ArticleService } from '../service/article.service';
 
+import { Book } from '../models/book';
+import { BookService } from '../service/book.service';
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
