@@ -17,6 +17,7 @@ export class SearchComponent implements OnInit {
   searchQueryStr: string; // Will be binded with searchInput
   candidateList; // CandidateList
   resultList; // ArticleList
+  displayFlag = false;
   constructor(
     private router: Router,
     private articleService: ArticleService,
@@ -30,6 +31,7 @@ export class SearchComponent implements OnInit {
     alert('goSalePage clicked');
   }
   onClickSearch() {
+    this.displayFlag = false;
     if (this.searchQueryStr === undefined || this.searchQueryStr === '') {
       alert('Input your query in the blank');
     } else {
@@ -50,9 +52,20 @@ export class SearchComponent implements OnInit {
   getArticleList() {  }
   getSearchResult() {
     this.articleService.getExternalArticle(this.searchQueryStr)
-    .then(
-      function(response) {console.log('response: ' + response); }
-    ); // Starts to display result list after the promise is resolved.
+    .then( // Initialize to fulfill missed properties
+      function(response) {
+        console.log('response: ' + response);
+        const len = response.length;
+        for (let i = 0 ; i < len ; ++i) {
+          this.articleService.initExternalArticle(response[i]);
+        }
+      }
+    )
+    .then( function(response) {
+      // Starts to display result list after the promise is resolved.
+      this.displayFlag = true;
+      console.log('displayFlag is renewed');
+    });
   }
 
   isValidQuery() {}

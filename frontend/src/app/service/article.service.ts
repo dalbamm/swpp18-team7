@@ -33,8 +33,13 @@ export class ArticleService {
 
   getExternalArticle(queryFromUser: String): Promise<Article[]> {
     return this.http.get<Article[]>(this.url + queryFromUser.trim(), this.httpOptions)
-    .toPromise()
-    .then(); // Reform a response into the valid form.
+    .toPromise();
+  }
+
+  initExternalArticle(raw: Article) {
+    raw.external = true;
+    // price and link would be directly initialized by httpResponse
+    // other properties should be initialized using ISBN
   }
 
   addArticle() {

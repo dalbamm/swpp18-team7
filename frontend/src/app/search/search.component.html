@@ -20,3 +20,15 @@
   </button>
   </div>
 </div>
+<div *ngIf="displayFlag===true" align="center">
+  <div>
+    hello~~~~~~~
+    <ul>
+      <li *ngFor="let article of articles">
+        isExternal: {{article.external}}<br/>
+        price: {{article.price}}<br/>
+        link: {{article.link}}<br/>
+      </li>
+    </ul>
+  </div>
+</div>
