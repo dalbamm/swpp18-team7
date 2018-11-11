@@ -17,7 +17,8 @@ export class SearchComponent implements OnInit {
   searchQueryStr: string; // Will be binded with searchInput
   candidateList: Book[]; // CandidateList
   resultList: Article[]; // ArticleList
-  displayFlag = false;
+  displayCandidatesFlag = false;
+  displayResultFlag = false;
   constructor(
     private router: Router,
     private articleService: ArticleService,
@@ -31,14 +32,16 @@ export class SearchComponent implements OnInit {
     alert('goSalePage clicked');
   }
   onClickSearch() {
-    this.displayFlag = false;
+    // this.displayFlag = false;
     if (this.searchQueryStr === undefined || this.searchQueryStr === '') {
       alert('Input your query in the blank');
     } else {
-      alert('You want to search ' + this.searchQueryStr);
-      this.getSearchResult();
+      // alert('You want to search ' + this.searchQueryStr);
       this.getCandidateResult();
     }
+  }
+  onClickCandidate() {
+    this.getSearchResult();
   }
   onClickGoDirect() {
     alert('GoDirect clicked');
@@ -62,7 +65,8 @@ export class SearchComponent implements OnInit {
   }
   getCandidateResult() {
     this.bookService.getCandidateList(this.searchQueryStr)
-    .then() // should initialize and start to display.
+    .then() // should be initialized in proper information.
+    .then() // should start to display.
     .catch(function(err) {
       console.log('error occured during getCandidateResult: ' + err);
     });
