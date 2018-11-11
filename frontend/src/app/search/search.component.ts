@@ -37,6 +37,7 @@ export class SearchComponent implements OnInit {
     } else {
       alert('You want to search ' + this.searchQueryStr);
       this.getSearchResult();
+      this.getCandidateResult();
     }
   }
   onClickGoDirect() {
@@ -57,6 +58,13 @@ export class SearchComponent implements OnInit {
     })
     .catch(function(err) {
       console.log('error occured during getSearchResult: ' + err);
+    });
+  }
+  getCandidateResult() {
+    this.bookService.getCandidateList(this.searchQueryStr)
+    .then() // should initialize and start to display.
+    .catch(function(err) {
+      console.log('error occured during getCandidateResult: ' + err);
     });
   }
   initExternalArticles(response) {

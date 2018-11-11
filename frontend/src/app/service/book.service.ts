@@ -17,7 +17,7 @@ export class BookService {
       'Authorization': 'my-auth-token',
     })
   };
-  url = 'api/';
+  url = 'api/search/candidate/';
   constructor(
     private http: HttpClient,
     private router: Router
@@ -26,11 +26,13 @@ export class BookService {
   getBooksByISBN() {
   }
 
-  getBooksByTitle( queryFromUser: String) {
-    // this.http.get<Book[]>(this.url + queryFromUser);
+  getBooksByTitle() {
+
   }
 
-  getCandidateList() {
+  getCandidateList(queryFromUser: String) {
+    return this.http.get<Book[]>(this.url + queryFromUser.trim())
+    .toPromise();
   }
 
   setInterestedBook() {
