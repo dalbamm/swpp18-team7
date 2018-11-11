@@ -31,8 +31,8 @@ export class ArticleService {
   getArticleByAuthor() {
   }
 
-  getExternalArticle(queryFromUser: String): Promise<Article[]> {
-    return this.http.get<Article[]>(this.url + queryFromUser.trim(), this.httpOptions)
+  getExternalArticle(bookName: String, isbn: String): Promise<Article[]> {
+    return this.http.get<Article[]>(this.url + bookName.trim() + '/' + isbn, this.httpOptions)
     .toPromise();
   }
 

@@ -35,6 +35,10 @@ export class BookService {
     .toPromise();
   }
 
+  initBook(raw: Book) {
+    // Initialize information that is undefined in backend
+  }
+
   setInterestedBook() {
   }
 

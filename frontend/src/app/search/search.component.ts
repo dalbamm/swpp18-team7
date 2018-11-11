@@ -19,41 +19,52 @@ export class SearchComponent implements OnInit {
   resultList: Article[]; // ArticleList
   displayCandidatesFlag = false;
   displayResultFlag = false;
+  testBook: Book;
   constructor(
     private router: Router,
     private articleService: ArticleService,
     private bookService: BookService,
   ) { }
+
   ngOnInit() {
     // Check if the user is authenticated or not
     // if(authenticated == false)  router.navigateByUrl('')
+    this.testBook = new Book;
+    this.testBook.ISBN = '123';
   }
+
   goSalePage() {
     alert('goSalePage clicked');
   }
+
   onClickSearch() {
-    // this.displayFlag = false;
     if (this.searchQueryStr === undefined || this.searchQueryStr === '') {
       alert('Input your query in the blank');
     } else {
-      // alert('You want to search ' + this.searchQueryStr);
       this.getCandidateResult();
     }
   }
-  onClickCandidate() {
-    this.getSearchResult();
+
+  onClickCandidate(isbn) {
+    console.log('ipt: ' + isbn);
+    this.getSearchResult(isbn);
   }
+
   onClickGoDirect() {
     alert('GoDirect clicked');
   }
+
   onClickInterested() {
     alert('Interested clicked');
   }
+
   getArticleList() {  }
-  getSearchResult() {
-    this.articleService.getExternalArticle(this.searchQueryStr.trim())
-    .then( // Initialize to fulfill missed properties
-      this.initExternalArticles)
+
+  getSearchResult(isbn) {
+    this.articleService.getExternalArticle(this.searchQueryStr.trim(), isbn)
+    .then( function(response) {// Initialize to fulfill missed properties
+      this.initExternalArticles(response);
+    })
     .then( function(response) {
       // Starts to display result list after the promise is resolved.
       this.displayFlag = true;
@@ -63,14 +74,21 @@ export class SearchComponent implements OnInit {
       console.log('error occured during getSearchResult: ' + err);
     });
   }
+
   getCandidateResult() {
     this.bookService.getCandidateList(this.searchQueryStr)
-    .then() // should be initialized in proper information.
-    .then() // should start to display.
+    .then(function(response) {
+      this.initBooks(response);
+    })
+    .then(function(response) {
+      this.candidateList = response;
+      this.displayCandidatesFlag = true;
+    })
     .catch(function(err) {
       console.log('error occured during getCandidateResult: ' + err);
     });
   }
+
   initExternalArticles(response) {
     return new Promise(function(resolve, reject) {
       console.log('response: ' + response);
@@ -79,6 +97,18 @@ export class SearchComponent implements OnInit {
         this.articleService.initExternalArticle(response[i]);
       }
       this.resultList = response;
+      resolve(response);
+    });
+  }
+
+  initBooks(response) {
+    return new Promise(function(resolve, reject) {
+      console.log('response: ' + response);
+      const len = response.length;
+      for (let i = 0 ; i < len ; ++i) {
+        this.bookService.initBook(response[i]);
+      }
+      this.candidateList = response;
       resolve(response);
     });
   }
