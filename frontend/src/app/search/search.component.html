@@ -20,3 +20,21 @@
   </button>
   </div>
 </div>
+<div *ngIf="displayFlag===true" align="center">
+  <div class="showCandidates">
+    <ul>
+      <li *ngFor="let candidate of candidateList">
+        image: <img src="{{candidate.imageLink}}">
+      </li>
+    </ul>
+  </div>
+  <div class="showResult">
+    <ul>
+      <li *ngFor="let result of resultList">
+        isExternal: {{result.external}}<br/>
+        price: {{result.price}}<br/>
+        link: {{result.link}}<br/>
+      </li>
+    </ul>
+  </div>
+</div>

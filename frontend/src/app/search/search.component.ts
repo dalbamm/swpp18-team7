@@ -15,10 +15,13 @@ import { BookService } from '../service/book.service';
 })
 export class SearchComponent implements OnInit {
   searchQueryStr: string; // Will be binded with searchInput
-  candidateList; // CandidateList
-  resultList; // ArticleList
+  candidateList: Book[]; // CandidateList
+  resultList: Article[]; // ArticleList
+  displayFlag = false;
   constructor(
-    private router: Router
+    private router: Router,
+    private articleService: ArticleService,
+    private bookService: BookService,
   ) { }
   ngOnInit() {
     // Check if the user is authenticated or not
@@ -28,13 +31,12 @@ export class SearchComponent implements OnInit {
     alert('goSalePage clicked');
   }
   onClickSearch() {
+    this.displayFlag = false;
     if (this.searchQueryStr === undefined || this.searchQueryStr === '') {
       alert('Input your query in the blank');
     } else {
       alert('You want to search ' + this.searchQueryStr);
-    // Send a request Backend to get result via ArticleService
-    // articleService.send(this.searchQueryStr)
-    // this.resultList = articleService.receive(this.searchQueryStr)
+      this.getSearchResult();
     }
   }
   onClickGoDirect() {
@@ -43,6 +45,31 @@ export class SearchComponent implements OnInit {
   onClickInterested() {
     alert('Interested clicked');
   }
-  getArticleList() {}
-  getCandidateList() {}
+  getArticleList() {  }
+  getSearchResult() {
+    this.articleService.getExternalArticle(this.searchQueryStr.trim())
+    .then( // Initialize to fulfill missed properties
+      this.initExternalArticles)
+    .then( function(response) {
+      // Starts to display result list after the promise is resolved.
+      this.displayFlag = true;
+      console.log('displayFlag is renewed');
+    })
+    .catch(function(err) {
+      console.log('error occured during getSearchResult: ' + err);
+    });
+  }
+  initExternalArticles(response) {
+    return new Promise(function(resolve, reject) {
+      console.log('response: ' + response);
+      const len = response.length;
+      for (let i = 0 ; i < len ; ++i) {
+        this.articleService.initExternalArticle(response[i]);
+      }
+      this.resultList = response;
+      resolve(response);
+    });
+  }
+
+  isValidQuery() {}
 }

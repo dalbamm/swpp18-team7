@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 import { User } from '../models/user';
 import { Article } from '../models/article';
+import { query } from '@angular/core/src/render3/query';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class ArticleService {
       'Authorization': 'my-auth-token',
     })
   };
-
+  url = 'api/search/';
   constructor(
     private http: HttpClient,
     private router: Router
@@ -28,6 +29,17 @@ export class ArticleService {
   }
 
   getArticleByAuthor() {
+  }
+
+  getExternalArticle(queryFromUser: String): Promise<Article[]> {
+    return this.http.get<Article[]>(this.url + queryFromUser.trim(), this.httpOptions)
+    .toPromise();
+  }
+
+  initExternalArticle(raw: Article) {
+    raw.external = true;
+    // price and link would be directly initialized by httpResponse
+    // other properties should be initialized using ISBN
   }
 
   addArticle() {
