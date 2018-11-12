@@ -67,12 +67,12 @@ export class SearchComponent implements OnInit {
 
   getSearchResult(isbn) {
     this.articleService.getExternalArticles(isbn)
-    .then( function(response) {// Initialize to fulfill missed properties
-      this.initExternalArticles(response);
+    .then( response => {// Initialize to fulfill missed properties
+      return this.initExternalArticles(response);
     })
-    .then( function(response) {
+    .then( processedResponse => {
       // Starts to display result list after the promise is resolved.
-      this.resultList = response;
+      this.resultList = processedResponse;
       this.displayResultFlag = true;
       console.log('displayFlag is renewed');
     })
@@ -83,11 +83,11 @@ export class SearchComponent implements OnInit {
 
   getCandidateResult() {
     this.bookService.getCandidateList(this.searchQueryStr)
-    .then(function(response) {
-      this.initBooks(response);
+    .then( response => {
+      return this.initBooks(response);
     })
-    .then(function(response) {
-      this.candidateList = response;
+    .then( processedResponse => {
+      this.candidateList = processedResponse;
       this.displayCandidatesFlag = true;
     })
     .catch(function(err) {
@@ -96,27 +96,19 @@ export class SearchComponent implements OnInit {
   }
 
   initExternalArticles(response) {
-    return new Promise(function(resolve, reject) {
-      console.log('response: ' + response);
       const len = response.length;
       for (let i = 0 ; i < len ; ++i) {
         this.articleService.initExternalArticle(response[i]);
       }
-      this.resultList = response;
-      resolve(response);
-    });
+      return response;
   }
 
   initBooks(response: Book[]) {
-    return new Promise(function(resolve, reject) {
-      console.log('response: ' + response);
-      const len = response.length;
-      for (let i = 0 ; i < len ; ++i) {
-        this.bookService.initBook(response[i]);
-      }
-      this.candidateList = response;
-      resolve(response);
-    });
+    const len = response.length;
+    for (let i = 0 ; i < len ; ++i) {
+      this.bookService.initBook(response[i]);
+    }
+    return response;
   }
 
   isValidQuery() {}

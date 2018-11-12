@@ -4,7 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { UserService } from './user.service';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { User } from './user';
+import { User } from '../models/user';
 
 let userService: UserService;
 let httpClient: HttpClient;
