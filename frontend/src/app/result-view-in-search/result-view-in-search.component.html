@@ -1,3 +1,14 @@
-<p>
-  result-view-in-search works!
-</p>
+<!-- <div class="showResult"> -->
+<div>
+  검색 결과
+  <div class="empty" *ngIf="displayResultFlag===false">검색된 중고도서가 없습니다.<br/>
+    <button class="buttons" (click)="onClickInterested()">관심등록</button>으로 알림을 받아보세요!
+  </div>
+  <ul *ngIf="displayResultFlag===true">
+    <li *ngFor="let result of resultList" (click)="onClickResult(result)">
+      isExternal: {{result.external}}<br/>
+      price: {{result.price}}<br/>
+      link: {{result.link}}<br/>
+    </li>
+  </ul>
+</div>

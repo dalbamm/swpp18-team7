@@ -1,3 +1,12 @@
-<p>
-  candidate-view-in-search works!
-</p>
+<!-- <div class="showCandidates"> -->
+<div>
+  검색 후보
+  <div class="empty" *ngIf="displayCandidatesFlag===false"></div>
+  <ul *ngIf="displayCandidatesFlag===true">
+    <li *ngFor="let candidate of candidateList">
+      <div class="candidateElement" (click)="onClickCandidate(candidate)">
+          <img src="{{candidate.imageLink}}">
+      </div>
+    </li>
+  </ul>
+</div>

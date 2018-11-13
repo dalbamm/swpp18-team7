@@ -15,21 +15,28 @@
     </button>
   </div>
 </div>
+
+
+
 <div class="resultPart"> 
-  <!-- *ngIf="displayFlag===true"  -->
+   
   <div class="showCandidates">
-    검색 후보
+    <app-candidate-view-in-search></app-candidate-view-in-search>
+  </div>
+    <!--검색 후보
     <div class="empty" *ngIf="displayCandidatesFlag===false"></div>
     <ul *ngIf="displayCandidatesFlag===true">
       <li *ngFor="let candidate of candidateList">
         <div class="candidateElement" (click)="onClickCandidate(candidate)">
-          <!-- ??? Need to send what candidate is clicked. -->
             <img src="{{candidate.imageLink}}">
         </div>
       </li>
     </ul>
-  </div>
+  </div> --> 
   <div class="showResult">
+    <app-result-view-in-search></app-result-view-in-search>
+  </div>
+  <!-- <div class="showResult">
     검색 결과
     <div class="empty" *ngIf="displayResultFlag===false">검색된 중고도서가 없습니다.<br/>
       <button class="buttons" (click)="onClickInterested()">관심등록</button>으로 알림을 받아보세요!
@@ -41,5 +48,5 @@
         link: {{result.link}}<br/>
       </li>
     </ul>
-  </div>
+  </div> -->
 </div>
