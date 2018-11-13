@@ -63,6 +63,7 @@ export class SearchComponent implements OnInit {
     const goLink = clickedResult.link;
     this.router.navigateByUrl(goLink);
   }
+
   getArticleList() {  }
 
   getSearchResult(isbn) {
