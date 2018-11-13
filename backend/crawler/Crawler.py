@@ -22,29 +22,29 @@ class Crawler:
 		# multi processing is implemented later.
 
 	# open the chrome driver
-	def open_driver(self):
+	def openDriver(self):
 		self.driver = webdriver.Chrome('/Users/sewon/Downloads/chromedriver', chrome_options=self.options)
 
 	# close the chrome driver
-	def close_driver(self):
+	def closeDriver(self):
 		self.driver.quit()
 
 	# extract isbn from url using regular expression.
-	def get_isbn(self, url):
+	def getIsbn(self, url):
 		isbn_match = re.search(r'barcode=([0-9X]{10,13})', url)
 		if not isbn_match:
 			return None
 		return isbn_match.group(1)
 
 	# parse the title to format of kyobo
-	def parse_title(self, title):
+	def parseTitle(self, title):
 		return '%20'.join(title.split())
 
 	# get candidate list using book's title.
-	def get_candidate_list(self, title):
+	def getCandidateList(self, title):
 
 		# get the kyobo site and search the book using title.
-		title = self.parse_title(title)
+		title = self.parseTitle(title)
 		search_url = 'http://www.kyobobook.co.kr/search/SearchCommonMain.jsp?vPstrCategory=TOT&vPstrKeyWord=' + title + '&vPplace=top'
 		self.driver.get(search_url)
 
@@ -68,7 +68,7 @@ class Crawler:
 			else:
 				datum['image'] = images[index]['src']
 
-			isbn = self.get_isbn(isbns[index]['href'])
+			isbn = self.getIsbn(isbns[index]['href'])
 			if isbn is None:
 				break
 			datum['isbn'] = isbn
@@ -77,7 +77,7 @@ class Crawler:
 		return data
 
 	# crawl data from some sites using isbn
-	def get_usedbook_data(self, isbn):
+	def getUsedbookData(self, isbn):
 
 		data = []
 
