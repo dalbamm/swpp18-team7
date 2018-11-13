@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotAllowed
+from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
+from crawler import Crawler
 import json
 
 
@@ -79,6 +80,31 @@ def user(request):
         # TODO add POST method
         return HttpResponseNotAllowed(['GET'])
 
+def getCandidateList(request, **kwargs):
+    if request.method == 'GET':
+        title = kwargs['title']
+
+        crawler = Crawler.Crawler()
+        crawler.openDriver()
+        data = crawler.getCandidateList(title)
+        crawler.closeDriver()
+
+        return JsonResponse(data, safe=False, status=200)
+    else:
+        return HttpResponseNotAllowed(['GET'])
+
+def getUsedbookList(request, **kwargs):
+    if request.method == 'GET':
+        isbn = kwargs['isbn']
+
+        crawler = Crawler.Crawler()
+        crawler.openDriver()
+        data = crawler.getUsedbookList(isbn)
+        crawler.closeDriver()
+
+        return JsonResponse(data, safe=False, status=200)
+    else:
+        return HttpResponseNotAllowed(['GET'])
 
 # @ensure_csrf_cookie
 # def token(request):

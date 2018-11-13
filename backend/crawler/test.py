@@ -1,7 +1,7 @@
 import Crawler
 import time
 
-def print_datum(datum):
+def printDatum(datum):
 	print('  site : ', datum['site'])
 	print(' title : ', datum['title'])
 	print('author : ', datum['author'])
@@ -12,7 +12,7 @@ def print_datum(datum):
 if __name__=='__main__':
 	crawler = Crawler.Crawler()
 
-	crawler.open_driver()
+	crawler.openDriver()
 	
 	while True:
 		title = str(input("Enter the book's title : ")).strip()
@@ -21,7 +21,7 @@ if __name__=='__main__':
 			break
 		
 		start_time = time.time()
-		data = crawler.get_candidate_list(title)
+		data = crawler.getCandidateList(title)
 		for datum in data:
 			print('image src : ', datum['image'])
 			print('     isbn : ', datum['isbn'])
@@ -39,13 +39,13 @@ if __name__=='__main__':
 					print('please, enter the integer')
 				else:
 					start_time = time.time()
-					usedbook_data = crawler.get_usedbook_data(data[int(index)]['isbn'])
+					usedbook_data = crawler.getUsedbookData(data[int(index)]['isbn'])
 					if len(usedbook_data) == 0:
 						print('could not find data.')
 					else:
 						for usedbook_datum in usedbook_data:
-							print_datum(usedbook_datum)
+							printDatum(usedbook_datum)
 					end_time = time.time()
 					print('usedbook search time : ', (end_time - start_time))
 
-	crawler.close_driver()
+	crawler.closeDriver()

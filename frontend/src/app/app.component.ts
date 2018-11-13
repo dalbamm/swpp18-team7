@@ -4,9 +4,6 @@ import { Router, NavigationEnd } from '@angular/router';
 import { User } from './models/user';
 import { UserService } from './service/user.service';
 
-import { Article } from './models/article';
-import { ArticleService } from './service/article.service';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -22,23 +19,21 @@ export class AppComponent {
 
   constructor (
     private router: Router,
-    private userService: UserService,
-    private articleService: ArticleService
+    private userService: UserService
     ) {
-      router.events.subscribe((val) => {
-        if ( val instanceof NavigationEnd ) {
-          if ( val.url == '/main'){
-            this.isMain = true;
-          }
-          else{
-            this.isMain = false;
-          }
-          this.user = this.userService.getCurrentUser();
-          console.log(this.user);
-          this.signedIn = this.userService.isAuthenticated();
+      router.events.subscribe(() => {
+        if ( this.router.url == '/main'){
+          this.isMain = true;
         }
+        else{
+          this.isMain = false;
+        }
+        this.user = this.userService.getCurrentUser();
+        console.log(this.user);
+        this.signedIn = this.userService.isAuthenticated();
       })
-    }
+     }
+
     
   ngOnInit() {
   }
