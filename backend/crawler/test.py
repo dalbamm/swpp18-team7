@@ -2,11 +2,9 @@ import Crawler
 import time
 
 def printDatum(datum):
-	print('  site : ', datum['site'])
-	print(' title : ', datum['title'])
-	print('author : ', datum['author'])
-	print(' price : ', datum['price'])
-	print('  link : ', datum['link'])
+	print('  		 site : ', datum['site'])
+	print(' 		price : ', datum['price'])
+	print('  		 link : ', datum['link'])
 	print('')
 
 if __name__=='__main__':
@@ -23,8 +21,14 @@ if __name__=='__main__':
 		start_time = time.time()
 		data = crawler.getCandidateList(title)
 		for datum in data:
-			print('image src : ', datum['image'])
-			print('     isbn : ', datum['isbn'])
+			print('image src \t : ', datum['imageLink'])
+			print('isbn 		 : ', datum['ISBN'])
+			print('title 		 : ', datum['title'])
+			print('author 		 : ', datum['author'])
+			print('publisher 	 : ', datum['publisher'])
+			print('publishedYear\t : ', datum['publishedYear'])
+			print('marketPrice	 : ', datum['marketPrice'])
+			print('')
 		end_time = time.time()
 		print('candidate search time : ', (end_time - start_time))
 
@@ -37,9 +41,13 @@ if __name__=='__main__':
 					break
 				if not str.isnumeric(index):
 					print('please, enter the integer')
+
+				index = int(index)
+				if index >= len(data) or index < -1:
+					print('invalid index')
 				else:
 					start_time = time.time()
-					usedbook_data = crawler.getUsedbookData(data[int(index)]['isbn'])
+					usedbook_data = crawler.getUsedbookData(data[index]['ISBN'])
 					if len(usedbook_data) == 0:
 						print('could not find data.')
 					else:

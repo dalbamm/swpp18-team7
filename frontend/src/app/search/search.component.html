@@ -43,7 +43,7 @@
     </div>
     <ul *ngIf="displayResultFlag===true">
       <li *ngFor="let result of resultList" (click)="onClickResult(result)">
-        isExternal: {{result.external}}<br/>
+        site: {{result.site}}<br/>
         price: {{result.price}}<br/>
         link: {{result.link}}<br/>
       </li>
