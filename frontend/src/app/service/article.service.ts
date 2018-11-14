@@ -37,7 +37,7 @@ export class ArticleService {
   }
 
   initExternalArticle(raw: Article) {
-    raw.external = true;
+    // raw.external = true;
     // price and link would be directly initialized by httpResponse
     // other properties should be initialized using ISBN
   }
