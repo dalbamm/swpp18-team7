@@ -31,10 +31,9 @@ export class AppComponent {
         this.user = this.userService.getCurrentUser();
         console.log(this.user);
         this.signedIn = this.userService.isAuthenticated();
-      })
+      });
      }
 
-    
   ngOnInit() {
   }
 
