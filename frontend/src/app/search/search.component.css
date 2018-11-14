@@ -1,6 +1,7 @@
-div::-webkit-scrollbar { width: 0px; height: 0px;  };
+div::-webkit-scrollbar { width: auto; height: 10px;};
 div::-webkit-scrollbar-button:start:decrement, 
-div::-webkit-scrollbar-button:end:increment {display: block; width: 12px;height: 12px; background:  rgba(0,0,0,.05);}
+div::-webkit-scrollbar-button:end:increment {display: block; 
+    width: 12px;height: 12px; background:  rgba(0,0,0,.05);}
 div::-webkit-scrollbar-track {     background: rgba(0,0,0,.05); }
 div::-webkit-scrollbar-thumb {  background: rgba(0,0,0,.1);  }
 
@@ -36,6 +37,7 @@ div::-webkit-scrollbar-thumb {  background: rgba(0,0,0,.1);  }
 .showCandidates .candidatesContainer{
     overflow-x: scroll;
     scroll-behavior: auto;
+    margin: 0 20px;
 }
 .bookInfo{
     border: solid 1px black;
@@ -55,8 +57,8 @@ div::-webkit-scrollbar-thumb {  background: rgba(0,0,0,.1);  }
     line-height: 1.5;
 }
 .bookInfo .vacancy{
-    width: inherit;
-    height: 25px;
+    /* width: inherit;
+    height: 25px; */
 }
 .showResult{
     border: solid 1px black;
@@ -66,9 +68,16 @@ div::-webkit-scrollbar-thumb {  background: rgba(0,0,0,.1);  }
     padding-left: 50px;
     padding-top: 20px;
     padding-right:50px;
-    
+    text-align: center;
     border-radius: 25px;
-    overflow-y: scroll;
+    height: 450px;
+}
+.showResult .title{
+    font-size: 1.25rem;
+    font-weight: 550;
+}
+.showResult .resultUlContainer{
+    overflow-x: scroll;
 }
 .empty{
     padding: 50px 0;
@@ -98,15 +107,23 @@ li {
 .resultUl{
     margin: 0;
     padding: 0;
+    display: inline-flex;
+    width: inherit;
+}
+.resultUlContainer{
+    padding-top: 50px;
+    justify-content: center;
+    padding-bottom:50px;
 }
 .resultElement{
-    margin: 20px 0;
+    margin: 20px 15px;
     padding: 20px;
-    border: solid 0.5px slategray;
+    border: solid 0.5px lightsteelblue;
     border-radius: 12px;
+
 }
 .resultElement .container{
-    margin: 0;
+    margin: 0 20px;
     padding: 0;
     display: flex;
     flex-direction: row;
@@ -141,7 +158,7 @@ li {
     flex: 1;
     font-size: 1rem;
     font-weight: normal;
-    padding-top: 20px;
+    padding-top: 23px;
 }
 .resultElement .container .buttonContainer{
     
