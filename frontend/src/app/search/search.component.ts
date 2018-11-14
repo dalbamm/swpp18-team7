@@ -20,6 +20,9 @@ export class SearchComponent implements OnInit {
   displayCandidatesFlag = false;
   displayResultFlag = false;
   testBook: Book;
+  testBook2: Book;
+  testArticle: Article;
+  testArticle2: Article;
   constructor(
     private router: Router,
     private articleService: ArticleService,
@@ -29,8 +32,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     // Check if the user is authenticated or not
     // if(authenticated == false)  router.navigateByUrl('')
-    this.testBook = new Book;
-    this.testBook.ISBN = '123';
+    this.setTest();
   }
 
   goSalePage() {
@@ -113,4 +115,44 @@ export class SearchComponent implements OnInit {
   }
 
   isValidQuery() {}
+
+  setTest() {
+    this.testBook = new Book;
+    this.testBook.ISBN = '123456789';
+    this.testBook.author = 'Sewon Woo';
+    this.testBook.imageLink = 'http://beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg';
+    this.testBook.marketPrice = 25000;
+    this.testBook.publishedYear = 2018;
+    this.testBook.publisher = 'SNU Press';
+    this.testBook.title = 'How to Crawl 1';
+
+    this.testArticle = new Article;
+    this.testArticle.book = this.testBook;
+    this.testArticle.author = 'Flea market 1';
+    this.testArticle.link = 'http://beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg';
+    this.testArticle.price = 2000;
+    this.testArticle.site = 'kyobo';
+    this.testArticle.title = 'I want to sell ' + this.testArticle.book.title;
+
+    this.testArticle2 = new Article;
+    this.testArticle2.book = this.testBook;
+    this.testArticle2.author = 'Flea market 2';
+    this.testArticle2.link = 'http://beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg';
+    this.testArticle2.price = 4000;
+    this.testArticle2.site = 'aladin';
+    this.testArticle2.title = 'Get this ' + this.testArticle.book.title;
+
+
+    let tempbook = new Book();
+    tempbook = this.testBook;
+    this.candidateList = [tempbook, tempbook, tempbook];
+    this.resultList = [this.testArticle, this.testArticle2, this.testArticle];
+    this.displayResultFlag = true;
+    this.displayCandidatesFlag = true;
+    // for (let i = 0 ; i < 3 ; ++i) {
+    //   this.candidateList[i] = this.testBook;
+
+    //   this.resultList[i] = this.testArticle;
+    // }
+  }
 }

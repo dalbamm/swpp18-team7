@@ -17,4 +17,4 @@ export class Article {
     book?: Book;
     bookStatus?: string;
     commentList?: Comment[];
-  }
+}

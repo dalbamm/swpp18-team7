@@ -25,6 +25,7 @@
     text-align: center;
     justify-content: center;
     border-radius: 25px;
+    overflow-y: scroll;
 }
 .showResult{
     border: solid 1px black;
@@ -39,11 +40,76 @@
 .empty{
     padding: 50px 0;
 }
+.candidateUl{
+    list-style: none;
+    align-content: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
 .candidateElement{
     margin: 20px 0;
-    
+    max-width: 100px;
+}
+.candidateImage{
+    max-width: inherit;
+    padding-left: 115px;
+}
+li {
+    list-style: none;                                                                                                                                      
+}
+.resultUl{
+    margin: 0;
+    padding: 0;
+}
+.resultElement{
+    margin: 20px 0;
+    padding: 20px;
+    border: solid 0.5px slategray;
+    border-radius: 12px;
+}
+.resultElement .container{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+.resultElement .container .logoContainer{
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background-image: url('http://image.kyobobook.co.kr/ink/images/gnb/logo_kyobo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 15px;
+    margin-right: 25px;
+    /* border: solid 0.3px gray; */
 }
 
-li {
-    list-style: none;                                                                                                                                                 
+.resultElement .container .logoContainer_ala{
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background-image: url('https://image.aladin.co.kr/img/header/2011/aladin_logo_new.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 15px;
+    margin-right: 25px;
+
+    /* border: solid 0.3px gray; */
+}
+.resultElement .container .contentContainer{
+    flex: 1;
+    font-size: 1rem;
+    font-weight: normal;
+    padding-top: 20px;
+}
+.resultElement .container .buttonContainer{
+    
+}
+.resultElement .container .buttonContainer .vacancy{
+    width: inherit;
+    height: 80px;
 }

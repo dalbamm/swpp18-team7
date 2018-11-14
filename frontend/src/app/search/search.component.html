@@ -21,32 +21,48 @@
 <div class="resultPart"> 
    
   <div class="showCandidates">
-    <app-candidate-view-in-search></app-candidate-view-in-search>
-  </div>
-    <!--검색 후보
+    <!-- <app-candidate-view-in-search></app-candidate-view-in-search>
+  </div>--> 
+    검색 후보
     <div class="empty" *ngIf="displayCandidatesFlag===false"></div>
-    <ul *ngIf="displayCandidatesFlag===true">
+    <ul *ngIf="displayCandidatesFlag===true" class="candidateUl">
       <li *ngFor="let candidate of candidateList">
         <div class="candidateElement" (click)="onClickCandidate(candidate)">
-            <img src="{{candidate.imageLink}}">
+            <img src="{{candidate.imageLink}}" class="candidateImage">
         </div>
       </li>
     </ul>
-  </div> --> 
+  </div> 
   <div class="showResult">
-    <app-result-view-in-search></app-result-view-in-search>
+    <!-- <app-result-view-in-search></app-result-view-in-search>
   </div>
-  <!-- <div class="showResult">
+  <div class="showResult"> -->
     검색 결과
     <div class="empty" *ngIf="displayResultFlag===false">검색된 중고도서가 없습니다.<br/>
       <button class="buttons" (click)="onClickInterested()">관심등록</button>으로 알림을 받아보세요!
     </div>
-    <ul *ngIf="displayResultFlag===true">
-      <li *ngFor="let result of resultList" (click)="onClickResult(result)">
-        site: {{result.site}}<br/>
-        price: {{result.price}}<br/>
-        link: {{result.link}}<br/>
+    <ul *ngIf="displayResultFlag===true" class="resultUl">
+      
+      <li *ngFor="let result of resultList">
+        <div class="resultElement"> 
+          <div class="container">
+            <div class="logoContainer" *ngIf="result.site==='kyobo'"></div>
+            <div class="logoContainer_ala" *ngIf="result.site==='aladin'"></div>
+            <div class="contentContainer"> 
+                글제목: {{result.title}}<br/>
+                판매자: {{result.author}}<br/>
+                <!-- site: {{result.site}}<br/> -->
+                중고가: {{result.price}}원<br/>
+                <!-- link: {{result.link}}<br/> -->
+            </div>
+            <div class="buttonContainer">
+              <div class="vacancy"></div>
+              <button class="buttons" (click)="onClickResult(result)">바로가기</button>
+            </div>
+          </div>  
+          <!-- <img src="{{resul.imageLink}}" class="candidateImage"> -->
+        </div>
       </li>
     </ul>
-  </div> -->
+  </div>
 </div>
