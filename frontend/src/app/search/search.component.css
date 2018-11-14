@@ -1,3 +1,6 @@
+.buttons{
+    cursor: pointer;
+}
 div::-webkit-scrollbar { width: auto; height: 10px;};
 div::-webkit-scrollbar-button:start:decrement, 
 div::-webkit-scrollbar-button:end:increment {display: block; 
@@ -23,21 +26,22 @@ div::-webkit-scrollbar-thumb {  background: rgba(0,0,0,.1);  }
     margin-top: 50px;
     /* letter-spacing: +.4px; */
     font-weight: 550;
-    height: 250px;
+    height: 300px;
 }
 .showCandidates{
     border: solid 1px black;
-    flex: 3;
+    /* flex: 1; */
     padding-top: 20px;
     text-align: center;
     justify-content: center;
     border-radius: 25px;
-    width: 80%;
+    width: 72%;
 }
 .showCandidates .candidatesContainer{
     overflow-x: scroll;
     scroll-behavior: auto;
     margin: 0 20px;
+    overflow-y: hidden;
 }
 .bookInfo{
     border: solid 1px black;
@@ -47,7 +51,6 @@ div::-webkit-scrollbar-thumb {  background: rgba(0,0,0,.1);  }
     justify-content: center;
     border-radius: 25px;
     flex: 1;
-    
 }
 .bookInfo .content{
     margin:0;
@@ -55,11 +58,13 @@ div::-webkit-scrollbar-thumb {  background: rgba(0,0,0,.1);  }
     margin-top:20px;
     font-weight:400;
     line-height: 1.5;
+    height: fit-content;
 }
 .bookInfo .vacancy{
-    /* width: inherit;
-    height: 25px; */
+    width: inherit;
+    height: 15px;
 }
+
 .showResult{
     border: solid 1px black;
     margin: 0;
@@ -100,6 +105,7 @@ div::-webkit-scrollbar-thumb {  background: rgba(0,0,0,.1);  }
 .candidateImage{
     max-width: inherit;
     /* margin-left: 20px; */
+    cursor: pointer;
 }
 li {
     list-style: none;
@@ -117,7 +123,7 @@ li {
 }
 .resultElement{
     margin: 20px 15px;
-    padding: 20px;
+    padding: 20px 0px;
     border: solid 0.5px lightsteelblue;
     border-radius: 12px;
 
@@ -155,7 +161,6 @@ li {
     /* border: solid 0.3px gray; */
 }
 .resultElement .container .contentContainer{
-    flex: 1;
     font-size: 1rem;
     font-weight: normal;
     padding-top: 23px;

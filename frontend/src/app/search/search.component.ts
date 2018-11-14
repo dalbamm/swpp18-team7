@@ -152,7 +152,7 @@ export class SearchComponent implements OnInit {
     this.testArticle.book = this.testBook;
     this.testArticle.author = 'Flea market 1';
     this.testArticle.link = 'http://beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg';
-    this.testArticle.price = 2000;
+    this.testArticle.price = 20000;
     this.testArticle.site = 'kyobo';
     this.testArticle.title = 'I want to sell ' + this.testArticle.book.title;
 
@@ -160,7 +160,7 @@ export class SearchComponent implements OnInit {
     this.testArticle2.book = this.testBook;
     this.testArticle2.author = 'Flea market 2';
     this.testArticle2.link = 'http://beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg';
-    this.testArticle2.price = 4000;
+    this.testArticle2.price = 40000;
     this.testArticle2.site = 'aladin';
     this.testArticle2.title = 'Get this ' + this.testArticle.book.title;
 
@@ -178,6 +178,9 @@ export class SearchComponent implements OnInit {
 
     //   this.resultList[i] = this.testArticle;
     // }
+  }
+  onTest() {
+    alert('baam');
   }
   initSelectedCandidate() {
     const tmp = new Book;

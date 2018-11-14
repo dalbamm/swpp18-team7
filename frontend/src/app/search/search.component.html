@@ -5,7 +5,7 @@
 </div>
 <div>
   <div class="searchInputContainer">
-    <input id="searchInput" [(ngModel)]="searchQueryStr" class="searchInput">
+    <input id="searchInput" [(ngModel)]="searchQueryStr" class="searchInput" (keyup.enter)="onClickSearch()">
     <button class="buttons" id="search-button" (click)="onClickSearch()">
       검색
     </button>
@@ -67,7 +67,7 @@
                     <div class="contentContainer"> 
                         <!-- 글제목: {{result.title}}<br/>
                         판매자: {{result.author}}<br/>-->
-                      가격: {{result.price}}원<br/> 
+                      {{result.price}}원<br/> 
                     </div>
                 </div>
                 <button class="buttons" (click)="onClickResult(result)">바로가기</button>
