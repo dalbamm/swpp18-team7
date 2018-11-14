@@ -19,10 +19,12 @@ export class SearchComponent implements OnInit {
   resultList: Article[]; // ArticleList
   displayCandidatesFlag = false;
   displayResultFlag = false;
+  displayBookInfo = false;
   testBook: Book;
   testBook2: Book;
   testArticle: Article;
   testArticle2: Article;
+  selectedCandidate: Book;
   constructor(
     private router: Router,
     private articleService: ArticleService,
@@ -33,6 +35,7 @@ export class SearchComponent implements OnInit {
     // Check if the user is authenticated or not
     // if(authenticated == false)  router.navigateByUrl('')
     this.setTest();
+    this.initSelectedCandidate();
   }
 
   goSalePage() {
@@ -49,8 +52,10 @@ export class SearchComponent implements OnInit {
 
   onClickCandidate(clickedCandidate) {
     const isbn = clickedCandidate.ISBN;
+    this.displayBookInfo = true;
+    this.selectedCandidate = clickedCandidate;
     console.log('ipt: ' + isbn);
-    this.getSearchResult(isbn);
+    // this.getSearchResult(isbn);
   }
 
   onClickGoDirect() {
@@ -155,7 +160,8 @@ export class SearchComponent implements OnInit {
 
     let tempbook = new Book();
     tempbook = this.testBook2;
-    this.candidateList = [tempbook, tempbook, tempbook, tempbook, tempbook, tempbook, tempbook, tempbook ];
+    this.candidateList = [tempbook, tempbook, tempbook, tempbook, tempbook, tempbook, tempbook, tempbook
+      , tempbook, tempbook, tempbook, tempbook, tempbook, tempbook, tempbook, tempbook ];
     this.resultList = [this.testArticle, this.testArticle2, this.testArticle, this.testArticle2,
        this.testArticle, this.testArticle, this.testArticle2];
     this.displayResultFlag = true;
@@ -165,5 +171,9 @@ export class SearchComponent implements OnInit {
 
     //   this.resultList[i] = this.testArticle;
     // }
+  }
+  initSelectedCandidate() {
+    const tmp = new Book;
+    this.selectedCandidate = tmp;
   }
 }

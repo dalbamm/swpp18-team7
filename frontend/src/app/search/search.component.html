@@ -16,6 +16,65 @@
   </div>
 </div>
 
+<div class="resultPart"> 
+   
+    <div class="showCandidates">
+      <div class="title">검색 후보</div>
+      <div class="empty" *ngIf="displayCandidatesFlag===false"></div>
+      <div class="candidatesContainer" *ngIf="displayCandidatesFlag===true">
+        <ul class="candidateUl">
+          <li *ngFor="let candidate of candidateList">
+            <div class="candidateElement" (click)="onClickCandidate(candidate)">
+                <img src="{{candidate.imageLink}}" class="candidateImage">
+            </div>
+          </li>
+       </ul>
+      </div>
+    </div>
+    <div class="bookInfo">
+      <div>책 정보</div>
+      <div class="content">
+        제목: {{selectedCandidate.title}}<br/>
+        저자: {{selectedCandidate.author}}<br/>
+        출판사: {{selectedCandidate.publisher}}<br/>
+        출판년도: {{selectedCandidate.publishedYear}}<br/>
+        정가: {{selectedCandidate.marketPrice}}<br/>
+      </div>
+      <div class="vacancy"></div>
+      <button class="buttons">검색 시작</button>
+    </div> 
+</div>
+    <div class="showResult">
+      검색 결과
+      <div class="empty" *ngIf="displayResultFlag===false">검색된 중고도서가 없습니다.<br/>
+        <button class="buttons" (click)="onClickInterested()">관심등록</button>으로 알림을 받아보세요!
+      </div>
+      <ul *ngIf="displayResultFlag===true" class="resultUl">
+        
+        <li *ngFor="let result of resultList">
+          <div class="resultElement"> 
+            <div class="container">
+              <div class="logoContainer" *ngIf="result.site==='kyobo'"></div>
+              <div class="logoContainer_ala" *ngIf="result.site==='aladin'"></div>
+              <div class="contentContainer"> 
+                  글제목: {{result.title}}<br/>
+                  판매자: {{result.author}}<br/>
+                  중고가: {{result.price}}원<br/>
+              </div>
+              <div class="buttonContainer">
+                <div class="vacancy"></div>
+                <button class="buttons" (click)="onClickResult(result)">바로가기</button>
+              </div>
+            </div>  
+          </div>
+        </li>
+      </ul>
+    </div>
+  
+
+
+
+
 
 
 <div class="resultPart"> 
