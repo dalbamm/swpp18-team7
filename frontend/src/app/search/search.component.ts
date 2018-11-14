@@ -63,7 +63,8 @@ export class SearchComponent implements OnInit {
 
   onClickResult(clickedResult) {
     const goLink = clickedResult.link;
-    this.router.navigateByUrl(goLink);
+    console.log('Link: ' + goLink);
+    window.open(goLink);
   }
 
   getArticleList() {  }
