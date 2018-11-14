@@ -3,14 +3,18 @@ import { Book } from './book';
 import { Comment } from './comment';
 
 export class Article {
+    // common
+    site: string;
+    title: string;
+    author: string;
+    price: number;
+    link: string;
+
+    // boogle article
     id?: number;
-    title?: string;
     content?: string;
     articleAuthor?: User;
-    external: boolean;
-    link?: string;
     book?: Book;
     bookStatus?: string;
-    price?: number;
     commentList?: Comment[];
   }

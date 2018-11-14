@@ -1,18 +1,16 @@
 import Crawler
 import time
 
-def print_datum(datum):
-	print('  site : ', datum['site'])
-	print(' title : ', datum['title'])
-	print('author : ', datum['author'])
-	print(' price : ', datum['price'])
-	print('  link : ', datum['link'])
+def printDatum(datum):
+	print('  		 site : ', datum['site'])
+	print(' 		price : ', datum['price'])
+	print('  		 link : ', datum['link'])
 	print('')
 
 if __name__=='__main__':
 	crawler = Crawler.Crawler()
 
-	crawler.open_driver()
+	crawler.openDriver()
 	
 	while True:
 		title = str(input("Enter the book's title : ")).strip()
@@ -21,10 +19,16 @@ if __name__=='__main__':
 			break
 		
 		start_time = time.time()
-		data = crawler.get_candidate_list(title)
+		data = crawler.getCandidateList(title)
 		for datum in data:
-			print('image src : ', datum['image'])
-			print('     isbn : ', datum['isbn'])
+			print('image src \t : ', datum['imageLink'])
+			print('isbn 		 : ', datum['ISBN'])
+			print('title 		 : ', datum['title'])
+			print('author 		 : ', datum['author'])
+			print('publisher 	 : ', datum['publisher'])
+			print('publishedYear\t : ', datum['publishedYear'])
+			print('marketPrice	 : ', datum['marketPrice'])
+			print('')
 		end_time = time.time()
 		print('candidate search time : ', (end_time - start_time))
 
@@ -37,15 +41,19 @@ if __name__=='__main__':
 					break
 				if not str.isnumeric(index):
 					print('please, enter the integer')
+
+				index = int(index)
+				if index >= len(data) or index < -1:
+					print('invalid index')
 				else:
 					start_time = time.time()
-					usedbook_data = crawler.get_usedbook_data(data[int(index)]['isbn'])
+					usedbook_data = crawler.getUsedbookData(data[index]['ISBN'])
 					if len(usedbook_data) == 0:
 						print('could not find data.')
 					else:
 						for usedbook_datum in usedbook_data:
-							print_datum(usedbook_datum)
+							printDatum(usedbook_datum)
 					end_time = time.time()
 					print('usedbook search time : ', (end_time - start_time))
 
-	crawler.close_driver()
+	crawler.closeDriver()
