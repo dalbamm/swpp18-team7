@@ -25,7 +25,9 @@
     text-align: center;
     justify-content: center;
     border-radius: 25px;
+    max-height: 720px;
     overflow-y: scroll;
+    scroll-behavior: auto;
 }
 .showResult{
     border: solid 1px black;
@@ -35,7 +37,8 @@
     padding-top: 20px;
     padding-right:50px;
     border-radius: 25px;
-    
+    max-height: 720px;
+    overflow-y: scroll;
 }
 .empty{
     padding: 50px 0;
@@ -111,5 +114,5 @@ li {
 }
 .resultElement .container .buttonContainer .vacancy{
     width: inherit;
-    height: 80px;
+    height: 55px;
 }

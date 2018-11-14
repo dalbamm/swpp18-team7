@@ -127,6 +127,15 @@ export class SearchComponent implements OnInit {
     this.testBook.publisher = 'SNU Press';
     this.testBook.title = 'How to Crawl 1';
 
+    this.testBook2 = new Book;
+    this.testBook2.ISBN = '123456788';
+    this.testBook2.author = '김난도';
+    this.testBook2.imageLink = 'http://image.kyobobook.co.kr/images/book/large/036/l9788965700036.jpg';
+    this.testBook2.marketPrice = 25000;
+    this.testBook2.publishedYear = 2011;
+    this.testBook2.publisher = 'SNU Press';
+    this.testBook2.title = '아프니까 청춘이다';
+
     this.testArticle = new Article;
     this.testArticle.book = this.testBook;
     this.testArticle.author = 'Flea market 1';
@@ -145,9 +154,10 @@ export class SearchComponent implements OnInit {
 
 
     let tempbook = new Book();
-    tempbook = this.testBook;
-    this.candidateList = [tempbook, tempbook, tempbook];
-    this.resultList = [this.testArticle, this.testArticle2, this.testArticle];
+    tempbook = this.testBook2;
+    this.candidateList = [tempbook, tempbook, tempbook, tempbook, tempbook, tempbook, tempbook, tempbook ];
+    this.resultList = [this.testArticle, this.testArticle2, this.testArticle, this.testArticle2,
+       this.testArticle, this.testArticle, this.testArticle2];
     this.displayResultFlag = true;
     this.displayCandidatesFlag = true;
     // for (let i = 0 ; i < 3 ; ++i) {
