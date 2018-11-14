@@ -32,9 +32,6 @@ export class SearchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // Check if the user is authenticated or not
-    // if(authenticated == false)  router.navigateByUrl('')
-    //this.setTest();
     this.initSelectedCandidate();
   }
 
@@ -54,8 +51,7 @@ export class SearchComponent implements OnInit {
     const isbn = clickedCandidate.ISBN;
     this.displayBookInfo = true;
     this.selectedCandidate = clickedCandidate;
-    console.log('ipt: ' + isbn);
-    // this.getSearchResult(isbn);
+    console.log('isbn: ' + isbn);
   }
   onClickStartSearch() {
     const isbn = this.selectedCandidate.ISBN;
@@ -90,7 +86,6 @@ export class SearchComponent implements OnInit {
       // Starts to display result list after the promise is resolved.
       this.resultList = processedResponse;
       this.displayResultFlag = true;
-      console.log('displayFlag is renewed');
     })
     .catch(function(err) {
       console.log('error occured during getSearchResult: ' + err);
@@ -129,61 +124,9 @@ export class SearchComponent implements OnInit {
 
   isValidQuery() {}
 
-  setTest() {
-    this.testBook = new Book;
-    this.testBook.ISBN = '123456789';
-    this.testBook.author = 'Sewon Woo';
-    this.testBook.imageLink = 'http://beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg';
-    this.testBook.marketPrice = 25000;
-    this.testBook.publishedYear = 2018;
-    this.testBook.publisher = 'SNU Press';
-    this.testBook.title = 'How to Crawl 1';
-
-    this.testBook2 = new Book;
-    this.testBook2.ISBN = '123456788';
-    this.testBook2.author = '김난도';
-    this.testBook2.imageLink = 'http://image.kyobobook.co.kr/images/book/large/036/l9788965700036.jpg';
-    this.testBook2.marketPrice = 25000;
-    this.testBook2.publishedYear = 2011;
-    this.testBook2.publisher = 'SNU Press';
-    this.testBook2.title = '아프니까 청춘이다';
-
-    this.testArticle = new Article;
-    this.testArticle.book = this.testBook;
-    this.testArticle.author = 'Flea market 1';
-    this.testArticle.link = 'http://beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg';
-    this.testArticle.price = 20000;
-    this.testArticle.site = 'kyobo';
-    this.testArticle.title = 'I want to sell ' + this.testArticle.book.title;
-
-    this.testArticle2 = new Article;
-    this.testArticle2.book = this.testBook;
-    this.testArticle2.author = 'Flea market 2';
-    this.testArticle2.link = 'http://beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg';
-    this.testArticle2.price = 40000;
-    this.testArticle2.site = 'aladin';
-    this.testArticle2.title = 'Get this ' + this.testArticle.book.title;
-
-
-    let tempbook = new Book();
-    tempbook = this.testBook2;
-    this.candidateList = [tempbook, tempbook, tempbook, tempbook, tempbook, tempbook, tempbook, tempbook
-      , tempbook, tempbook, tempbook, tempbook, tempbook, tempbook, tempbook, tempbook ];
-    this.resultList = [this.testArticle, this.testArticle2, this.testArticle, this.testArticle2,
-       this.testArticle, this.testArticle, this.testArticle2];
-    this.displayResultFlag = true;
-    this.displayCandidatesFlag = true;
-    // for (let i = 0 ; i < 3 ; ++i) {
-    //   this.candidateList[i] = this.testBook;
-
-    //   this.resultList[i] = this.testArticle;
-    // }
-  }
-  onTest() {
-    alert('baam');
-  }
   initSelectedCandidate() {
     const tmp = new Book;
     this.selectedCandidate = tmp;
   }
 }
+
