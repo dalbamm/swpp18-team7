@@ -99,7 +99,7 @@ def getUsedbookList(request, **kwargs):
 
         crawler = Crawler.Crawler()
         crawler.openDriver()
-        data = crawler.getUsedbookList(isbn)
+        data = crawler.getUsedbookData(isbn)
         crawler.closeDriver()
 
         return JsonResponse(data, safe=False, status=200)
