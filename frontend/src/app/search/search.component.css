@@ -22,7 +22,7 @@ div::-webkit-scrollbar-thumb {  background: rgba(0,0,0,.1);  }
     margin-top: 50px;
     /* letter-spacing: +.4px; */
     font-weight: 550;
-    
+    height: 250px;
 }
 .showCandidates{
     border: solid 1px black;
@@ -31,13 +31,11 @@ div::-webkit-scrollbar-thumb {  background: rgba(0,0,0,.1);  }
     text-align: center;
     justify-content: center;
     border-radius: 25px;
-    max-width: 1024px;
-    
+    width: 80%;
 }
 .showCandidates .candidatesContainer{
     overflow-x: scroll;
     scroll-behavior: auto;
-    max-width: inherit;
 }
 .bookInfo{
     border: solid 1px black;
@@ -58,7 +56,7 @@ div::-webkit-scrollbar-thumb {  background: rgba(0,0,0,.1);  }
 }
 .bookInfo .vacancy{
     width: inherit;
-    height: 50px;
+    height: 25px;
 }
 .showResult{
     border: solid 1px black;
@@ -70,7 +68,6 @@ div::-webkit-scrollbar-thumb {  background: rgba(0,0,0,.1);  }
     padding-right:50px;
     
     border-radius: 25px;
-    max-width: 100%;
     overflow-y: scroll;
 }
 .empty{
