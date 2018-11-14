@@ -1,6 +1,9 @@
+#-*- coding:utf-8 -*-
+
 from selenium import webdriver
 from bs4 import BeautifulSoup as bs
 import re
+import urllib.parse
 # import os
 # from multiprocessing import Pool
 
@@ -40,38 +43,78 @@ class Crawler:
 	def parseTitle(self, title):
 		return '%20'.join(title.split())
 
+	# parse the price string to number format
+	def parsePrice(self, price):
+		return ''.join(price.split('원')[0].split(','))
+
 	# get candidate list using book's title.
 	def getCandidateList(self, title):
-
 		# get the kyobo site and search the book using title.
-		title = self.parseTitle(title)
-		search_url = 'http://www.kyobobook.co.kr/search/SearchCommonMain.jsp?vPstrCategory=TOT&vPstrKeyWord=' + title + '&vPplace=top'
-		self.driver.get(search_url)
 
-		# get the page's html and quit the brower.
+		encodedTitle = urllib.parse.quote(title)
+		parsedTitle = self.parseTitle(title)
+
+		# if parsedTitle is equal to encodedTitle,
+		# the title is english, otherwise korean.
+		if parsedTitle == encodedTitle:
+			search_url = 'http://www.kyobobook.co.kr/search/SearchCommonMain.jsp?vPstrCategory=TOT&vPstrKeyWord=' + parsedTitle + '&vPplace=top'
+			self.driver.get(search_url)
+		else:
+			search_url = 'http://www.kyobobook.co.kr/search/SearchCommonMain.jsp'
+			self.driver.get(search_url)
+			self.driver.find_element_by_name('searchKeyword').send_keys(title)
+			self.driver.find_element_by_xpath('//*[@id="searchTop"]/div[1]/div/input').click()
+
+		# get the page's html.
 		html = self.driver.page_source
-		# self.driver.quit()
 
 		# get the beautiful soup object and parse the html
 		soup = bs(html, 'html.parser')
 
-		# get the soup objects that contain the data about images and isbns
+		# get the soup objects that contain the data
 		images = soup.select('#container > div > form > table > tbody > tr > td.image > div.cover > a > img')
 		isbns = soup.select('#container > div > form > table > tbody > tr > td.detail > div.title > a')
+		titles = soup.select('#container > div > form > table > tbody > tr > td.detail > div.title > a > strong')
+		infos = soup.select('#container > div > form > table > tbody > tr > td.detail > div.author')
+		prices = soup.select('#container > div > form > table > tbody > tr > td.price > div.org_price > del')
 
 		# make dictionary list
 		data = []
 		for index in range(len(isbns)):
+			# empty dictionary
 			datum = {}
-			if images[index]['src'] == 'http://image.kyobobook.co.kr/newimages/apps/b2c/product/Noimage_l.gif':
-				datum['image'] = './no_image.png'
-			else:
-				datum['image'] = images[index]['src']
 
+			# get the image link
+			if images[index]['src'] == 'http://image.kyobobook.co.kr/newimages/apps/b2c/product/Noimage_l.gif':
+				datum['imageLink'] = 'https://books.google.co.kr/googlebooks/images/no_cover_thumb.gif'
+			else:
+				datum['imageLink'] = images[index]['src']
+
+			# get the book's isbn
 			isbn = self.getIsbn(isbns[index]['href'])
 			if isbn is None:
 				break
-			datum['isbn'] = isbn
+			datum['ISBN'] = isbn
+
+			# get the book's title
+			datum['title'] = titles[index].text.strip()
+
+			# split the info that contains author, publisher and publishedYear.
+			info = infos[index].text.strip().split('\n')
+
+			# if length of info is less than 5, ignore it because this is gift.
+			if len(info) < 5: 
+				continue
+
+			# get the book's author, publisher and publishedYear
+			datum['author'] = info[0].strip()
+			datum['publisher'] = info[-2].split('|')[-1].strip()
+			datum['publishedYear'] = info[-1].split('|')[-1].strip()
+			
+			# get the book's market price
+			datum['marketPrice'] = self.parsePrice(prices[index].text.strip())
+
+			# append the dictionary to list
 			data.append(datum)
 
 		return data
@@ -92,8 +135,6 @@ class Crawler:
 		for detail in details:
 			datum = {}
 			datum['site'] = 'kyobo'
-			datum['title'] = detail.select('div.title > a > strong')[0].text.strip()
-			datum['author'] = detail.select('div.author')[0].text.strip().split('\n')[0]
 			datum['price'] = detail.select('td.price > div.sell_price > strong')[0].text.strip()
 			datum['link'] = detail.select('div.title > a')[0]['href'].strip()
 			data.append(datum)
@@ -106,14 +147,11 @@ class Crawler:
 			html = self.driver.page_source
 
 			soup = bs(html, 'html.parser')
-			author = soup.select('body > table > tbody > tr:nth-of-type(1) > td > table > tbody > tr:nth-of-type(2) > td > a:nth-of-type(1)')[0].text.strip()
 			details = soup.select('#Myform > div > table > tbody > tr > td:nth-of-type(2) > div:nth-of-type(1)')
 
 			for detail in details:
 				datum = {}
 				datum['site'] = 'aladin'
-				datum['title'] = detail.select('ul > li:nth-of-type(1) > a.bo > b')[0].text.strip()
-				datum['author'] = author
 				datum['price'] = detail.select('ul > li:nth-of-type(2) > span > b')[0].text.strip()
 				datum['link'] = detail.select('ul > li:nth-of-type(1) > a.bo')[0]['href'].strip()
 				data.append(datum)
