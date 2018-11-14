@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
 export class SignupComponent implements OnInit {
 
   constructor(
-  	private userService: UserService,
-  	private router: Router
-  	) { }
+    private userService: UserService,
+    private router: Router
+    ) { }
 
   ngOnInit() {
   }
@@ -24,45 +24,45 @@ export class SignupComponent implements OnInit {
     let passwordValid: boolean;
     let passwordConfirmationValid: boolean;
 
-  	let signupForm = document.forms["form"];
- 	  let emailInput = signupForm["email"].value.trim();
-  	let passwordInput = signupForm["password"].value;
-    let passwordConfirmation = signupForm["passwordConfirmation"].value;
-    let phoneInput = signupForm["phone"].value;
+    const signupForm = document.forms['form'];
+    const emailInput = signupForm['email'].value.trim();
+    const passwordInput = signupForm['password'].value;
+    const passwordConfirmation = signupForm['passwordConfirmation'].value;
+    const phoneInput = signupForm['phone'].value;
 
     emailValid = this.checkEmailValidity(emailInput);
     passwordValid = this.checkPasswordValidity(passwordInput);
     passwordConfirmationValid = passwordInput === passwordConfirmation;
 
-    if(emailValid && passwordValid) {
-      if(passwordConfirmationValid) {
-        this.userService.signUp(emailInput, passwordInput, phoneInput)
+    if (emailValid && passwordValid) {
+      if (passwordConfirmationValid) {
+        this.userService.signUp(emailInput, passwordInput, phoneInput);
       }
       else {
-        alert("Password confirmation does not match the password.");
-        signupForm["password"].value = "";
-      	signupForm["passwordConfirmation"].value="";
+        alert('Password confirmation does not match the password.');
+        signupForm['password'].value = '';
+        signupForm['passwordConfirmation'].value = '';
       }
     }
     else {
-      if(!emailValid) {
-        alert("The email address is not valid.");
+      if (!emailValid) {
+        alert('The email address is not valid.');
       }
       else {
-        alert("The password should be at least 8 characters long and contain at least one upper case letter, one number and one lower case letter");
+        alert('The password should be at least 8 characters long and contain at least one upper case letter, one number and one lower case letter');
       }
     }
-    signupForm["password"].value = "";
-    signupForm["passwordConfirmation"].value="";
+    signupForm['password'].value = '';
+    signupForm['passwordConfirmation'].value = '';
 
   }
 
   onClickCancel() {
-  	this.router.navigateByUrl('signin');
+    this.router.navigateByUrl('signin');
   }
 
   private checkEmailValidity(emailInput: string): boolean {
-    let email_regex: RegExp = /^[^@\s]+@[^@\s]+\.[a-z]{2,3}$/;
+    const email_regex: RegExp = /^[^@\s]+@[^@\s]+\.[a-z]{2,3}$/;
     return email_regex.test(emailInput);
   }
 

@@ -12,11 +12,11 @@ export class MainComponent implements OnInit {
 
   ngOnInit() { }
 
-  goSalePage(): void {
-    alert("sale button is clicked");
+  onClickSale(): void {
+    alert('sale button is clicked');
   }
 
-  goSearchPage(): void {
-    this.router.navigateByUrl("/search")
+  onClickSearch(): void {
+    this.router.navigateByUrl('search');
   }
 }

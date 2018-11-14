@@ -13,25 +13,25 @@ import { User } from '../models/user';
 })
 export class UserService {
 
-	signinUrl = 'api/signin';
-	signupUrl = 'api/signup';
-	signoutUrl = 'api/signout';
-	userUrl = 'api/user';
+  signinUrl = 'api/signin';
+  signupUrl = 'api/signup';
+  signoutUrl = 'api/signout';
+  userUrl = 'api/user';
 
   private signedIn: boolean;
   private currUser: User;
 
-	httpOptions = {
+  httpOptions = {
   	headers: new HttpHeaders({
     'Content-Type':  'application/json',
     'Authorization': 'my-auth-token',
-  	})
+   	})
   }
 
   constructor(
   	private http: HttpClient,
   	private router: Router
-  	) {
+ 	) {
         this.signedIn = false;
      }
 
@@ -45,11 +45,11 @@ export class UserService {
 
 
   signIn(email: string, password: string) {
-  	this.http.post<Response>(this.signinUrl, {"email": email, "password": password}, this.httpOptions).subscribe(
-  		(response: Response) => {
+  	this.http.post<Response>(this.signinUrl, {'email': email, 'password': password}, this.httpOptions).subscribe(
+		(response: Response) => {
         this.getRequestUser().subscribe(user => {
           this.currUser = user;
-          console.log("signed in successfully");
+          console.log('signed in successfully');
           this.signedIn = true;
           this.router.navigateByUrl('main');
         });

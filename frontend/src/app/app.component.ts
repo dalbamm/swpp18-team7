@@ -27,19 +27,18 @@ export class AppComponent {
     ) {
       router.events.subscribe((val) => {
         if ( val instanceof NavigationEnd ) {
-          if ( val.url == '/main'){
+          if ( val.url === '/main') {
             this.isMain = true;
           }
-          else{
+          else {
             this.isMain = false;
           }
           this.user = this.userService.getCurrentUser();
-          console.log(this.user);
           this.signedIn = this.userService.isAuthenticated();
         }
-      })
+      });
     }
-    
+
   ngOnInit() {
   }
 
