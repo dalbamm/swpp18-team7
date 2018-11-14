@@ -8,9 +8,7 @@
       </td>
       <td style="width: 60%;"></td>
       <td style="width: 15%;">
-        <button *ngIf="user" class="buttons" id="user-info-button" (click)="onClickUserInfo()">
-          {{user.email}}
-        </button>
+        <button *ngIf="user" class="buttons" id="user-info-button" (click)="onClickUserInfo()">{{user.email}}</button>
       </td>
       <td style="width: 10%;">
         <button *ngIf="!signedIn" class="buttons" id="sign-in" (click)="onClickSignin()">

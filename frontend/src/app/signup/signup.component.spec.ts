@@ -13,15 +13,15 @@ describe('SignupComponent: ', () => {
   let userServiceSpy: jasmine.SpyObj<UserService>;
 
   beforeEach(async(() => {
-    const userSpy = jasmine.createSpyObj('UserService', ['signUp']);    
+    const userSpy = jasmine.createSpyObj('UserService', ['signUp']);   
     routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
 
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule ],
       declarations: [ SignupComponent ],
       providers: [
-        {provide: Router, useValue: routerSpy},
-        {provide: UserService, useValue: userSpy}
+        { provide: Router, useValue: routerSpy },
+        { provide: UserService, useValue: userSpy }
       ],
     })
     .compileComponents();
@@ -72,12 +72,12 @@ describe('SignupComponent: ', () => {
 
     beforeEach(() => {
       spyOn(window, 'alert');
-    })
+    });
 
     it('all inputs are valid -> call userService.signUp()', () => {
       setInput('test@test.com', 'Abcd1234', 'Abcd1234', '');
       component.onClickConfirm();
-      
+     
       expect(userServiceSpy.signUp.calls.count()).toEqual(1);
     });
 
