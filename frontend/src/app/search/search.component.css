@@ -81,8 +81,14 @@ div::-webkit-scrollbar-thumb {  background: rgba(0,0,0,.1);  }
     font-size: 1.25rem;
     font-weight: 550;
 }
+.showResult .empty{
+    line-height: 2;
+}
 .showResult .resultUlContainer{
     overflow-x: scroll;
+}
+.showResult .resultUlContainer .resultUl{
+ 
 }
 .empty{
     padding: 50px 0;

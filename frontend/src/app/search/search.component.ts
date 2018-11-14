@@ -34,7 +34,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     // Check if the user is authenticated or not
     // if(authenticated == false)  router.navigateByUrl('')
-    this.setTest();
+    //this.setTest();
     this.initSelectedCandidate();
   }
 
