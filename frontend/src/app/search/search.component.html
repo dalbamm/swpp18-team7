@@ -41,7 +41,7 @@
         정가: {{selectedCandidate.marketPrice}}<br/>
       </div>
       <div class="vacancy"></div>
-      <button class="buttons">검색 시작</button>
+      <button class="buttons" (click)="onClickStartSearch()">검색 시작</button>
     </div> 
 </div>
     <div class="showResult">
@@ -71,7 +71,7 @@
       </ul>
     </div>
   
-
+<!-- 
 
 
 
@@ -80,8 +80,8 @@
 <div class="resultPart"> 
    
   <div class="showCandidates">
-    <!-- <app-candidate-view-in-search></app-candidate-view-in-search>
-  </div>--> 
+    //<app-candidate-view-in-search></app-candidate-view-in-search>
+  </div> 
     검색 후보
     <div class="empty" *ngIf="displayCandidatesFlag===false"></div>
     <ul *ngIf="displayCandidatesFlag===true" class="candidateUl">
@@ -93,9 +93,9 @@
     </ul>
   </div> 
   <div class="showResult">
-    <!-- <app-result-view-in-search></app-result-view-in-search>
-  </div>
-  <div class="showResult"> -->
+    //<app-result-view-in-search></app-result-view-in-search>
+  //</div>
+  //<div class="showResult"> 
     검색 결과
     <div class="empty" *ngIf="displayResultFlag===false">검색된 중고도서가 없습니다.<br/>
       <button class="buttons" (click)="onClickInterested()">관심등록</button>으로 알림을 받아보세요!
@@ -110,18 +110,18 @@
             <div class="contentContainer"> 
                 글제목: {{result.title}}<br/>
                 판매자: {{result.author}}<br/>
-                <!-- site: {{result.site}}<br/> -->
+                //site: {{result.site}}<br/> 
                 중고가: {{result.price}}원<br/>
-                <!-- link: {{result.link}}<br/> -->
+                // link: {{result.link}}<br/>
             </div>
             <div class="buttonContainer">
               <div class="vacancy"></div>
               <button class="buttons" (click)="onClickResult(result)">바로가기</button>
             </div>
           </div>  
-          <!-- <img src="{{resul.imageLink}}" class="candidateImage"> -->
+          // <img src="{{resul.imageLink}}" class="candidateImage"> 
         </div>
       </li>
     </ul>
   </div>
-</div>
+</div> -->

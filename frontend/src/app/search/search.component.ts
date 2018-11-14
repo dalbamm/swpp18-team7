@@ -57,7 +57,14 @@ export class SearchComponent implements OnInit {
     console.log('ipt: ' + isbn);
     // this.getSearchResult(isbn);
   }
-
+  onClickStartSearch() {
+    const isbn = this.selectedCandidate.ISBN;
+    if ( this.selectedCandidate.ISBN === undefined ) {
+      alert('책을 선택해주세요!');
+    } else {
+      this.getSearchResult(isbn);
+    }
+  }
   onClickGoDirect() {
     alert('GoDirect clicked');
   }
