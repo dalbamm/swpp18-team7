@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { Response, ResponseOptions } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { UserService } from './service/user.service';
@@ -60,8 +61,8 @@ describe('AppComponent: ', () => {
   it(`should have as title 'Boogle'`, async(() => {
     expect(component.title).toEqual('Boogle');
   }));
- 
 
+  
   describe('buttons:', () => {
     it('should redirect to signin page when signin button is clicked', () => {
       component.onClickSignin();
@@ -81,6 +82,8 @@ describe('AppComponent: ', () => {
     });
 
     it('buttons when signed out', () => {
+      userServiceSpy.signOut.and.returnValue(of(new Response(new ResponseOptions)));
+
       component.onClickSignout();
       fixture.detectChanges();
 

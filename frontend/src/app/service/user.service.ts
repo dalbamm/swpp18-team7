@@ -18,8 +18,8 @@ export class UserService {
   signoutUrl = 'api/signout';
   userUrl = 'api/user';
 
-  signedIn: boolean;
-  currUser: User;
+  private signedIn: boolean;
+  private currUser: User;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -34,35 +34,33 @@ export class UserService {
     ) {
         this.signedIn = false;
         this.currUser = null;
-     }
+      }
 
-  isAuthenticated(): boolean {
+  /* Mutators, Accessors */
+  getSignedIn(): boolean {
     return this.signedIn;
+  }
+
+  setSignedIn(signedIn: boolean): void {
+    this.signedIn = signedIn;
   }
 
   getCurrentUser(): User {
     return this.currUser;
   }
 
+  setCurrentUser(user: User): void {
+    this.currUser = user;
+  }
+
+
+  /* Http Requests */
   signIn(email: string, password: string): Observable<Response> {
     return this.http.post<Response>(this.signinUrl, {'email': email, 'password': password}, this.httpOptions);
   }
 
-
-  signUp(email: string, password: string, phone: string) {
-    this.http.post<User>(this.signupUrl, {'email': email, 'password': password, 'phone': phone}, this.httpOptions).subscribe(
-      response => {
-        console.log('signed up successfully!');
-        this.router.navigateByUrl('signin');
-      },
-      (error: HttpErrorResponse) => {
-        if (error.status === 409) {
-          alert('An account with email \'' + email + '\' already exists');
-        } else {
-          console.log(error.status);
-          alert('unknown error');
-        }
-      });
+  signUp(email: string, password: string, phone: string): Observable<User> {
+    return this.http.post<User>(this.signupUrl, {'email': email, 'password': password, 'phone': phone}, this.httpOptions);
   }
 
   getRequestUser(): Observable<User> {

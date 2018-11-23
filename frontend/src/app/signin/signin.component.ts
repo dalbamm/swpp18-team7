@@ -3,6 +3,7 @@ import { UserService } from '../service/user.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Response } from '@angular/http';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-signin',
@@ -13,25 +14,26 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private location: Location
     ) { }
 
   ngOnInit() {
-    if (this.userService.isAuthenticated()) {
+    if (this.userService.getSignedIn()) {
       this.router.navigateByUrl('main');
     }
   }
 
   onClickSignin() {
-    let signinForm = document.forms['form'];
-    let emailInput = signinForm['email'].value;
-    let passwordInput = signinForm['password'].value;
+    const signinForm = document.forms['form'];
+    const emailInput = signinForm['email'].value;
+    const passwordInput = signinForm['password'].value;
 
     this.userService.signIn(emailInput, passwordInput).subscribe(
       (response: Response) => {
-        this.userService.signedIn = true;
+        this.userService.setSignedIn(true);
         this.userService.getRequestUser().subscribe(user => {
-          this.userService.currUser = user;
+          this.userService.setCurrentUser(user);
           this.router.navigateByUrl('main');
         });
       },
@@ -46,4 +48,8 @@ export class SigninComponent implements OnInit {
     this.router.navigateByUrl('signup');
   }
 
+  // navigate back to previous page
+  onClickCancel() {
+    this.location.back();
+  }
 }

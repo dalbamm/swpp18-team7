@@ -29,23 +29,25 @@ describe('UserService', () => {
   }));
 
 
- 	describe(': signIn', () => {
-	  it('should sign in user', async(() => {
-	  	let user: User = {id: 1, email: "fake@fake.com", password:"12345", signedIn: true};
+	describe(': signIn', () => {
+		it('should sign in user', async(() => {
+			const user: User = {id: 1, email: 'fake@fake.com', password: '12345', signedIn: true};
+			let reqSignin;
+			
 
-	  	userService.signIn(user.email, user.password);
+			userService.signIn(user.email, user.password).subscribe(() => {
+				reqSignin = httpTestingController.expectOne(userService.signinUrl);
+				expect(reqSignin.request.method).toEqual('POST');
+			});
 
-	  	const reqSignin = httpTestingController.expectOne(userService.signinUrl);
-	  	expect(reqSignin.request.method).toEqual('POST');
+			reqSignin.flush({status: 204});
 
-	  	reqSignin.flush({status: 204});
+			const reqUser = httpTestingController.expectOne(userService.userUrl);
+			expect(reqUser.request.method).toEqual('GET');
 
-	  	const reqUser = httpTestingController.expectOne(userService.userUrl);
-	  	expect(reqUser.request.method).toEqual('GET');
-
-	  	reqUser.flush(user);
-	  	expect(userService.isAuthenticated()).toEqual(true);
-	  }));
+			reqUser.flush(user);
+			expect(userService.getSignedIn()).toEqual(true);
+		}));
 
 	  it('should throw an error when login information is incorrect', async(() => {
 	  	userService.signIn('wrong', 'wrong');
@@ -55,7 +57,7 @@ describe('UserService', () => {
 
 	  	req.flush({status: 403});
 
-	  	expect(userService.isAuthenticated()).toEqual(false);
+	  	expect(userService.getSignedIn()).toEqual(false);
 	  	expect(userService.getCurrentUser()).toBeFalsy();
 	  }));
 	});

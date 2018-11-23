@@ -27,9 +27,7 @@ export class AppComponent {
         this.isSignin = this.router.url === '/signin';
 
         if (val instanceof NavigationEnd) {
-          console.log('navigation change detected');
           this.user = this.userService.getCurrentUser();
-          console.log(this.user);
         }
       });
      }

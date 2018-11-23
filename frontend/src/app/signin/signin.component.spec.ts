@@ -13,7 +13,7 @@ describe('SigninComponent: ', () => {
 
   beforeEach(async(() => {
     routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
-    const userSpy = jasmine.createSpyObj('UserService', ['signIn', 'isAuthenticated']);
+    const userSpy = jasmine.createSpyObj('UserService', ['signIn', 'getSignedIn']);
 
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule ],
@@ -42,7 +42,7 @@ describe('SigninComponent: ', () => {
 
   describe('user is signed in: ', () => {
     beforeEach(() => {
-      userServiceSpy.isAuthenticated.and.returnValue(true);
+      userServiceSpy.getSignedIn.and.returnValue(true);
     });
 
     it('should redirect to /main if user is already signed in', () => {
@@ -59,7 +59,7 @@ describe('SigninComponent: ', () => {
 
   describe('user is not signed in: ', () => {
     beforeEach(() => {
-      userServiceSpy.isAuthenticated.and.returnValue(false);
+      userServiceSpy.getSignedIn.and.returnValue(false);
     });
 
 
