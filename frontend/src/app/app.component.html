@@ -11,10 +11,10 @@
         <button *ngIf="user" class="buttons" id="user-info-button" (click)="onClickUserInfo()">{{user.email}}</button>
       </td>
       <td style="width: 10%;">
-        <button *ngIf="!signedIn" class="buttons" id="sign-in" (click)="onClickSignin()">
+        <button *ngIf="(!user)&&!isSignin" class="buttons" id="sign-in" (click)="onClickSignin()">
           Sign In
         </button>
-        <button *ngIf="signedIn" class="buttons" id="sign-out" (click)="onClickSignout()">
+        <button *ngIf="user" class="buttons" id="sign-out" (click)="onClickSignout()">
           Sign Out
         </button>
       </td>

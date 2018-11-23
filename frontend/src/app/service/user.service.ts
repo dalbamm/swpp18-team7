@@ -18,8 +18,8 @@ export class UserService {
   signoutUrl = 'api/signout';
   userUrl = 'api/user';
 
-  private signedIn: boolean;
-  private currUser: User;
+  signedIn: boolean;
+  currUser: User;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -33,6 +33,7 @@ export class UserService {
     private router: Router
     ) {
         this.signedIn = false;
+        this.currUser = null;
      }
 
   isAuthenticated(): boolean {
@@ -43,22 +44,10 @@ export class UserService {
     return this.currUser;
   }
 
-
-  signIn(email: string, password: string) {
-    this.http.post<Response>(this.signinUrl, {'email': email, 'password': password}, this.httpOptions).subscribe(
-      (response: Response) => {
-        this.getRequestUser().subscribe(user => {
-          this.currUser = user;
-          console.log('signed in successfully');
-          this.signedIn = true;
-          this.router.navigateByUrl('main');
-        });
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.status);
-        alert('Please check your information again');
-      });
+  signIn(email: string, password: string): Observable<Response> {
+    return this.http.post<Response>(this.signinUrl, {'email': email, 'password': password}, this.httpOptions);
   }
+
 
   signUp(email: string, password: string, phone: string) {
     this.http.post<User>(this.signupUrl, {'email': email, 'password': password, 'phone': phone}, this.httpOptions).subscribe(
@@ -76,23 +65,13 @@ export class UserService {
       });
   }
 
-  // used within the service
-  private getRequestUser(): Observable<User> {
+  getRequestUser(): Observable<User> {
     return this.http.get<User>(this.userUrl);
   }
 
-  signOut() {
-    this.http.get<Response>(this.signoutUrl).subscribe(
-      (response: Response) => {
-        this.currUser = null;
-        console.log('signed out successfully');
-        this.router.navigateByUrl('main');
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.status);
-        console.log(error.message);
-      });
+  signOut(): Observable<Response> {
+    this.currUser = null;
+    this.signedIn = false;
+    return this.http.get<Response>(this.signoutUrl);
   }
-
-
 }
