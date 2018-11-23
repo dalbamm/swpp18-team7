@@ -56,7 +56,7 @@ export class UserService {
         this.router.navigateByUrl('signin');
       },
       (error: HttpErrorResponse) => {
-        if (error.status === 418) {
+        if (error.status === 409) {
           alert('An account with email \'' + email + '\' already exists');
         } else {
           console.log(error.status);

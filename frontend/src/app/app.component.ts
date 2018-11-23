@@ -15,7 +15,6 @@ import { UserService } from './service/user.service';
 export class AppComponent {
   title = 'Boogle';
   user: User = null;
-  
   isMain = true;
   isSignin = false;
 
