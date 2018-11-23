@@ -22,16 +22,16 @@ export class UserService {
   private currUser: User;
 
   httpOptions = {
-  	headers: new HttpHeaders({
+    headers: new HttpHeaders({
     'Content-Type':  'application/json',
     'Authorization': 'my-auth-token',
-   	})
-  }
+    })
+  };
 
   constructor(
-  	private http: HttpClient,
-  	private router: Router
- 	) {
+    private http: HttpClient,
+    private router: Router
+    ) {
         this.signedIn = false;
      }
 
@@ -45,55 +45,53 @@ export class UserService {
 
 
   signIn(email: string, password: string) {
-  	this.http.post<Response>(this.signinUrl, {'email': email, 'password': password}, this.httpOptions).subscribe(
-		(response: Response) => {
+    this.http.post<Response>(this.signinUrl, {'email': email, 'password': password}, this.httpOptions).subscribe(
+      (response: Response) => {
         this.getRequestUser().subscribe(user => {
           this.currUser = user;
           console.log('signed in successfully');
           this.signedIn = true;
           this.router.navigateByUrl('main');
         });
-
-  		},
-  		(error: HttpErrorResponse) => {
-  			console.log(error.status);
-  			alert("Please check your information again");
-  		});
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.status);
+        alert('Please check your information again');
+      });
   }
 
-  signUp(email: string, password: string, phone: string){
-    this.http.post<User>(this.signupUrl, {"email": email, "password":password, "phone":phone}, this.httpOptions).subscribe(
-  		response => {
-  			console.log("signed up successfully!");
+  signUp(email: string, password: string, phone: string) {
+    this.http.post<User>(this.signupUrl, {'email': email, 'password': password, 'phone': phone}, this.httpOptions).subscribe(
+      response => {
+        console.log('signed up successfully!');
         this.router.navigateByUrl('signin');
-  		},
-  		(error: HttpErrorResponse) => {
-        if(error.status==418){
-          alert("An account with email '" + email +"' already exists");
-        }
-        else {
+      },
+      (error: HttpErrorResponse) => {
+        if (error.status === 418) {
+          alert('An account with email \'' + email + '\' already exists');
+        } else {
           console.log(error.status);
-  			  alert("unknown error");
+          alert('unknown error');
         }
-  		});
+      });
   }
 
   // used within the service
-  private getRequestUser(): Observable<User>{
+  private getRequestUser(): Observable<User> {
     return this.http.get<User>(this.userUrl);
   }
 
-  signOut(){
-  	this.http.get<Response>(this.signoutUrl).subscribe(
-  		(response: Response) => {
+  signOut() {
+    this.http.get<Response>(this.signoutUrl).subscribe(
+      (response: Response) => {
         this.currUser = null;
-  			console.log("signed out successfully");
-  			this.router.navigateByUrl('main');
-  		},
-  		(error: HttpErrorResponse) => {
-  			console.log(error.status);
-  			console.log(error.message);
-  		});
+        console.log('signed out successfully');
+        this.router.navigateByUrl('main');
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.status);
+        console.log(error.message);
+      });
   }
 
 

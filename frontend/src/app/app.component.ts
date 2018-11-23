@@ -22,10 +22,9 @@ export class AppComponent {
     private userService: UserService
     ) {
       router.events.subscribe(() => {
-        if ( this.router.url == '/main'){
+        if ( this.router.url === '/main') {
           this.isMain = true;
-        }
-        else{
+        } else {
           this.isMain = false;
         }
         this.user = this.userService.getCurrentUser();
