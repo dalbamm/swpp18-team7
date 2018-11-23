@@ -19,7 +19,7 @@ class UserModelTestCase(TestCase):
                                           content_type='application/json')
         self.assertEqual(response_post_wrong.status_code, 401)
 
-        # correct user info
+        # correct user infoco
         response_post_right = client.post(
             '/api/signin', json.dumps({'email': 'test@test.com', 'password': 'Abcd1234'}), content_type='application/json')
         self.assertEqual(response_post_right.status_code, 204)
