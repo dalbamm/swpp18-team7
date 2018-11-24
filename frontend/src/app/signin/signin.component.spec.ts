@@ -20,13 +20,13 @@ describe('SigninComponent: ', () => {
   beforeEach(async(() => {
     routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
     const userSpy = jasmine.createSpyObj('UserService', ['signIn', 'getSignedIn', 'setSignedIn', 'getRequestUser', 'setCurrentUser']);
-    const locationSpy = jasmine.createSpyObj('Location', ['back']);
+    locationSpy = jasmine.createSpyObj('Location', ['back']);
 
     TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule ],
       declarations: [ SigninComponent ],
       providers: [
-        {provide: Location, usevalue: locationSpy},
+        {provide: Location, useValue: locationSpy},
         {provide: Router, useValue: routerSpy},
         {provide: UserService, useValue: userSpy}
       ]
@@ -46,6 +46,12 @@ describe('SigninComponent: ', () => {
 
   it('should create the app', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call location.back when user clicks cancel', () => {
+    component.onClickCancel();
+
+    expect(locationSpy.back.calls.count()).toEqual(1);
   });
 
 
@@ -78,7 +84,6 @@ describe('SigninComponent: ', () => {
       component.onClickSignup();
 
       const spy = routerSpy.navigateByUrl;
-      console.log(spy.calls.all());
       const navArgs = spy.calls.first().args[0];
 
       expect(navArgs).toBe('signup');
@@ -92,6 +97,11 @@ describe('SigninComponent: ', () => {
       component.onClickSignin();
       
       expect(userServiceSpy.signIn.calls.count()).toEqual(1);
+
+      const spy = routerSpy.navigateByUrl;
+      const navArgs = spy.calls.first().args[0];
+
+      expect(navArgs).toBe('main');
     });
   });
 });
