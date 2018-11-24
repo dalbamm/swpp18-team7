@@ -8,6 +8,9 @@ import { ArticleService } from '../service/article.service';
 import { Book } from '../models/book';
 import { BookService } from '../service/book.service';
 
+import { ResultViewInSearchComponent } from '../result-view-in-search/result-view-in-search.component';
+import { CandidateViewInSearchComponent } from '../candidate-view-in-search/candidate-view-in-search.component';
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',

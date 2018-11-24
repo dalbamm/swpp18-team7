@@ -1,13 +1,97 @@
+div::-webkit-scrollbar { width: auto; height: 10px;};
+div::-webkit-scrollbar-button:start:decrement, 
+div::-webkit-scrollbar-button:end:increment {display: block; 
+    width: 12px;height: 12px; background:  rgba(0,0,0,.05);}
+div::-webkit-scrollbar-track {     background: rgba(0,0,0,.05); }
+div::-webkit-scrollbar-thumb {  background: rgba(0,0,0,.1);  }
+
 .showResult{
     border: solid 1px black;
-    flex: 3;
-    margin-left: 20px;
+    margin: 0;
+    padding: 0;
+    margin-top: 20px;
     padding-left: 50px;
     padding-top: 20px;
     padding-right:50px;
+    text-align: center;
     border-radius: 25px;
-    
+    height: 450px;
+}
+.showResult .title{
+    font-size: 1.25rem;
+    font-weight: 550;
+}
+.showResult .empty{
+    line-height: 2;
+}
+.showResult .resultUlContainer{
+    overflow-x: scroll;
+}
+.showResult .resultUlContainer .resultUl{
+ 
 }
 .empty{
     padding: 50px 0;
+}
+li {
+    list-style: none;
+}
+.resultUl{
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+    width: inherit;
+}
+.resultUlContainer{
+    padding-top: 50px;
+    justify-content: center;
+    padding-bottom:50px;
+}
+.resultElement{
+    margin: 20px 15px;
+    padding: 20px 0px;
+    border: solid 0.5px lightsteelblue;
+    border-radius: 12px;
+
+}
+.resultElement .container{
+    margin: 0 20px;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+}
+.resultElement .container .logoContainer{
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background-image: url('http://image.kyobobook.co.kr/ink/images/gnb/logo_kyobo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 15px;
+    margin-right: 25px;
+}
+
+.resultElement .container .logoContainer_ala{
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background-image: url('https://image.aladin.co.kr/img/header/2011/aladin_logo_new.gif');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 15px;
+    margin-right: 25px;
+}
+.resultElement .container .contentContainer{
+    font-size: 1rem;
+    font-weight: normal;
+    padding-top: 23px;
+}
+.resultElement .container .buttonContainer{
+    
+}
+.resultElement .container .buttonContainer .vacancy{
+    width: inherit;
+    height: 55px;
 }

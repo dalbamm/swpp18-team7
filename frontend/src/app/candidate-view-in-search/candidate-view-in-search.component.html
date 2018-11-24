@@ -1,12 +1,27 @@
-<!-- <div class="showCandidates"> -->
-<div>
-  검색 후보
-  <div class="empty" *ngIf="displayCandidatesFlag===false"></div>
-  <ul *ngIf="displayCandidatesFlag===true">
-    <li *ngFor="let candidate of candidateList">
-      <div class="candidateElement" (click)="onClickCandidate(candidate)">
-          <img src="{{candidate.imageLink}}">
+<div class="resultPart"> 
+  <div class="showCandidates">
+        <div class="title">검색 후보</div>
+        <div class="empty" *ngIf="displayCandidatesFlag===false"></div>
+        <div class="candidatesContainer" *ngIf="displayCandidatesFlag===true">
+          <ul class="candidateUl">
+            <li *ngFor="let candidate of candidateList">
+              <div class="candidateElement" (click)="onClickCandidate(candidate)">
+                  <img src="{{candidate.imageLink}}" class="candidateImage">
+              </div>
+            </li>
+         </ul>
+        </div>
       </div>
-    </li>
-  </ul>
-</div>
+      <div class="bookInfo">
+        <div>책 정보</div>
+        <div class="content">
+          제목: {{selectedCandidate.title}}<br/>
+          저자: {{selectedCandidate.author}}<br/>
+          출판사: {{selectedCandidate.publisher}}<br/>
+          출판년도: {{selectedCandidate.publishedYear}}<br/>
+          정가: {{selectedCandidate.marketPrice}}<br/>
+        </div>
+        <div class="vacancy"></div>
+        <button class="buttons" (click)="onClickStartSearch()">검색 시작</button>
+      </div>
+    </div>
