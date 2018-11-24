@@ -19,7 +19,12 @@ export class SearchComponent implements OnInit {
   resultList: Article[]; // ArticleList
   displayCandidatesFlag = false;
   displayResultFlag = false;
+  displayBookInfo = false;
   testBook: Book;
+  testBook2: Book;
+  testArticle: Article;
+  testArticle2: Article;
+  selectedCandidate: Book;
   constructor(
     private router: Router,
     private articleService: ArticleService,
@@ -27,10 +32,7 @@ export class SearchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // Check if the user is authenticated or not
-    // if(authenticated == false)  router.navigateByUrl('')
-    this.testBook = new Book;
-    this.testBook.ISBN = '123';
+    this.initSelectedCandidate();
   }
 
   goSalePage() {
@@ -47,10 +49,18 @@ export class SearchComponent implements OnInit {
 
   onClickCandidate(clickedCandidate) {
     const isbn = clickedCandidate.ISBN;
-    console.log('ipt: ' + isbn);
-    this.getSearchResult(isbn);
+    this.displayBookInfo = true;
+    this.selectedCandidate = clickedCandidate;
+    console.log('isbn: ' + isbn);
   }
-
+  onClickStartSearch() {
+    const isbn = this.selectedCandidate.ISBN;
+    if ( this.selectedCandidate.ISBN === undefined ) {
+      alert('책을 선택해주세요!');
+    } else {
+      this.getSearchResult(isbn);
+    }
+  }
   onClickGoDirect() {
     alert('GoDirect clicked');
   }
@@ -61,8 +71,10 @@ export class SearchComponent implements OnInit {
 
   onClickResult(clickedResult) {
     const goLink = clickedResult.link;
-    this.router.navigateByUrl(goLink);
+    console.log('Link: ' + goLink);
+    window.open(goLink);
   }
+
   getArticleList() {  }
 
   getSearchResult(isbn) {
@@ -74,7 +86,6 @@ export class SearchComponent implements OnInit {
       // Starts to display result list after the promise is resolved.
       this.resultList = processedResponse;
       this.displayResultFlag = true;
-      console.log('displayFlag is renewed');
     })
     .catch(function(err) {
       console.log('error occured during getSearchResult: ' + err);
@@ -112,4 +123,10 @@ export class SearchComponent implements OnInit {
   }
 
   isValidQuery() {}
+
+  initSelectedCandidate() {
+    const tmp = new Book;
+    this.selectedCandidate = tmp;
+  }
 }
+

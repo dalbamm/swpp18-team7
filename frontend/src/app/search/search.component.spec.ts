@@ -27,7 +27,7 @@ describe('SearchComponent', () => {
     fixture.autoDetectChanges();
     expect(window.alert).toHaveBeenCalledWith("goSalePage clicked");
   });
-  
+
   it('should alert when click search', () => {
     spyOn(window,"alert");
     component.onClickSearch();

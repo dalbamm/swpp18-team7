@@ -1,0 +1,13 @@
+.showResult{
+    border: solid 1px black;
+    flex: 3;
+    margin-left: 20px;
+    padding-left: 50px;
+    padding-top: 20px;
+    padding-right:50px;
+    border-radius: 25px;
+    
+}
+.empty{
+    padding: 50px 0;
+}

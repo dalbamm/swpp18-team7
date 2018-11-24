@@ -135,7 +135,7 @@ class Crawler:
 		for detail in details:
 			datum = {}
 			datum['site'] = 'kyobo'
-			datum['price'] = detail.select('td.price > div.sell_price > strong')[0].text.strip()
+			datum['price'] = self.parsePrice(detail.select('td.price > div.sell_price > strong')[0].text.strip())
 			datum['link'] = detail.select('div.title > a')[0]['href'].strip()
 			data.append(datum)
 
@@ -152,7 +152,7 @@ class Crawler:
 			for detail in details:
 				datum = {}
 				datum['site'] = 'aladin'
-				datum['price'] = detail.select('ul > li:nth-of-type(2) > span > b')[0].text.strip()
+				datum['price'] = self.parsePrice(detail.select('ul > li:nth-of-type(2) > span > b')[0].text.strip())
 				datum['link'] = detail.select('ul > li:nth-of-type(1) > a.bo')[0]['href'].strip()
 				data.append(datum)
 		except:

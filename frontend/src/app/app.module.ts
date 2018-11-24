@@ -11,6 +11,8 @@ import { SearchComponent } from './search/search.component';
 import { SignupComponent } from './signup/signup.component';
 
 import { BookService } from './service/book.service';
+import { CandidateViewInSearchComponent } from './candidate-view-in-search/candidate-view-in-search.component';
+import { ResultViewInSearchComponent } from './result-view-in-search/result-view-in-search.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { BookService } from './service/book.service';
     MainComponent,
     SigninComponent,
     SearchComponent,
-    SignupComponent
+    SignupComponent,
+    CandidateViewInSearchComponent,
+    ResultViewInSearchComponent
   ],
   imports: [
     FormsModule,
