@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
+import { of, Observable } from 'rxjs';
+import { Response, ResponseOptions } from '@angular/http'; 
 
 import { UserService } from '../service/user.service';
 import { SignupComponent } from './signup.component';
@@ -13,7 +15,7 @@ describe('SignupComponent: ', () => {
   let userServiceSpy: jasmine.SpyObj<UserService>;
 
   beforeEach(async(() => {
-    const userSpy = jasmine.createSpyObj('UserService', ['signUp']);   
+    const userSpy = jasmine.createSpyObj('UserService', ['signUp', 'setSignedIn']);
     routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
 
     TestBed.configureTestingModule({
@@ -59,7 +61,7 @@ describe('SignupComponent: ', () => {
                       phone: string): void {
       const el = fixture.nativeElement;
 
-      const emailInput: HTMLInputElement = el.querySelector('#email-input')
+      const emailInput: HTMLInputElement = el.querySelector('#email-input');
       const passwordInput: HTMLInputElement = el.querySelector('#password-input');
       const confirmationInput: HTMLInputElement = el.querySelector('#confirmation-input');
       const phoneInput: HTMLInputElement = el.querySelector('#phone-input'); 
@@ -72,6 +74,8 @@ describe('SignupComponent: ', () => {
 
     beforeEach(() => {
       spyOn(window, 'alert');
+      userServiceSpy.signUp.and.returnValue(of(new Response(new ResponseOptions)));
+
     });
 
     it('all inputs are valid -> call userService.signUp()', () => {

@@ -39,6 +39,6 @@ describe('MainComponent', () => {
 
   it('should redirect to search page when search button is clicked', () => {
     component.onClickSearchButton();
-    expect(routerSpy.navigateByUrl);
+    expect(routerSpy.navigateByUrl).toHaveBeenCalledWith('search');
   });
 });

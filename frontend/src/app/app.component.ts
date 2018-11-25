@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { Response } from '@angular/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { User } from './models/user';
 import { UserService } from './service/user.service';
@@ -14,23 +16,19 @@ export class AppComponent {
   title = 'Boogle';
   user: User = null;
   isMain = true;
-
-  signedIn = false;
+  isSignin = false;
 
   constructor (
     private router: Router,
     private userService: UserService
     ) {
-      router.events.subscribe(() => {
-        if ( this.router.url == '/main'){
-          this.isMain = true;
+      router.events.subscribe((val) => {
+        this.isMain = this.router.url === '/main';
+        this.isSignin = this.router.url === '/signin';
+
+        if (val instanceof NavigationEnd) {
+          this.user = this.userService.getCurrentUser();
         }
-        else{
-          this.isMain = false;
-        }
-        this.user = this.userService.getCurrentUser();
-        console.log(this.user);
-        this.signedIn = this.userService.isAuthenticated();
       });
      }
 
@@ -42,9 +40,15 @@ export class AppComponent {
   }
 
   onClickSignout(): void {
-    this.user = null;
-    this.signedIn = false;
-    this.userService.signOut();
+    this.userService.signOut().subscribe(
+      (response: Response) => {
+        this.user = null;
+        console.log('signed out successfully');
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.status);
+        console.log('SIGNOUT ERROR');
+      });
   }
 
   onClickUserInfo(): void {
