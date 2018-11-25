@@ -22,79 +22,54 @@ export class UserService {
   private currUser: User;
 
   httpOptions = {
-  	headers: new HttpHeaders({
+    headers: new HttpHeaders({
     'Content-Type':  'application/json',
     'Authorization': 'my-auth-token',
-   	})
-  }
+    })
+  };
 
   constructor(
-  	private http: HttpClient,
-  	private router: Router
- 	) {
+    private http: HttpClient,
+    private router: Router
+    ) {
         this.signedIn = false;
-     }
+        this.currUser = null;
+      }
 
-  isAuthenticated(): boolean {
+  /* Mutators, Accessors */
+  getSignedIn(): boolean {
     return this.signedIn;
+  }
+
+  setSignedIn(signedIn: boolean): void {
+    this.signedIn = signedIn;
   }
 
   getCurrentUser(): User {
     return this.currUser;
   }
 
-
-  signIn(email: string, password: string) {
-  	this.http.post<Response>(this.signinUrl, {'email': email, 'password': password}, this.httpOptions).subscribe(
-		(response: Response) => {
-        this.getRequestUser().subscribe(user => {
-          this.currUser = user;
-          console.log('signed in successfully');
-          this.signedIn = true;
-          this.router.navigateByUrl('main');
-        });
-
-  		},
-  		(error: HttpErrorResponse) => {
-  			console.log(error.status);
-  			alert("Please check your information again");
-  		});
+  setCurrentUser(user: User): void {
+    this.currUser = user;
   }
 
-  signUp(email: string, password: string, phone: string){
-    this.http.post<User>(this.signupUrl, {"email": email, "password":password, "phone":phone}, this.httpOptions).subscribe(
-  		response => {
-  			console.log("signed up successfully!");
-        this.router.navigateByUrl('signin');
-  		},
-  		(error: HttpErrorResponse) => {
-        if(error.status==418){
-          alert("An account with email '" + email +"' already exists");
-        }
-        else {
-          console.log(error.status);
-  			  alert("unknown error");
-        }
-  		});
+
+  /* Http Requests */
+  signIn(email: string, password: string): Observable<Response> {
+    return this.http.post<Response>(this.signinUrl, {'email': email, 'password': password}, this.httpOptions);
   }
 
-  // used within the service
-  private getRequestUser(): Observable<User>{
+  signUp(email: string, password: string, phone: string): Observable<User> {
+    return this.http.post<User>(this.signupUrl, {'email': email, 'password': password, 'phone': phone}, this.httpOptions);
+  }
+
+  getRequestUser(): Observable<User> {
     return this.http.get<User>(this.userUrl);
   }
 
-  signOut(){
-  	this.http.get<Response>(this.signoutUrl).subscribe(
-  		(response: Response) => {
-        this.currUser = null;
-  			console.log("signed out successfully");
-  			this.router.navigateByUrl('main');
-  		},
-  		(error: HttpErrorResponse) => {
-  			console.log(error.status);
-  			console.log(error.message);
-  		});
+  signOut(): Observable<Response> {
+    this.currUser = null;
+    this.signedIn = false;
+    return this.http.get<Response>(this.signoutUrl);
   }
-
-
 }

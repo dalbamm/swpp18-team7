@@ -42,7 +42,7 @@ def signup(request):
         phone = req_data['phone']
 
         if User.objects.filter(username=email).exists():
-            return HttpResponse('An account already exists with email {:}'.format(email), status=418)
+            return HttpResponse('An account already exists with email {:}'.format(email), status=409)
         else:
             User.objects.create_user(username=email, password=password)
             return HttpResponse(status=201)
@@ -80,6 +80,7 @@ def user(request):
         # TODO add POST method
         return HttpResponseNotAllowed(['GET'])
 
+
 def getCandidateList(request, **kwargs):
     if request.method == 'GET':
         title = kwargs['title']
@@ -92,6 +93,7 @@ def getCandidateList(request, **kwargs):
         return JsonResponse(data, safe=False, status=200)
     else:
         return HttpResponseNotAllowed(['GET'])
+
 
 def getUsedbookList(request, **kwargs):
     if request.method == 'GET':

@@ -9,7 +9,7 @@ import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
-  { path: 'main', component: MainComponent },
+  { path: 'main', component: MainComponent, runGuardsAndResolvers: 'always' },
   { path: 'search', component: SearchComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
@@ -19,7 +19,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})
   ],
   exports: [
     RouterModule
