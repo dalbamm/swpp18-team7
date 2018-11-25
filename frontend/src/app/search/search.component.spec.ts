@@ -14,14 +14,14 @@ describe('SearchComponent', () => {
       imports: [FormsModule,
       RouterTestingModule]
     })
-    .compileComponents()
+    .compileComponents();
     }));
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  it('should alert when click goSalePage', () => {
+  /*it('should alert when click goSalePage', () => {
     spyOn(window,"alert");
     component.goSalePage();
     fixture.autoDetectChanges();
@@ -51,6 +51,5 @@ describe('SearchComponent', () => {
     fixture.autoDetectChanges();
     expect(window.alert).toHaveBeenCalledWith("Interested clicked");
   });
-
-  
+*/
 });

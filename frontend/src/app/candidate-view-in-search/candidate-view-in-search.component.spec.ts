@@ -1,5 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router, NavigationEnd } from '@angular/router';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 import { CandidateViewInSearchComponent } from './candidate-view-in-search.component';
 
 describe('CandidateViewInSearchComponent', () => {
@@ -8,7 +13,12 @@ describe('CandidateViewInSearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CandidateViewInSearchComponent ]
+      declarations: [ CandidateViewInSearchComponent ],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
+        FormsModule
+      ]
     })
     .compileComponents();
   }));
