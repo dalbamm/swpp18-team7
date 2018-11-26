@@ -44,6 +44,10 @@ export class AppComponent {
       (response: Response) => {
         this.user = null;
         console.log('signed out successfully');
+
+        if (this.router.url === '/account') {
+          this.router.navigateByUrl('/main');
+        }
       },
       (error: HttpErrorResponse) => {
         console.log(error.status);
@@ -52,6 +56,6 @@ export class AppComponent {
   }
 
   onClickUserInfo(): void {
-    alert('clicked user info');
-  }
+    this.router.navigateByUrl('account');
+  } // untested
 }

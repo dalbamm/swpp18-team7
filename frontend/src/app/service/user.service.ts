@@ -17,6 +17,7 @@ export class UserService {
   signupUrl = 'api/signup';
   signoutUrl = 'api/signout';
   userUrl = 'api/user';
+  csrfToken: string;
 
   private signedIn: boolean;
   private currUser: User;
@@ -25,6 +26,7 @@ export class UserService {
     headers: new HttpHeaders({
     'Content-Type':  'application/json',
     'Authorization': 'my-auth-token',
+    'X-CSRFToken': document.cookie.split('csrftoken=')[1]
     })
   };
 

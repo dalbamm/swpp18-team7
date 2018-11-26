@@ -13,6 +13,7 @@ import { SignupComponent } from './signup/signup.component';
 import { BookService } from './service/book.service';
 import { CandidateViewInSearchComponent } from './candidate-view-in-search/candidate-view-in-search.component';
 import { ResultViewInSearchComponent } from './result-view-in-search/result-view-in-search.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ResultViewInSearchComponent } from './result-view-in-search/result-view
     SearchComponent,
     SignupComponent,
     CandidateViewInSearchComponent,
-    ResultViewInSearchComponent
+    ResultViewInSearchComponent,
+    UserInfoComponent
   ],
   imports: [
     FormsModule,
