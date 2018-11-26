@@ -35,7 +35,7 @@ export class SearchComponent implements OnInit {
     if (this.searchQueryStr === undefined || this.searchQueryStr === '') {
       alert('Input your query in the blank');
     } else {
-      this.enqueuedSearchQueryStr = this.searchQueryStr;
+      this.enqueuedSearchQueryStr = this.searchQueryStr.trim();
     }
   }
 
@@ -46,11 +46,17 @@ export class SearchComponent implements OnInit {
   receiveSearchStartSignal(mayISBN) {
     if ( this.isValidISBN(mayISBN) ) {
       this.enqueuedSearchQueryISBN = mayISBN;
+    } else {
+      alert('Invalid ISBN.. Please check the requested ISBN');
     }
   }
 
   isValidISBN(raw) {
     if (raw === '' || raw === undefined) {
+      return false;
+    }
+
+    if (raw.length !== 10 && raw.length !== 13) {
       return false;
     }
 

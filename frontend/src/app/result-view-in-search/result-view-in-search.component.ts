@@ -15,17 +15,8 @@ import { BookService } from '../service/book.service';
   styleUrls: ['./result-view-in-search.component.css']
 })
 export class ResultViewInSearchComponent implements OnInit, OnChanges {
-  searchQueryStr: string; // Will be binded with searchInput
-  candidateList: Book[]; // CandidateList
   resultList: Article[]; // ArticleList
-  displayCandidatesFlag = false;
   displayResultFlag = false;
-  displayBookInfo = false;
-  testBook: Book;
-  testBook2: Book;
-  testArticle: Article;
-  testArticle2: Article;
-  selectedCandidate: Book;
   recentSearchQueryISBN: string;
 
   constructor(
@@ -57,12 +48,11 @@ export class ResultViewInSearchComponent implements OnInit, OnChanges {
     window.open(goLink);
   }
 
-  getArticleList() {  }
-
   getSearchResult(isbn) {
     this.articleService.getExternalArticles(isbn)
     .then( response => {// Initialize to fulfill missed properties
-      return this.initExternalArticles(response);
+      // return this.initExternalArticles(response);
+      return response;
     })
     .then( processedResponse => {
       // Starts to display result list after the promise is resolved.
@@ -74,14 +64,13 @@ export class ResultViewInSearchComponent implements OnInit, OnChanges {
     });
   }
 
-  initExternalArticles(response) {
-      const len = response.length;
-      for (let i = 0 ; i < len ; ++i) {
-        this.articleService.initExternalArticle(response[i]);
-      }
-      return response;
-  }
-
-  isValidQuery() {}
+  // Not used yet.
+  // initExternalArticles(response) {
+  //     const len = response.length;
+  //     for (let i = 0 ; i < len ; ++i) {
+  //       this.articleService.initExternalArticle(response[i]);
+  //     }
+  //     return response;
+  // }
 
 }

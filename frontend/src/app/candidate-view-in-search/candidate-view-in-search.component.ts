@@ -15,15 +15,9 @@ import { BookService } from '../service/book.service';
 })
 
 export class CandidateViewInSearchComponent implements OnInit, OnChanges {
-  candidateList: Book[]; // CandidateList
-  resultList: Article[]; // ArticleList
+  candidateList: Book[];
   displayCandidatesFlag = false;
-  displayResultFlag = false;
   displayBookInfo = false;
-  testBook: Book;
-  testBook2: Book;
-  testArticle: Article;
-  testArticle2: Article;
   selectedCandidate: Book;
   recentQueryStr: string;
 
@@ -48,17 +42,16 @@ export class CandidateViewInSearchComponent implements OnInit, OnChanges {
   }
 
   onClickCandidate(clickedCandidate) {
-    const isbn = clickedCandidate.ISBN;
     this.displayBookInfo = true;
     this.selectedCandidate = clickedCandidate;
   }
 
   onClickStartSearch() {
-    const isbn = this.selectedCandidate.ISBN;
-    if ( this.selectedCandidate.ISBN === undefined ) {
-      alert('책을 선택해주세요!');
+    if ( this.selectedCandidate === undefined || this.selectedCandidate === null) {
+      alert('Choose a book among the candidates');
     } else {
-      this.searchStartSignalEmitter.emit(this.selectedCandidate.ISBN);
+      const isbn = this.selectedCandidate.ISBN;
+      this.searchStartSignalEmitter.emit(isbn);
     }
   }
 
@@ -84,10 +77,8 @@ export class CandidateViewInSearchComponent implements OnInit, OnChanges {
     return response;
   }
 
-  isValidQuery() {}
-
   initSelectedCandidate() {
-    const tmp = new Book;
+    const tmp = new Book();
     this.selectedCandidate = tmp;
   }
 

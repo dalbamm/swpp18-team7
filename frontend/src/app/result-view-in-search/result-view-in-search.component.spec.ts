@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ResultViewInSearchComponent } from './result-view-in-search.component';
+import { Article } from '../models/article';
 
 describe('ResultViewInSearchComponent', () => {
   let component: ResultViewInSearchComponent;
@@ -37,4 +38,28 @@ describe('ResultViewInSearchComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should alert when onClickInterested is executed', () => {
+    spyOn(window, 'alert');
+    component.onClickInterested();
+    fixture.detectChanges();
+    expect(window.alert).toHaveBeenCalledWith('Interested clicked');
+  });
+
+  it('should open new window with the appropriate address when onClickResult is executed', () => {
+    const tmpArticle = new Article();
+    tmpArticle.link = 'https://www.naver.com';
+    spyOn(window, 'open');
+    component.onClickResult(tmpArticle);
+    fixture.detectChanges();
+    expect(window.open).toHaveBeenCalledWith('https://www.naver.com');
+  });
+
+  it('should alert when getSearchResult is executed', () => {
+    spyOn(window, 'alert');
+    component.getSearchResult('123456789x');
+    fixture.detectChanges();
+    // expect(window.alert).toHaveBeenCalledWith('Interested clicked');
+  });
+
 });
