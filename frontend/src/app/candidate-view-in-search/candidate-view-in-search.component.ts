@@ -47,24 +47,12 @@ export class CandidateViewInSearchComponent implements OnInit, OnChanges {
     }
   }
 
-  goSalePage() {
-    alert('goSalePage clicked');
-  }
-
-  onClickSearch() {
-    if (this.searchQueryStr === undefined || this.searchQueryStr === '') {
-      alert('Input your query in the blank');
-    } else {
-      this.getCandidateResult(null);
-    }
-  }
-
   onClickCandidate(clickedCandidate) {
     const isbn = clickedCandidate.ISBN;
     this.displayBookInfo = true;
     this.selectedCandidate = clickedCandidate;
-    console.log('isbn: ' + isbn);
   }
+
   onClickStartSearch() {
     const isbn = this.selectedCandidate.ISBN;
     if ( this.selectedCandidate.ISBN === undefined ) {
@@ -72,36 +60,6 @@ export class CandidateViewInSearchComponent implements OnInit, OnChanges {
     } else {
       this.searchStartSignalEmitter.emit(this.selectedCandidate.ISBN);
     }
-  }
-  onClickGoDirect() {
-    alert('GoDirect clicked');
-  }
-
-  onClickInterested() {
-    alert('Interested clicked');
-  }
-
-  onClickResult(clickedResult) {
-    const goLink = clickedResult.link;
-    console.log('Link: ' + goLink);
-    window.open(goLink);
-  }
-
-  getArticleList() {  }
-
-  getSearchResult(isbn) {
-    this.articleService.getExternalArticles(isbn)
-    .then( response => {// Initialize to fulfill missed properties
-      return this.initExternalArticles(response);
-    })
-    .then( processedResponse => {
-      // Starts to display result list after the promise is resolved.
-      this.resultList = processedResponse;
-      this.displayResultFlag = true;
-    })
-    .catch(function(err) {
-      console.log('error occured during getSearchResult: ' + err);
-    });
   }
 
   getCandidateResult(que) {
@@ -116,14 +74,6 @@ export class CandidateViewInSearchComponent implements OnInit, OnChanges {
     .catch(function(err) {
       console.log('error occured during getCandidateResult: ' + err);
     });
-  }
-
-  initExternalArticles(response) {
-      const len = response.length;
-      for (let i = 0 ; i < len ; ++i) {
-        this.articleService.initExternalArticle(response[i]);
-      }
-      return response;
   }
 
   initBooks(response: Book[]) {

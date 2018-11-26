@@ -37,7 +37,6 @@ export class ResultViewInSearchComponent implements OnInit, OnChanges {
   @Input() searchQueryISBN: string;
 
   ngOnInit() {
-    this.initSelectedCandidate();
   }
 
   ngOnChanges(change: SimpleChanges) {
@@ -46,36 +45,6 @@ export class ResultViewInSearchComponent implements OnInit, OnChanges {
       this.getSearchResult(this.searchQueryISBN);
       this.recentSearchQueryISBN = this.searchQueryISBN;
     }
-  }
-
-  goSalePage() {
-    alert('goSalePage clicked');
-  }
-
-  onClickSearch() {
-    if (this.searchQueryStr === undefined || this.searchQueryStr === '') {
-      alert('Input your query in the blank');
-    } else {
-      this.getCandidateResult();
-    }
-  }
-
-  onClickCandidate(clickedCandidate) {
-    const isbn = clickedCandidate.ISBN;
-    this.displayBookInfo = true;
-    this.selectedCandidate = clickedCandidate;
-    console.log('isbn: ' + isbn);
-  }
-  onClickStartSearch() {
-    const isbn = this.selectedCandidate.ISBN;
-    if ( this.selectedCandidate.ISBN === undefined ) {
-      alert('책을 선택해주세요!');
-    } else {
-      this.getSearchResult(isbn);
-    }
-  }
-  onClickGoDirect() {
-    alert('GoDirect clicked');
   }
 
   onClickInterested() {
@@ -91,34 +60,17 @@ export class ResultViewInSearchComponent implements OnInit, OnChanges {
   getArticleList() {  }
 
   getSearchResult(isbn) {
-    console.log(0);
     this.articleService.getExternalArticles(isbn)
     .then( response => {// Initialize to fulfill missed properties
-      console.log(1);
       return this.initExternalArticles(response);
     })
     .then( processedResponse => {
       // Starts to display result list after the promise is resolved.
-      console.log(2);
       this.resultList = processedResponse;
       this.displayResultFlag = true;
     })
     .catch(function(err) {
       console.log('error occured during getSearchResult: ' + err);
-    });
-  }
-
-  getCandidateResult() {
-    this.bookService.getCandidateList(this.searchQueryStr)
-    .then( response => {
-      return this.initBooks(response);
-    })
-    .then( processedResponse => {
-      this.candidateList = processedResponse;
-      this.displayCandidatesFlag = true;
-    })
-    .catch(function(err) {
-      console.log('error occured during getCandidateResult: ' + err);
     });
   }
 
@@ -130,19 +82,6 @@ export class ResultViewInSearchComponent implements OnInit, OnChanges {
       return response;
   }
 
-  initBooks(response: Book[]) {
-    const len = response.length;
-    for (let i = 0 ; i < len ; ++i) {
-      this.bookService.initBook(response[i]);
-    }
-    return response;
-  }
-
   isValidQuery() {}
-
-  initSelectedCandidate() {
-    const tmp = new Book;
-    this.selectedCandidate = tmp;
-  }
 
 }
