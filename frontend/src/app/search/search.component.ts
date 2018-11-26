@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -18,6 +18,7 @@ import { CandidateViewInSearchComponent } from '../candidate-view-in-search/cand
 })
 export class SearchComponent implements OnInit {
   searchQueryStr: string; // Will be binded with searchInput
+  enqueuedSearchQueryStr: string;
   candidateList: Book[]; // CandidateList
   resultList: Article[]; // ArticleList
   displayCandidatesFlag = false;
@@ -28,6 +29,9 @@ export class SearchComponent implements OnInit {
   testArticle: Article;
   testArticle2: Article;
   selectedCandidate: Book;
+  searchCandidatesFlag = false;
+
+  @Output() startSearchCandidate: EventEmitter<any> = new EventEmitter();
   constructor(
     private router: Router,
     private articleService: ArticleService,
@@ -46,7 +50,7 @@ export class SearchComponent implements OnInit {
     if (this.searchQueryStr === undefined || this.searchQueryStr === '') {
       alert('Input your query in the blank');
     } else {
-      this.getCandidateResult();
+      this.enqueuedSearchQueryStr = this.searchQueryStr;
     }
   }
 
@@ -124,9 +128,6 @@ export class SearchComponent implements OnInit {
     }
     return response;
   }
-
-  isValidQuery() {}
-
   initSelectedCandidate() {
     const tmp = new Book;
     this.selectedCandidate = tmp;

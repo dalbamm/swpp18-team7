@@ -1,6 +1,6 @@
 <div class="resultPart"> 
   <div class="showCandidates">
-        <div class="title">검색 후보</div>
+        <div class="title" (startSearchCandidate)="getCandidateResult($event)">검색 후보</div>
         <div class="empty" *ngIf="displayCandidatesFlag===false"></div>
         <div class="candidatesContainer" *ngIf="displayCandidatesFlag===true">
           <ul class="candidateUl">

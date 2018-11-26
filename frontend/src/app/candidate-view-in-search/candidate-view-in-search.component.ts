@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Article } from '../models/article';
@@ -14,8 +13,8 @@ import { BookService } from '../service/book.service';
   templateUrl: './candidate-view-in-search.component.html',
   styleUrls: ['./candidate-view-in-search.component.css']
 })
-export class CandidateViewInSearchComponent implements OnInit {
-  searchQueryStr: string; // Will be binded with searchInput
+
+export class CandidateViewInSearchComponent implements OnInit, OnChanges {
   candidateList: Book[]; // CandidateList
   resultList: Article[]; // ArticleList
   displayCandidatesFlag = false;
@@ -26,14 +25,25 @@ export class CandidateViewInSearchComponent implements OnInit {
   testArticle: Article;
   testArticle2: Article;
   selectedCandidate: Book;
+  pastQueryStr: string;
+
   constructor(
     private router: Router,
     private articleService: ArticleService,
     private bookService: BookService,
   ) { }
 
+  @Input() searchQueryStr: string;
+
   ngOnInit() {
     this.initSelectedCandidate();
+  }
+
+  ngOnChanges(change: SimpleChanges) {
+    if (this.pastQueryStr !== this.searchQueryStr && this.searchQueryStr !== undefined && this.searchQueryStr !== '') {
+      this.getCandidateResult(this.searchQueryStr.trim());
+      this.pastQueryStr = this.searchQueryStr;
+    }
   }
 
   goSalePage() {
@@ -44,7 +54,7 @@ export class CandidateViewInSearchComponent implements OnInit {
     if (this.searchQueryStr === undefined || this.searchQueryStr === '') {
       alert('Input your query in the blank');
     } else {
-      this.getCandidateResult();
+      this.getCandidateResult(null);
     }
   }
 
@@ -93,8 +103,8 @@ export class CandidateViewInSearchComponent implements OnInit {
     });
   }
 
-  getCandidateResult() {
-    this.bookService.getCandidateList(this.searchQueryStr)
+  getCandidateResult(que) {
+    this.bookService.getCandidateList(que)
     .then( response => {
       return this.initBooks(response);
     })
