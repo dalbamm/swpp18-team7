@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Article } from '../models/article';
@@ -25,7 +25,7 @@ export class CandidateViewInSearchComponent implements OnInit, OnChanges {
   testArticle: Article;
   testArticle2: Article;
   selectedCandidate: Book;
-  pastQueryStr: string;
+  recentQueryStr: string;
 
   constructor(
     private router: Router,
@@ -34,15 +34,16 @@ export class CandidateViewInSearchComponent implements OnInit, OnChanges {
   ) { }
 
   @Input() searchQueryStr: string;
+  @Output() searchStartSignalEmitter: EventEmitter<string> = new EventEmitter();
 
   ngOnInit() {
     this.initSelectedCandidate();
   }
 
   ngOnChanges(change: SimpleChanges) {
-    if (this.pastQueryStr !== this.searchQueryStr && this.searchQueryStr !== undefined && this.searchQueryStr !== '') {
+    if (this.recentQueryStr !== this.searchQueryStr && this.searchQueryStr !== undefined && this.searchQueryStr !== '') {
       this.getCandidateResult(this.searchQueryStr.trim());
-      this.pastQueryStr = this.searchQueryStr;
+      this.recentQueryStr = this.searchQueryStr;
     }
   }
 
@@ -69,7 +70,7 @@ export class CandidateViewInSearchComponent implements OnInit, OnChanges {
     if ( this.selectedCandidate.ISBN === undefined ) {
       alert('책을 선택해주세요!');
     } else {
-      this.getSearchResult(isbn);
+      this.searchStartSignalEmitter.emit(this.selectedCandidate.ISBN);
     }
   }
   onClickGoDirect() {

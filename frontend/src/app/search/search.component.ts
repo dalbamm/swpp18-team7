@@ -1,5 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Article } from '../models/article';
@@ -8,15 +7,12 @@ import { ArticleService } from '../service/article.service';
 import { Book } from '../models/book';
 import { BookService } from '../service/book.service';
 
-import { ResultViewInSearchComponent } from '../result-view-in-search/result-view-in-search.component';
-import { CandidateViewInSearchComponent } from '../candidate-view-in-search/candidate-view-in-search.component';
-
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnChanges {
   searchQueryStr: string; // Will be binded with searchInput
   enqueuedSearchQueryStr: string;
   candidateList: Book[]; // CandidateList
@@ -29,9 +25,8 @@ export class SearchComponent implements OnInit {
   testArticle: Article;
   testArticle2: Article;
   selectedCandidate: Book;
-  searchCandidatesFlag = false;
+  enqueuedSearchQueryISBN: string;
 
-  @Output() startSearchCandidate: EventEmitter<any> = new EventEmitter();
   constructor(
     private router: Router,
     private articleService: ArticleService,
@@ -60,6 +55,7 @@ export class SearchComponent implements OnInit {
     this.selectedCandidate = clickedCandidate;
     console.log('isbn: ' + isbn);
   }
+
   onClickStartSearch() {
     const isbn = this.selectedCandidate.ISBN;
     if ( this.selectedCandidate.ISBN === undefined ) {
@@ -68,6 +64,7 @@ export class SearchComponent implements OnInit {
       this.getSearchResult(isbn);
     }
   }
+
   onClickGoDirect() {
     alert('GoDirect clicked');
   }
@@ -131,6 +128,28 @@ export class SearchComponent implements OnInit {
   initSelectedCandidate() {
     const tmp = new Book;
     this.selectedCandidate = tmp;
+  }
+
+  receiveSearchStartSignal(mayISBN) {
+    console.log(mayISBN);
+    if ( this.isValidISBN(mayISBN) ) {
+      this.enqueuedSearchQueryISBN = mayISBN;
+    }
+  }
+  isValidISBN(raw) {
+    if (raw === '' || raw === undefined) {
+      return false;
+    }
+
+    for ( let i = 0 ; i < raw.length ; ++i ) {
+      const cri = raw.charAt(i);
+      if ( (cri < '0' || cri > '9') && (cri !== 'X' && cri !== 'x') ) {
+        return false;
+      }
+    }
+
+    return true;
+
   }
 }
 

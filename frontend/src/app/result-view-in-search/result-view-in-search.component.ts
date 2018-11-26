@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -14,7 +14,7 @@ import { BookService } from '../service/book.service';
   templateUrl: './result-view-in-search.component.html',
   styleUrls: ['./result-view-in-search.component.css']
 })
-export class ResultViewInSearchComponent implements OnInit {
+export class ResultViewInSearchComponent implements OnInit, OnChanges {
   searchQueryStr: string; // Will be binded with searchInput
   candidateList: Book[]; // CandidateList
   resultList: Article[]; // ArticleList
@@ -26,14 +26,26 @@ export class ResultViewInSearchComponent implements OnInit {
   testArticle: Article;
   testArticle2: Article;
   selectedCandidate: Book;
+  recentSearchQueryISBN: string;
+
   constructor(
     private router: Router,
     private articleService: ArticleService,
     private bookService: BookService,
   ) { }
 
+  @Input() searchQueryISBN: string;
+
   ngOnInit() {
     this.initSelectedCandidate();
+  }
+
+  ngOnChanges(change: SimpleChanges) {
+    if (this.searchQueryISBN !== undefined && this.recentSearchQueryISBN !== this.searchQueryISBN && this.searchQueryISBN !== '') {
+      console.log(this.searchQueryISBN);
+      this.getSearchResult(this.searchQueryISBN);
+      this.recentSearchQueryISBN = this.searchQueryISBN;
+    }
   }
 
   goSalePage() {
@@ -79,12 +91,15 @@ export class ResultViewInSearchComponent implements OnInit {
   getArticleList() {  }
 
   getSearchResult(isbn) {
+    console.log(0);
     this.articleService.getExternalArticles(isbn)
     .then( response => {// Initialize to fulfill missed properties
+      console.log(1);
       return this.initExternalArticles(response);
     })
     .then( processedResponse => {
       // Starts to display result list after the promise is resolved.
+      console.log(2);
       this.resultList = processedResponse;
       this.displayResultFlag = true;
     })

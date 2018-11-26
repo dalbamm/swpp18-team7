@@ -16,5 +16,5 @@
   </div>
 </div>
 
-  <app-candidate-view-in-search [searchQueryStr]="enqueuedSearchQueryStr" ></app-candidate-view-in-search>
-  <app-result-view-in-search></app-result-view-in-search>
+  <app-candidate-view-in-search [searchQueryStr]="enqueuedSearchQueryStr" (searchStartSignalEmitter)="receiveSearchStartSignal($event)"></app-candidate-view-in-search>
+  <app-result-view-in-search [searchQueryISBN]="enqueuedSearchQueryISBN"></app-result-view-in-search>
