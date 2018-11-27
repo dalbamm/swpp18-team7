@@ -14,6 +14,10 @@ import { BookService } from './service/book.service';
 import { CandidateViewInSearchComponent } from './candidate-view-in-search/candidate-view-in-search.component';
 import { ResultViewInSearchComponent } from './result-view-in-search/result-view-in-search.component';
 import { UserInfoComponent } from './user-info/user-info.component';
+import { SaleComponent } from './sale/sale.component';
+import { BookInputComponent } from './book-input/book-input.component';
+import { ArticleInputComponent } from './article-input/article-input.component';
+import { IsbnSearchComponent } from './isbn-search/isbn-search.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,11 @@ import { UserInfoComponent } from './user-info/user-info.component';
     SignupComponent,
     CandidateViewInSearchComponent,
     ResultViewInSearchComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    SaleComponent,
+    BookInputComponent,
+    ArticleInputComponent,
+    IsbnSearchComponent
   ],
   imports: [
     FormsModule,

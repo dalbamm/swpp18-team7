@@ -1,4 +1,4 @@
-.showCandidates{
+/* .showCandidates{
     border: solid 1px black;
     flex: 1;
     padding-top: 20px;
@@ -12,4 +12,82 @@
 .candidateElement{
     margin: 20px 0;
     
+} */
+.buttons{
+    cursor: pointer;
+}
+div::-webkit-scrollbar { width: auto; height: 10px;};
+div::-webkit-scrollbar-button:start:decrement, 
+div::-webkit-scrollbar-button:end:increment {display: block; 
+    width: 12px;height: 12px; background:  rgba(0,0,0,.05);}
+div::-webkit-scrollbar-track {     background: rgba(0,0,0,.05); }
+div::-webkit-scrollbar-thumb {  background: rgba(0,0,0,.1);  }
+
+.resultPart{
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+    font-weight: 550;
+    height: 300px;
+}
+.showCandidates{
+    border: solid 1px black;
+    padding-top: 20px;
+    text-align: center;
+    justify-content: center;
+    border-radius: 25px;
+    width: 72%;
+}
+.showCandidates .candidatesContainer{
+    overflow-x: scroll;
+    scroll-behavior: auto;
+    margin: 0 20px;
+    overflow-y: hidden;
+}
+.bookInfo{
+    border: solid 1px black;
+    margin: 0;
+    margin-left: 10px;
+    padding: 20px;
+    justify-content: center;
+    border-radius: 25px;
+    flex: 1;
+}
+.bookInfo .content{
+    margin:0;
+    padding: 0;
+    margin-top:20px;
+    font-weight:400;
+    line-height: 1.5;
+    height: fit-content;
+}
+.bookInfo .vacancy{
+    width: inherit;
+    height: 15px;
+}
+
+.empty{
+    padding: 50px 0;
+}
+.candidateUl{
+    list-style: none;
+    align-content: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+.candidateUl li{
+    list-style: none;
+    display: table-cell;
+}
+.candidateElement{
+    margin: 20px 20px;
+    max-width: 100px;
+}
+.candidateImage{
+    max-width: inherit;
+    cursor: pointer;
+}
+li {
+    list-style: none;
 }

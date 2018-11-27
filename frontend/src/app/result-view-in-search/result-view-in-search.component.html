@@ -1,14 +1,28 @@
-<!-- <div class="showResult"> -->
-<div>
-  검색 결과
-  <div class="empty" *ngIf="displayResultFlag===false">검색된 중고도서가 없습니다.<br/>
-    <button class="buttons" (click)="onClickInterested()">관심등록</button>으로 알림을 받아보세요!
+<div class="showResult">
+  <div class="title"><h4>검색 결과</h4></div>
+    <div class="empty" *ngIf="displayResultFlag===false">검색된 중고도서가 없습니다.<br/>
+      <button class="buttons" (click)="onClickInterested()">관심등록</button>으로 알림을 받아보세요!
+    </div>
+    <div *ngIf="displayResultFlag===true" class="resultUlContainer">
+      <ul  class="resultUl">
+      
+        <li *ngFor="let result of resultList">
+         <div class="resultElement"> 
+           <div class="container">
+            <div class="logoContainer" *ngIf="result.site==='kyobo'"></div>
+            <div class="logoContainer_ala" *ngIf="result.site==='aladin'"></div>
+            <div class="buttonContainer">
+              <div class="vacancy">
+                  <div class="contentContainer"> 
+                    {{result.price}}원<br/> 
+                  </div>
+              </div>
+              <button class="buttons" (click)="onClickResult(result)">바로가기</button>
+            </div>
+          </div>  
+        </div>
+      </li>
+    </ul>
+    </div>
+
   </div>
-  <ul *ngIf="displayResultFlag===true">
-    <li *ngFor="let result of resultList" (click)="onClickResult(result)">
-      isExternal: {{result.external}}<br/>
-      price: {{result.price}}<br/>
-      link: {{result.link}}<br/>
-    </li>
-  </ul>
-</div>

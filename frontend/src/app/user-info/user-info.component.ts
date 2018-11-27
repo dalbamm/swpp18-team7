@@ -12,8 +12,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class UserInfoComponent implements OnInit {
 
   user: User;
-  tmpEmail: string;
-  tmpPhone: string;
 
   constructor (
   	private router: Router,
@@ -26,9 +24,7 @@ export class UserInfoComponent implements OnInit {
   		alert('Please sign in first.');
   		this.router.navigateByUrl('main');
   	} else {
-  		this.user = this.userService.getCurrentUser();
-  		this.tmpEmail = this.user.email;
-  		this.tmpPhone = this.user.phone;
+  		this.user = this.userService.getCurrentUser();;
   	}
   }
 
@@ -36,7 +32,7 @@ export class UserInfoComponent implements OnInit {
   	const newEmail: string = prompt('Enter a new e-mail address.');
   	if (newEmail != null) {
   		if (this.checkEmailValidity(newEmail)) {
-  			this.userService.changeUserInfo(newEmail, this.tmpPhone).subscribe(
+  			this.userService.changeUserInfo(newEmail, this.user.phone).subscribe(
 	  			(changedUser: User) => {
 	  				this.userService.getRequestUser().subscribe(user => {
 	  					this.user = user;
@@ -47,7 +43,7 @@ export class UserInfoComponent implements OnInit {
 	  			},
 	  			(error: HttpErrorResponse) => {
 	  				if (error.status === 409) {
-	  					alert('An account with email \'' + this.tmpEmail + '\' already exists');
+	  					alert('An account with email \'' + newEmail + '\' already exists');
 	  				} else {
 	  					alert('Unknown error while changing user info');
 	  				}
