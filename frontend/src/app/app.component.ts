@@ -15,17 +15,12 @@ import { UserService } from './service/user.service';
 export class AppComponent {
   title = 'Boogle';
   user: User = null;
-  isMain = true;
-  isSignin = false;
 
   constructor (
     private router: Router,
     private userService: UserService
     ) {
       router.events.subscribe((val) => {
-        this.isMain = this.router.url === '/main';
-        this.isSignin = this.router.url === '/signin';
-
         if (val instanceof NavigationEnd) {
           this.user = this.userService.getCurrentUser();
         }

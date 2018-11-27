@@ -14,32 +14,31 @@ export class UserInfoComponent implements OnInit {
   user: User;
 
   constructor (
-  	private router: Router,
-  	private userService: UserService
-  	) {
+   	private router: Router,
+   	private userService: UserService
+   	) {
   }
 
   ngOnInit() {
-  	if (!this.userService.getSignedIn()) {
-  		alert('Please sign in first.');
-  		this.router.navigateByUrl('main');
+   	if (!this.userService.getSignedIn()) {
+   		alert('Please sign in first.');
+   		this.router.navigateByUrl('main');
   	} else {
-  		this.user = this.userService.getCurrentUser();;
-  	}
+   		this.user = this.userService.getCurrentUser();
+   	}
   }
 
   onClickChangeEmail(): void {
-  	const newEmail: string = prompt('Enter a new e-mail address.');
-  	if (newEmail != null) {
-  		if (this.checkEmailValidity(newEmail)) {
-  			this.userService.changeUserInfo(newEmail, this.user.phone).subscribe(
+   	const newEmail: string = prompt('Enter a new e-mail address.');
+   	if (newEmail != null) {
+   		if (this.checkEmailValidity(newEmail)) {
+   			this.userService.changeUserInfo(newEmail, this.user.phone).subscribe( 
 	  			(changedUser: User) => {
 	  				this.userService.getRequestUser().subscribe(user => {
 	  					this.user = user;
 	  					this.userService.setCurrentUser(this.user);
 	  					alert('Your e-mail was successfully changed');
 	  				});
-	  				// this.router.navigateByUrl('account');
 	  			},
 	  			(error: HttpErrorResponse) => {
 	  				if (error.status === 409) {
