@@ -1,0 +1,20 @@
+table {
+	width: 100%;
+}
+
+td {
+	margin: 2px;
+	padding: 1px;
+}
+
+.row-head {
+	width: 20%;
+	padding: 2px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.row-body {
+	width: 80%;
+	padding: 4px;
+}
