@@ -25,8 +25,7 @@ export class UserService {
   httpOptions = {
     headers: new HttpHeaders({
     'Content-Type':  'application/json',
-    'Authorization': 'my-auth-token',
-    'X-CSRFToken': document.cookie.split('csrftoken=')[1]
+    'Authorization': 'my-auth-token'
     })
   };
 
@@ -73,5 +72,9 @@ export class UserService {
     this.currUser = null;
     this.signedIn = false;
     return this.http.get<Response>(this.signoutUrl);
+  }
+
+  changeUserInfo(newEmail: string, newPhone: string): Observable<User> {
+    return this.http.put<User>(this.userUrl, {'email': newEmail, 'phone': newPhone}, this.httpOptions);
   }
 }

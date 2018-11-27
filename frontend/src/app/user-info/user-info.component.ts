@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-info',
@@ -11,8 +12,8 @@ import { Router } from '@angular/router';
 export class UserInfoComponent implements OnInit {
 
   user: User;
-  userEmail: string;
-  userPhone: string;
+  tmpEmail: string;
+  tmpPhone: string;
 
   constructor (
   	private router: Router,
@@ -26,16 +27,32 @@ export class UserInfoComponent implements OnInit {
   		this.router.navigateByUrl('main');
   	} else {
   		this.user = this.userService.getCurrentUser();
-  		this.userEmail = this.user.email;
-  		this.userPhone = this.user.phone;
+  		this.tmpEmail = this.user.email;
+  		this.tmpPhone = this.user.phone;
   	}
   }
 
   onClickChangeEmail(): void {
   	const newEmail: string = prompt('Enter a new e-mail address.');
   	if (newEmail != null) {
-	  	if (this.checkEmailValidity(newEmail)) {
-	  		this.userEmail = newEmail;
+  		if (this.checkEmailValidity(newEmail)) {
+  			this.userService.changeUserInfo(newEmail, this.tmpPhone).subscribe(
+	  			(changedUser: User) => {
+	  				this.userService.getRequestUser().subscribe(user => {
+	  					this.user = user;
+	  					this.userService.setCurrentUser(this.user);
+	  					alert('Your e-mail was successfully changed');
+	  				});
+	  				// this.router.navigateByUrl('account');
+	  			},
+	  			(error: HttpErrorResponse) => {
+	  				if (error.status === 409) {
+	  					alert('An account with email \'' + this.tmpEmail + '\' already exists');
+	  				} else {
+	  					alert('Unknown error while changing user info');
+	  				}
+	  			}
+	  		);
 	  	} else {
 	  		alert('The email address is not valid.');
 	  		this.onClickChangeEmail();

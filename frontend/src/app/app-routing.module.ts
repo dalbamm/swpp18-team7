@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'search', component: SearchComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'account', component: UserInfoComponent },
+  { path: 'account', component: UserInfoComponent, runGuardsAndResolvers: 'always' },
   { path: '**', redirectTo: '/main', pathMatch: 'full' },
 ];
 
