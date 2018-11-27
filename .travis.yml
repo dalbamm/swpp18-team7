@@ -1,27 +1,38 @@
 notifications:
   slack: swpp18team1:sgo4R4nRcZD3ClQsPDHjG5Ie
 
+sudo: required
+
 matrix:
   include:
     - language: node_js
       node_js: 8.11
-      sudo: true
+      addons:
+        apt:
+          sources:
+            - google-chrome
+          packages:
+            - google-chrome-stable
       cache:
+        npm: true
         directories:
           - frontend/node_modules
-      addons:
-        chrome: stable
-      branches:
-        except:
-          - /^temp\/.*$/
       before_install:
+        - export CHROME_BIN=/usr/bin/google-chrome
+        - export DISPLAY=:99.0
+        - sh -e /etc/init.d/xvfb start
         - cd frontend
-        - yarn global add @angular/cli
       install:
-        - yarn
+        - npm install
+        - npm install coveralls
+        - npm install -g @angular/cli
       script:
-        - yarn lint
-        - yarn test --karma-config src/karma-ci.conf.js --code-coverage
+        - ng test --code-coverage --watch false
+        - ng e2e
+      after_success:
+        - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+      after_script:
+        - cd ..
 
     - language: python
       python: 3.6
