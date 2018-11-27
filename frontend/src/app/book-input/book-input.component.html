@@ -1,0 +1,56 @@
+<div id='book-input-body'>
+  <table class='table table-borderless'>
+  	<tr>
+  	  <th class='row-head border-right'>
+  	  	책 제목
+  	  </th>
+  	  <td class='row-body'>
+  	  	<table>
+  	  	  <tr>
+  	  	  	<td class='col-8'>
+  	  	  	  <input id='book-title-input' class='form-control' placeholder='Book Title'>
+  	  	  	</td>
+  	  	  	<td class='col-2'>
+  	  	  	  <button id='isbn-search-button' class='btn btn-outline-primary' (click)='goISBNSearchPage()'>
+  	  	  	  	ISBN 검색
+  	  	  	  </button>
+  	  	  	</td>
+  	  	  </tr>
+  	  	</table>
+  	  </td>
+  	</tr>
+  	<tr>
+      <th class='row-head border-right'>
+  	    책 정보  
+  	  </th>
+  	  <td class='row-body'>
+  	  	<table class='table table-borderless'>
+  	  	  <tr>
+            <td class='row-head border-right'>
+              저자
+            </td>
+            <td class='row-body'>
+              <input id='book-author-input' class='form-control' placeholder='Book Author'>
+            </td>
+  	  	  </tr>
+          <tr>
+            <td class='row-head border-right'>
+              출판사
+            </td>
+            <td class='row-body'>
+              <input id='book-publisher-input' class='form-control' placeholder='Book Publisher'>
+            </td>
+          </tr>
+          <tr>
+            <td class='row-head border-right'>
+              출판연도
+            </td>
+            <td class='row-body'>
+              <input id='book-publishedYear-input' class='form-control' placeholder='Book Published Year'>
+            </td>
+          </tr>
+  	  	</table>
+  	  </td>
+  	</tr>
+  </table>
+</div>

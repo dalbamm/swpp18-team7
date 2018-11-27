@@ -1,0 +1,28 @@
+<div class="status-toggle" align="right">
+  <button class="btn btn-outline-primary" id="goSearch-button" (click)="goSearchPage()">
+    구매하기
+  </button>
+</div>
+
+<h1 style='text-align:center;'>판매글 작성하기</h1>
+<div class='container border' style='padding: 1em'>
+  <app-book-input></app-book-input>
+  <app-article-input></app-article-input>  
+  <div id='sale-footer'>
+    <table>
+      <tr>
+        <td class='col'></td>
+        <td class='col'>
+          <button id='sale-cancel-button' class='btn btn-outline-primary' (click)='onClickCancel()'>
+            취소
+          </button>
+        </td>
+        <td class='col'>
+          <button id='sale-register-button' class='btn btn-outline-primary' (click)='onClickRegister()'>
+            등록
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
