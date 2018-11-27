@@ -1,0 +1,40 @@
+notifications:
+  slack: swpp18team1:sgo4R4nRcZD3ClQsPDHjG5Ie
+
+matrix:
+  include:
+    - language: node_js
+      node_js: 8.11
+      sudo: true
+      cache:
+        directories:
+          - frontend/node_modules
+      addons:
+        chrome: stable
+      branches:
+        except:
+          - /^temp\/.*$/
+      before_install:
+        - cd frontend
+        - yarn global add @angular/cli
+      install:
+        - yarn
+      script:
+        - yarn lint
+        - yarn test --karma-config src/karma-ci.conf.js --code-coverage
+
+    - language: python
+      python: 3.6
+      cache:
+        pip: true
+      install:
+        - pip install django coverage coveralls bs4 selenium
+      before_script:
+        - cd backend
+        - python3 manage.py migrate
+      script:
+        - coverage run --branch --source="./boogle" manage.py test
+      after_success:
+        - coveralls
+      after_script:
+        - cd ..
