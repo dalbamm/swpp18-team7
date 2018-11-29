@@ -33,8 +33,13 @@ export class UserService {
     private http: HttpClient,
     private router: Router
     ) {
-        this.signedIn = false;
-        this.currUser = null;
+        if (!JSON.parse(sessionStorage.getItem('sessionUser'))) {
+          this.signedIn = false;
+          this.currUser = null;
+        } else {
+          this.signedIn = true;
+          this.currUser = JSON.parse(sessionStorage.getItem('sessionUser')) as User;
+        }
       }
 
   /* Mutators, Accessors */
@@ -71,6 +76,7 @@ export class UserService {
   signOut(): Observable<Response> {
     this.currUser = null;
     this.signedIn = false;
+    sessionStorage.clear();
     return this.http.get<Response>(this.signoutUrl);
   }
 

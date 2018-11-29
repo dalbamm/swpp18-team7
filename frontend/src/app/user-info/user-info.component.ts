@@ -29,18 +29,23 @@ export class UserInfoComponent implements OnInit {
   }
 
   onClickChangeEmail(): void {
-   	const newEmail: string = prompt('Enter a new e-mail address.');
-   	if (newEmail != null) {
-   		if (this.checkEmailValidity(newEmail)) {
-   			this.userService.changeUserInfo(newEmail, this.user.phone).subscribe( 
+    const newEmail: string = prompt('Enter a new e-mail address.');
+    if (newEmail != null) {
+    	console.log('point 1');
+    	if (this.checkEmailValidity(newEmail)) {
+    		console.log('point 2');
+   			this.userService.changeUserInfo(newEmail, this.user.phone).subscribe(
 	  			(changedUser: User) => {
+	  				console.log('point 3');
 	  				this.userService.getRequestUser().subscribe(user => {
 	  					this.user = user;
 	  					this.userService.setCurrentUser(this.user);
+	  					sessionStorage.setItem('sessionUser', JSON.stringify(this.user));
 	  					alert('Your e-mail was successfully changed');
 	  				});
 	  			},
 	  			(error: HttpErrorResponse) => {
+	  				console.log('hellowww');
 	  				if (error.status === 409) {
 	  					alert('An account with email \'' + newEmail + '\' already exists');
 	  				} else {

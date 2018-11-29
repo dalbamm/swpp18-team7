@@ -38,6 +38,7 @@ export class AppComponent {
     this.userService.signOut().subscribe(
       (response: Response) => {
         this.user = null;
+        sessionStorage.clear();
         console.log('signed out successfully');
 
         if (this.router.url === '/account') {
@@ -52,5 +53,5 @@ export class AppComponent {
 
   onClickUserInfo(): void {
     this.router.navigateByUrl('account');
-  } // untested
+  }
 }
