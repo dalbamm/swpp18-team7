@@ -64,12 +64,4 @@ export class UserInfoComponent implements OnInit {
     const email_regex: RegExp = /^[^@\s]+@[^@\s]+\.[a-z]{2,3}$/;
     return email_regex.test(emailInput);
   }
-
-  private checkPasswordValidity(passwordInput: string): boolean {
-    if (passwordInput.length < 8) return false;
-    if (! /[a-z]/.test(passwordInput)) return false;
-    if (! /[A-Z]/.test(passwordInput)) return false;
-    if (! /[0-9]/.test(passwordInput)) return false;
-    return true;
-  }
 }
