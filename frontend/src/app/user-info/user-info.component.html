@@ -1,0 +1,33 @@
+<h3>Account Information</h3>
+<table *ngIf="user" id="account-info">
+	<tr>
+		<th>
+			E-mail
+		</th>
+		<td>
+			{{user.email}}
+		</td>
+		<td>
+			<button (click)=onClickChangeEmail()>change</button>
+		</td>
+	</tr>
+	<tr>
+		<th>
+			Phone Number
+		</th>
+		<td>
+			{{user.phone}}
+		</td>
+		<td>
+			<button>change</button>
+		</td>
+	</tr>
+<!-- 	<tr>
+		<th>
+			
+		</th>
+		<td>
+			
+		</td>
+	</tr> -->
+</table>

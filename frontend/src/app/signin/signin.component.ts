@@ -33,6 +33,8 @@ export class SigninComponent implements OnInit {
       (response: Response) => {
         this.userService.setSignedIn(true);
         this.userService.getRequestUser().subscribe(user => {
+          sessionStorage.setItem('sessionUser', JSON.stringify(user));
+          
           this.userService.setCurrentUser(user);
           this.router.navigateByUrl('main');
         });

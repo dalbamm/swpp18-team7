@@ -15,17 +15,12 @@ import { UserService } from './service/user.service';
 export class AppComponent {
   title = 'Boogle';
   user: User = null;
-  isMain = true;
-  isSignin = false;
 
   constructor (
     private router: Router,
     private userService: UserService
     ) {
       router.events.subscribe((val) => {
-        this.isMain = this.router.url === '/main';
-        this.isSignin = this.router.url === '/signin';
-
         if (val instanceof NavigationEnd) {
           this.user = this.userService.getCurrentUser();
         }
@@ -43,7 +38,12 @@ export class AppComponent {
     this.userService.signOut().subscribe(
       (response: Response) => {
         this.user = null;
+        sessionStorage.clear();
         console.log('signed out successfully');
+
+        if (this.router.url === '/account') {
+          this.router.navigateByUrl('/main');
+        }
       },
       (error: HttpErrorResponse) => {
         console.log(error.status);
@@ -52,6 +52,6 @@ export class AppComponent {
   }
 
   onClickUserInfo(): void {
-    alert('clicked user info');
+    this.router.navigateByUrl('account');
   }
 }

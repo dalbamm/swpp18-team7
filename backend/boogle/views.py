@@ -8,7 +8,6 @@ from crawler import Crawler
 import json
 
 
-@csrf_exempt
 def signin(request):
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())
@@ -32,7 +31,6 @@ def signin(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-@csrf_exempt
 def signup(request):
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())
@@ -42,7 +40,7 @@ def signup(request):
         phone = req_data['phone']
 
         if User.objects.filter(username=email).exists():
-            return HttpResponse('An account already exists with email {:}'.format(email), status=409)
+            return HttpResponse('An account already exists with this email.', status=409)
         else:
             User.objects.create_user(username=email, password=password)
             return HttpResponse(status=201)
@@ -50,7 +48,6 @@ def signup(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-@csrf_exempt
 def signout(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
@@ -62,7 +59,6 @@ def signout(request):
         return HttpResponseNotAllowed(['GET'])
 
 
-@csrf_exempt
 def user(request):
     if request.method == 'GET':
         user = request.user
@@ -76,9 +72,34 @@ def user(request):
         })
 
         return HttpResponse(resp_json)
+    elif request.method == 'PUT':
+        user = request.user
+
+        req_data = json.loads(request.body.decode())
+
+        print('user.username:', user.username)
+        print('req_data[email]:', req_data['email'])
+        if not user.username == req_data['email']:
+            if User.objects.filter(username=req_data['email']).exists():
+                return HttpResponse('An account already exists with this email.', status=409)
+            else:
+                user.username = req_data['email']
+
+        # TODO: create phone attribute in user model
+        user.save()
+        print('username after save: ', user.username)
+
+        resp_json = json.dumps({
+            "id": user.id,
+            "email": user.username,
+            "password": user.password,
+            "name": "no_name_field_yet",
+            "signed_in": user.is_authenticated
+        })
+
+        return HttpResponse(resp_json, status=200)
     else:
-        # TODO add POST method
-        return HttpResponseNotAllowed(['GET'])
+        return HttpResponseNotAllowed(['GET', 'PUT'])
 
 
 def getCandidateList(request, **kwargs):

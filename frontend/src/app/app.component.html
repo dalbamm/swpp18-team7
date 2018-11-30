@@ -7,16 +7,16 @@
   <table style="width: 100%;">
     <tr>
       <td style="width: 15%;">
-        <span *ngIf="!isMain" class="logo-text">
-          {{title}}
+        <span *ngIf="!(this.router.url==='/main')" class="logo-text">
+          <a href="/main">{{title}}</a>
         </span>
       </td>
       <td style="width: 60%;"></td>
       <td style="width: 15%;">
-        <button *ngIf="user" class="buttons" id="user-info-button" (click)="onClickUserInfo()">{{user.email}}</button>
+        <button *ngIf="user&&!(this.router.url==='/account')" class="buttons" id="user-info-button" (click)="onClickUserInfo()">{{user.email}}</button>
       </td>
       <td style="width: 10%;">
-        <button *ngIf="(!user)&&!isSignin" class="buttons" id="sign-in" (click)="onClickSignin()">
+        <button *ngIf="(!user)&&!(this.router.url==='/signin')" class="buttons" id="sign-in" (click)="onClickSignin()">
           Sign In
         </button>
         <button *ngIf="user" class="buttons" id="sign-out" (click)="onClickSignout()">

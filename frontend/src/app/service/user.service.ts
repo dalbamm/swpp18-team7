@@ -17,6 +17,7 @@ export class UserService {
   signupUrl = 'api/signup';
   signoutUrl = 'api/signout';
   userUrl = 'api/user';
+  csrfToken: string;
 
   private signedIn: boolean;
   private currUser: User;
@@ -24,7 +25,7 @@ export class UserService {
   httpOptions = {
     headers: new HttpHeaders({
     'Content-Type':  'application/json',
-    'Authorization': 'my-auth-token',
+    'Authorization': 'my-auth-token'
     })
   };
 
@@ -32,8 +33,13 @@ export class UserService {
     private http: HttpClient,
     private router: Router
     ) {
-        this.signedIn = false;
-        this.currUser = null;
+        if (!JSON.parse(sessionStorage.getItem('sessionUser'))) {
+          this.signedIn = false;
+          this.currUser = null;
+        } else {
+          this.signedIn = true;
+          this.currUser = JSON.parse(sessionStorage.getItem('sessionUser')) as User;
+        }
       }
 
   /* Mutators, Accessors */
@@ -70,6 +76,11 @@ export class UserService {
   signOut(): Observable<Response> {
     this.currUser = null;
     this.signedIn = false;
+    sessionStorage.clear();
     return this.http.get<Response>(this.signoutUrl);
+  }
+
+  changeUserInfo(newEmail: string, newPhone: string): Observable<User> {
+    return this.http.put<User>(this.userUrl, {'email': newEmail, 'phone': newPhone}, this.httpOptions);
   }
 }
