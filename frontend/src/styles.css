@@ -3,6 +3,9 @@
   font-size: 40px;
   font-style: sans-serif;
 }
+.logo-text :hover {
+ text-decoration: none;
+}
 
 .buttons {
   font-size: 15px;
