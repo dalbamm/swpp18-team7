@@ -18,3 +18,7 @@ td {
 	width: 80%;
 	padding: 1em;
 }
+.redAsterisk {
+	color: red;
+	display: inline;
+}
