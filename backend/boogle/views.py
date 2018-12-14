@@ -14,7 +14,7 @@ def signin(request):
         username = req_data['email']
         password = req_data['password']
         user = authenticate(request, username=username, password=password)
-
+        print("signin user: ", user) 
         if user is not None:
             login(request, user)
             userJson = json.dumps({
@@ -24,6 +24,7 @@ def signin(request):
                 "name": "no_name_field_yet",
                 "signedIn": user.is_authenticated
             })
+            print('userJson:', userJson)
             return HttpResponse(userJson, status=204)
         else:
             return HttpResponse(status=401)
@@ -44,8 +45,12 @@ def signup(request):
         else:
             User.objects.create_user(username=email, password=password)
             return HttpResponse(status=201)
+    elif request.method == 'OPTIONS':
+        response = HttpResponse()
+        response['allow'] = ['POST', 'OPTIONS']
+        return response
     else:
-        return HttpResponseNotAllowed(['POST'])
+        return HttpResponseNotAllowed(['POST', 'OPTIONS'])
 
 
 def signout(request):
@@ -62,14 +67,20 @@ def signout(request):
 def user(request):
     if request.method == 'GET':
         user = request.user
-
+        print('getuser user:', user)
+        if request.user.is_authenticated:
+            print('YAHAHAHAHAHA')
+        else:
+            print('NONONONONONONO')
         resp_json = json.dumps({
             "id": user.id,
             "email": user.username,
-            "password": user.password,
+            #"password": user.password,
+            "password":'NOPE',
             "name": "no_name_field_yet",
             "signed_in": user.is_authenticated
         })
+        print(resp_json)
 
         return HttpResponse(resp_json)
     elif request.method == 'PUT':
@@ -129,9 +140,9 @@ def getUsedbookList(request, **kwargs):
     else:
         return HttpResponseNotAllowed(['GET'])
 
-# @ensure_csrf_cookie
-# def token(request):
-#     if request.method == 'GET':
-#         return HttpResponse(status=204)
-#     else:
-#         return HttpResponseNotAllowed(['GET'])
+@ensure_csrf_cookie
+def token(request):
+    if request.method == 'GET':
+        return HttpResponse(status=204)
+    else:
+        return HttpResponseNotAllowed(['GET'])

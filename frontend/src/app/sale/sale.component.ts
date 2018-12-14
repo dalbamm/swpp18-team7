@@ -23,5 +23,6 @@ export class SaleComponent implements OnInit {
   goSearchPage() {
   	this.router.navigateByUrl('search');
   }
-
+  onClickCancel(){}
+  onClickRegister(){}
 }

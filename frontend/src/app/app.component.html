@@ -2,7 +2,7 @@
   <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800&amp;subset=korean" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
-
+<div style="width: 90%; margin: 0 auto;">
 <div id="top-bar">
   <table style="width: 100%;">
     <tr>
@@ -13,13 +13,13 @@
       </td>
       <td style="width: 60%;"></td>
       <td style="width: 15%;">
-        <button *ngIf="user&&!(this.router.url==='/account')" class="buttons" id="user-info-button" (click)="onClickUserInfo()">{{user.email}}</button>
+        <button *ngIf="user&&!(this.router.url==='/account')" class="btn btn-outline-primary" id="user-info-button" (click)="onClickUserInfo()">{{user.email}}</button>
       </td>
       <td style="width: 10%;">
-        <button *ngIf="(!user)&&!(this.router.url==='/signin')" class="buttons" id="sign-in" (click)="onClickSignin()">
+        <button *ngIf="(!user)&&!(this.router.url==='/signin')" class="btn btn-outline-primary" id="sign-in" (click)="onClickSignin()">
           Sign In
         </button>
-        <button *ngIf="user" class="buttons" id="sign-out" (click)="onClickSignout()">
+        <button *ngIf="user" class="buttons" id="sign-out" class="btn btn-outline-primary" (click)="onClickSignout()">
           Sign Out
         </button>
       </td>
@@ -28,3 +28,4 @@
 </div>
 
 <router-outlet></router-outlet>
+</div>

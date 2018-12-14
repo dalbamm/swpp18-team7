@@ -1,7 +1,7 @@
-<div class="showResult">
+<div class="container-fluid border showResult">
   <div class="title"><h4>검색 결과</h4></div>
     <div class="empty" *ngIf="displayResultFlag===false">검색된 중고도서가 없습니다.<br/>
-      <button class="buttons" (click)="onClickInterested()">관심등록</button>으로 알림을 받아보세요!
+      <button class="btn btn-outline-primary" (click)="onClickInterested()">관심등록</button>으로 알림을 받아보세요!
     </div>
     <div *ngIf="displayResultFlag===true" class="resultUlContainer">
       <ul  class="resultUl">

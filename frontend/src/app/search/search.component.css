@@ -13,12 +13,12 @@ div::-webkit-scrollbar-thumb {  background: rgba(0,0,0,.1);  }
     flex-direction: row;
 }
 .searchInput{
-    border-radius: 25px;
     flex:1;
     vertical-align: middle;
     font-size: 1.25rem;
-    padding: 0 15px;
+    padding: 10px 15px;
     letter-spacing: +.4px;
+    width: 50%;
 }
 .resultPart{
     display: flex;

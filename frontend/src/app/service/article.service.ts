@@ -19,7 +19,8 @@ export class ArticleService {
       'Authorization': 'my-auth-token',
     })
   };
-  url = 'api/search/isbn/';
+  //url = 'api/search/isbn/';
+  url = 'http://54.180.117.120:8000/api/search/isbn/';
   constructor(
     private http: HttpClient,
     private router: Router

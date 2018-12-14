@@ -8,4 +8,5 @@ urlpatterns = [
     path('signout', views.signout, name='signout'),
     path('search/candidates/<str:title>', views.getCandidateList, name='getCandidateList'),
     path('search/isbn/<str:isbn>', views.getUsedbookList, name='getUsedbookList'),
+    path('nothing', views.token, name='emptyRequest')
 ]

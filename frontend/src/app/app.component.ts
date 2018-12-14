@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Response } from '@angular/http';
 import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { User } from './models/user';
 import { UserService } from './service/user.service';
@@ -17,15 +18,19 @@ export class AppComponent {
   user: User = null;
 
   constructor (
-    private router: Router,
-    private userService: UserService
+    public router: Router,
+    private userService: UserService,
+    private http: HttpClient
     ) {
       router.events.subscribe((val) => {
         if (val instanceof NavigationEnd) {
           this.user = this.userService.getCurrentUser();
         }
       });
-     }
+      console.log('hello'); 
+      this.http.get<Response>('http://54.180.117.120:8000/api/nothing').subscribe(() => console.log('hi'));	      
+	}
+
 
   ngOnInit() {
   }

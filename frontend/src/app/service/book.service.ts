@@ -17,7 +17,8 @@ export class BookService {
       'Authorization': 'my-auth-token',
     })
   };
-  url = 'api/search/candidates/';
+  //url = 'api/search/candidates/';
+  url = 'http://54.180.117.120:8000/api/search/candidates/';
   constructor(
     private http: HttpClient,
     private router: Router
