@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 import { User } from '../models/user';
 import { Article } from '../models/article';
+import { Book } from '../models/book';
 import { query } from '@angular/core/src/render3/query';
 
 @Injectable({
@@ -43,13 +44,16 @@ export class ArticleService {
     // other properties should be initialized using ISBN
   }
 
-  addArticle() {
+  addArticle(newArticle: Article) {
+    return this.http.post<Article>(this.url + isbn, {'site': newArticle.site, 'title': newArticle.title,'author': newArticle.author,'price': newArticle.price,'link': newArticle.link},this.httpOptions)
   }
 
-  deleteArticle() {
+  deleteArticle(wantToDelete: Article) {
+    return this.http.delete<number>(this.url+wantToDelete.id, this.httpOptions);
   }
 
-  updateArticle() {
+  updateArticle(wantToUpdate: Article) {
+    return this.http.put<number>(this.url+wantToUpdate.id, wantToUpdate,this.httpOptions);
   }
 
 }
