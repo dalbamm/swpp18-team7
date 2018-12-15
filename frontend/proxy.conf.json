@@ -1,5 +1,5 @@
 {
-    "/api": "http://54.180.117.120:8000",
+    "/api": "http://localhost:8000",
     "secure": false,
     "pathRewrite": {
         "^/api": "/api"

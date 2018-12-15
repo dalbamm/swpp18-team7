@@ -140,7 +140,7 @@ def getUsedbookList(request, **kwargs):
 
 def interestedBook(request):
     if request.method == 'GET':
-        user = Account.get(user=request.user)
+        user = Account.objects.get(user=request.user)
 
         bookList = user.interestedBooks.values()
         return JsonResponse(bookList, safe=False, status=200)
@@ -148,7 +148,7 @@ def interestedBook(request):
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())
 
-        account = Account.get(user=request.user)
+        account = Account.objects.get(user=request.user)
         isbn = req_data['isbn']
         title = req_data['title']
 
@@ -160,6 +160,7 @@ def interestedBook(request):
 
         account.interestedBooks.add(book)
         account.save()
+        return HttpResponse(status=204)
 
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])

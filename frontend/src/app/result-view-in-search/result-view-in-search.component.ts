@@ -8,6 +8,7 @@ import { ArticleService } from '../service/article.service';
 import { Book } from '../models/book';
 import { BookService } from '../service/book.service';
 
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-result-view-in-search',
@@ -17,29 +18,43 @@ import { BookService } from '../service/book.service';
 export class ResultViewInSearchComponent implements OnInit, OnChanges {
   resultList: Article[]; // ArticleList
   displayResultFlag = false;
-  recentSearchQueryISBN: string;
+  recentSearchQueryBook: Book;
 
   constructor(
     private router: Router,
     private articleService: ArticleService,
     private bookService: BookService,
+    private userService: UserService,
   ) { }
 
-  @Input() searchQueryISBN: string;
+  @Input() searchQueryBook: Book;
 
   ngOnInit() {
   }
 
   ngOnChanges(change: SimpleChanges) {
-    if (this.searchQueryISBN !== undefined && this.recentSearchQueryISBN !== this.searchQueryISBN && this.searchQueryISBN !== '') {
-      console.log(this.searchQueryISBN);
-      this.getSearchResult(this.searchQueryISBN);
-      this.recentSearchQueryISBN = this.searchQueryISBN;
+    if (this.searchQueryBook !== undefined && this.recentSearchQueryBook !== this.searchQueryBook && this.searchQueryBook.ISBN !== '') {
+      console.log(this.searchQueryBook.ISBN);
+      this.getSearchResult(this.searchQueryBook.ISBN);
+      this.recentSearchQueryBook = this.searchQueryBook;
     }
   }
 
   onClickInterested() {
-    alert('Interested clicked');
+    if (this.userService.getSignedIn()) {
+      this.bookService.setInterestedBook(
+        this.searchQueryBook.ISBN,
+        this.searchQueryBook.title)
+        .then(response => {
+          console.log('sucessfully posted.');
+          return response;
+        })
+        .catch(function(err) {
+          console.log('error in setInterestedBook: ' + err);
+        });
+    } else {
+      alert('You need to be signed in to use this feature.');
+    }
   }
 
   onClickResult(clickedResult) {

@@ -16,7 +16,7 @@ import { BookService } from '../service/book.service';
 export class SearchComponent implements OnInit {
   searchQueryStr: string; // Will be binded with searchInput
   enqueuedSearchQueryStr: string;
-  enqueuedSearchQueryISBN: string;
+  enqueuedSearchQueryBook: Book;
 
   constructor(
     private router: Router,
@@ -43,11 +43,11 @@ export class SearchComponent implements OnInit {
     alert('GoDirect clicked');
   }
 
-  receiveSearchStartSignal(mayISBN) {
-    if ( this.isValidISBN(mayISBN) ) {
-      this.enqueuedSearchQueryISBN = mayISBN;
+  receiveSearchStartSignal(mayBook) {
+    if ( this.isValidISBN(mayBook.ISBN) ) {
+      this.enqueuedSearchQueryBook = mayBook;
     } else {
-      alert('Invalid ISBN.. Please check the requested ISBN');
+      alert('Please choose a book.');
     }
   }
 

@@ -20,8 +20,8 @@ export class ArticleService {
       'Authorization': 'my-auth-token',
     })
   };
-  //url = 'api/search/isbn/';
-  url = 'http://54.180.117.120:8000/api/search/isbn/';
+  url = 'api/search/isbn/';
+  //url = 'http://54.180.117.120:8000/api/search/isbn/';
   constructor(
     private http: HttpClient,
     private router: Router
@@ -52,8 +52,8 @@ export class ArticleService {
     return this.http.delete<number>(this.url+wantToDelete.id, this.httpOptions);
   }
 
-  updateArticle(wantToUpdate: Article) {
-    return this.http.put<Article>(this.url+wantToUpdate.id,  {'site': newArticle.site, 'title': newArticle.title,'author': newArticle.author,'price': newArticle.price,'link': newArticle.link},this.httpOptions);
-  }
+  // updateArticle(wantToUpdate: Article) {
+  //   return this.http.put<Article>(this.url+wantToUpdate.id,  {'site': newArticle.site, 'title': newArticle.title,'author': newArticle.author,'price': newArticle.price,'link': newArticle.link},this.httpOptions);
+  // }
 
 }
