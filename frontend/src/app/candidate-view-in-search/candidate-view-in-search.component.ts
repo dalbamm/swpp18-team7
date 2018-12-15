@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { Response } from '@angular/http';
 
 import { Article } from '../models/article';
 import { ArticleService } from '../service/article.service';
@@ -55,27 +56,59 @@ export class CandidateViewInSearchComponent implements OnInit, OnChanges {
     }
   }
 
+  //  getCandidateResult(que) {
+  //  this.bookService.getCandidateList(que)
+  //  .then( response => {
+  //    return this.initBooks(response);
+  //  })
+  //  .then( processedResponse => {
+  //    this.candidateList = processedResponse;
+  //    this.displayCandidatesFlag = true;
+  //  })
+  //  .catch(function(err) {
+  //    console.log('error occured during getCandidateResult: ' + err);
+  //  });
+  // }
+
   getCandidateResult(que) {
     this.bookService.getCandidateList(que)
-    .then( response => {
-      return this.initBooks(response);
-    })
-    .then( processedResponse => {
-      this.candidateList = processedResponse;
-      this.displayCandidatesFlag = true;
-    })
-    .catch(function(err) {
-      console.log('error occured during getCandidateResult: ' + err);
-    });
+      .then((response: Response) => {
+	this.candidateList = this.initBooks(response);
+	this.displayCandidatesFlag = true;
+      })
+      .catch(function(err) {
+        console.log('error occurred during getCandidateResult: ' + err);
+      });
   }
 
-  initBooks(response: Book[]) {
-    const len = response.length;
-    for (let i = 0 ; i < len ; ++i) {
-      this.bookService.initBook(response[i]);
+  initBooks(response: Response): Book[] {
+    const len = response['documents'].length;
+    var resultBooks: Book[] = [];
+
+    for (var i = 0; i < len; i++) {
+      var resp = response['documents'][i];
+      var respBook = {
+        ISBN: resp['isbn'].split(' ')[1],
+	imageLink: resp['thumbnail'],
+	title: resp['title'],
+	author: resp['authors'],
+	publisher: resp['publisher'],
+	publishedYear: resp['datetime'].split('-')[0],
+	marketPrice: resp['price']
+      } as Book;
+      resultBooks.push(respBook);
     }
-    return response;
+    return resultBooks;
   }
+
+
+  //initBooks(response: Book[]) {
+  //  const len = response.length;
+  //  for (let i = 0 ; i < len ; ++i) {
+  //    this.bookService.initBook(response[i]);
+  //  }
+  //  return response;
+  // }
 
   initSelectedCandidate() {
     const tmp = new Book();
