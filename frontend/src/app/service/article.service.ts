@@ -53,7 +53,7 @@ export class ArticleService {
   }
 
   updateArticle(wantToUpdate: Article) {
-    return this.http.put<number>(this.url+wantToUpdate.id, wantToUpdate,this.httpOptions);
+    return this.http.put<Article>(this.url+wantToUpdate.id,  {'site': newArticle.site, 'title': newArticle.title,'author': newArticle.author,'price': newArticle.price,'link': newArticle.link},this.httpOptions);
   }
 
 }
