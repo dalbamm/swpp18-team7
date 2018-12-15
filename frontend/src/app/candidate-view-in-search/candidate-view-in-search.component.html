@@ -14,7 +14,7 @@
       </div>
       <div class="container border bookInfo">
         <div>책 정보</div>
-        <div class="content">
+        <div class="content" *ngIf="selectedCandidate.title">
           제목: {{selectedCandidate.title}}<br/>
           저자: {{selectedCandidate.author}}<br/>
           출판사: {{selectedCandidate.publisher}}<br/>
@@ -22,6 +22,6 @@
           정가: {{selectedCandidate.marketPrice}}<br/>
         </div>
         <div class="vacancy"></div>
-        <button class="btn btn-outline-primary" (click)="onClickStartSearch()">검색 시작</button>
+        <button class="btn btn-outline-primary" *ngIf="selectedCandidate.title" (click)="onClickStartSearch()">검색 시작</button>
       </div>
     </div>
