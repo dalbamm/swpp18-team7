@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../service/user.service';
-import { User } from '../models/user';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Response } from '@angular/http';
+
+import { UserService } from '../service/user.service';
+import { BookService } from '../service/book.service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-user-info',
@@ -15,7 +18,8 @@ export class UserInfoComponent implements OnInit {
 
   constructor (
    	private router: Router,
-   	private userService: UserService
+   	private userService: UserService,
+    private bookService: BookService
    	) {
   }
 
@@ -25,6 +29,7 @@ export class UserInfoComponent implements OnInit {
    		this.router.navigateByUrl('main');
   	} else {
    		this.user = this.userService.getCurrentUser();
+      this.getInterestedList();
    	}
   }
 
@@ -58,6 +63,17 @@ export class UserInfoComponent implements OnInit {
 	  		this.onClickChangeEmail();
 	  	}
   	}
+  }
+
+  getInterestedList(): void {
+    this.bookService.getInterestedBook().subscribe(
+      (response: Response) => {
+        console.log(response);
+      },
+      (error: HttpErrorResponse) => {
+        console.log('error in getInterestedList.');
+      }
+    );
   }
 
   private checkEmailValidity(emailInput: string): boolean {
