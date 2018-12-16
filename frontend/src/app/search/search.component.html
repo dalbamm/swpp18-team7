@@ -1,20 +1,20 @@
-<div align="right">
+<!--<div align="right">
   <button class="buttons" id="goSale-button" (click)="goSalePage()">
   판매하기
   </button>
-</div>
+</div>-->
 <div>
   <div class="searchInputContainer">
     <input id="searchInput" [(ngModel)]="searchQueryStr" class="searchInput" (keyup.enter)="onClickSearch()">
-    <button class="buttons" id="search-button" (click)="onClickSearch()">
+    <button id="search-button" class="btn btn-outline-primary" (click)="onClickSearch()">
       검색
     </button>
 
-    <button class="buttons" id="goDirect" (click)="onClickGoDirect()">
+    <button id="goDirect" class="btn btn-outline-primary" (click)="onClickGoDirect()">
       최저가 링크
     </button>
   </div>
 </div>
 
   <app-candidate-view-in-search [searchQueryStr]="enqueuedSearchQueryStr" (searchStartSignalEmitter)="receiveSearchStartSignal($event)"></app-candidate-view-in-search>
-  <app-result-view-in-search [searchQueryISBN]="enqueuedSearchQueryISBN"></app-result-view-in-search>
+  <app-result-view-in-search [searchQueryBook]="enqueuedSearchQueryBook"></app-result-view-in-search>

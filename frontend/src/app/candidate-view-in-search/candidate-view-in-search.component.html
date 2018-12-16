@@ -1,5 +1,5 @@
 <div class="resultPart"> 
-  <div class="showCandidates">
+  <div class="container border showCandidates">
         <div class="title">검색 후보</div>
         <div class="empty" *ngIf="displayCandidatesFlag===false"></div>
         <div class="candidatesContainer" *ngIf="displayCandidatesFlag===true">
@@ -12,9 +12,9 @@
          </ul>
         </div>
       </div>
-      <div class="bookInfo">
+      <div class="container border bookInfo">
         <div>책 정보</div>
-        <div class="content">
+        <div class="content" *ngIf="selectedCandidate.title">
           제목: {{selectedCandidate.title}}<br/>
           저자: {{selectedCandidate.author}}<br/>
           출판사: {{selectedCandidate.publisher}}<br/>
@@ -22,6 +22,6 @@
           정가: {{selectedCandidate.marketPrice}}<br/>
         </div>
         <div class="vacancy"></div>
-        <button class="buttons" (click)="onClickStartSearch()">검색 시작</button>
+        <button class="btn btn-outline-primary" *ngIf="selectedCandidate.title" (click)="onClickStartSearch()">검색 시작</button>
       </div>
     </div>

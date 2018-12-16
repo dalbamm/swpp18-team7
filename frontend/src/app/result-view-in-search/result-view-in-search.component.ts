@@ -8,6 +8,7 @@ import { ArticleService } from '../service/article.service';
 import { Book } from '../models/book';
 import { BookService } from '../service/book.service';
 
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-result-view-in-search',
@@ -16,30 +17,44 @@ import { BookService } from '../service/book.service';
 })
 export class ResultViewInSearchComponent implements OnInit, OnChanges {
   resultList: Article[]; // ArticleList
-  displayResultFlag = false;
-  recentSearchQueryISBN: string;
+  displayResultFlag = 0; //0: empty, 1: loading, 2: no results, 3: results
+  recentSearchQueryBook: Book;
 
   constructor(
     private router: Router,
     private articleService: ArticleService,
     private bookService: BookService,
+    private userService: UserService,
   ) { }
 
-  @Input() searchQueryISBN: string;
+  @Input() searchQueryBook: Book;
 
   ngOnInit() {
   }
 
   ngOnChanges(change: SimpleChanges) {
-    if (this.searchQueryISBN !== undefined && this.recentSearchQueryISBN !== this.searchQueryISBN && this.searchQueryISBN !== '') {
-      console.log(this.searchQueryISBN);
-      this.getSearchResult(this.searchQueryISBN);
-      this.recentSearchQueryISBN = this.searchQueryISBN;
+    if (this.searchQueryBook !== undefined && this.recentSearchQueryBook !== this.searchQueryBook && this.searchQueryBook.ISBN !== '') {
+      console.log(this.searchQueryBook.ISBN);
+      this.getSearchResult(this.searchQueryBook.ISBN);
+      this.recentSearchQueryBook = this.searchQueryBook;
     }
   }
 
   onClickInterested() {
-    alert('Interested clicked');
+    if (this.userService.getSignedIn()) {
+      this.bookService.setInterestedBook(
+        this.searchQueryBook.ISBN,
+        this.searchQueryBook.title)
+        .then(response => {
+          console.log('sucessfully posted.');
+          return response;
+        })
+        .catch(function(err) {
+          console.log('error in setInterestedBook: ' + err);
+        });
+    } else {
+      alert('You need to be signed in to use this feature.');
+    }
   }
 
   onClickResult(clickedResult) {
@@ -49,6 +64,7 @@ export class ResultViewInSearchComponent implements OnInit, OnChanges {
   }
 
   getSearchResult(isbn) {
+    this.displayResultFlag = 1;
     this.articleService.getExternalArticles(isbn)
     .then( response => {// Initialize to fulfill missed properties
       // return this.initExternalArticles(response);
@@ -57,7 +73,11 @@ export class ResultViewInSearchComponent implements OnInit, OnChanges {
     .then( processedResponse => {
       // Starts to display result list after the promise is resolved.
       this.resultList = processedResponse;
-      this.displayResultFlag = true;
+      if(processedResponse.length === 0){
+        this.displayResultFlag = 2;
+      }  else {
+        this.displayResultFlag = 3;
+      }
     })
     .catch(function(err) {
       console.log('error occured during getSearchResult: ' + err);

@@ -26,7 +26,7 @@ class Crawler:
 
 	# open the chrome driver
 	def openDriver(self):
-		self.driver = webdriver.Chrome('/Users/sewon/Downloads/chromedriver', chrome_options=self.options)
+		self.driver = webdriver.Chrome('/usr/bin/chromedriver', chrome_options=self.options)
 
 	# close the chrome driver
 	def closeDriver(self):

@@ -7,7 +7,13 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./book-input.component.css']
 })
 export class BookInputComponent implements OnInit {
-  
+
+  ISBN: string;
+  bookTitle: string;
+  bookAuthor: string;
+  bookPublisher: string;
+  bookPublishedYear: number;
+
   closeResult: string;
 
   constructor(private modalService: NgbModal) { }
@@ -31,10 +37,6 @@ export class BookInputComponent implements OnInit {
   	} else {
   	  return 'with: ${reason}';
   	}
-  }
-
-  onClickISBNSearch() {
-    alert('onClickISBNSearch button is clicked');
   }
 
   onClickConfirm() {

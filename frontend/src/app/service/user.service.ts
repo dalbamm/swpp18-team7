@@ -13,11 +13,22 @@ import { User } from '../models/user';
 })
 export class UserService {
 
-  signinUrl = 'api/signin';
-  signupUrl = 'api/signup';
-  signoutUrl = 'api/signout';
-  userUrl = 'api/user';
-  csrfToken: string;
+signinUrl = 'api/signin';
+signupUrl = 'api/signup';
+signoutUrl = 'api/signout';
+userUrl = 'api/user';
+
+//signinUrl = 'http://54.180.117.120:8000/api/signin';
+//signupUrl = 'http://54.180.117.120:8000/api/signup';
+//signoutUrl = 'http://54.180.117.120:8000/api/signout';
+//userUrl = 'http://54.180.117.120:8000/api/user';
+
+//  url_prefix = 'http://localhost:8000';
+//  signinUrl = this.url_prefix + '/api/signin';
+//  signupUrl = this.url_prefix + '/api/signup';
+//  signoutUrl = this.url_prefix + '/api/signout';
+//  userUrl = this.url_prefix + '/api/user';
+  csrfToken: string; 
 
   private signedIn: boolean;
   private currUser: User;
@@ -25,10 +36,11 @@ export class UserService {
   httpOptions = {
     headers: new HttpHeaders({
     'Content-Type':  'application/json',
-    'Authorization': 'my-auth-token'
+    'Authorization': 'my-auth-token',
+    'credentials': 'include',
     })
   };
-
+  
   constructor(
     private http: HttpClient,
     private router: Router
@@ -62,6 +74,7 @@ export class UserService {
 
   /* Http Requests */
   signIn(email: string, password: string): Observable<Response> {
+    	console.log('signin==========='+document.cookie);
     return this.http.post<Response>(this.signinUrl, {'email': email, 'password': password}, this.httpOptions);
   }
 
@@ -70,6 +83,7 @@ export class UserService {
   }
 
   getRequestUser(): Observable<User> {
+    	console.log('getRequestUser==========='+document.cookie);
     return this.http.get<User>(this.userUrl);
   }
 

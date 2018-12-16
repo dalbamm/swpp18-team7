@@ -1,15 +1,17 @@
+<div style="width: 50%; margin: 0 auto;">
 <h2>Sign in</h2>
 <form name="form" method="post">
 	Email: <input id="email-input" type="text" name="email">
-      <label id="email-label"></label>
+	<label id="email-label"></label>
 	<br>
-	Password: <input id="password-input" type="password" name="password">
+	Password: <input id="password-input" type="password" name="password" (keyup.enter)="onClickSignin()">
       <label id="password-label"></label>
 </form>
 <div>
-	<button (click)=onClickCancel()>Cancel</button>
-	<button (click)=onClickSignin()>Sign in</button>
+	<button class="btn btn-outline-primary" (click)=onClickCancel()>Cancel</button>
+	<button class="btn btn-outline-primary" (click)=onClickSignin()>Sign in</button>
 </div>
 <div>
-	not a member yet? <button (click)=onClickSignup()>Sign up</button>
+	not a member yet? <button class="btn btn-outline-primary" (click)=onClickSignup()>Sign up</button>
+</div>
 </div>

@@ -8,7 +8,7 @@
   	  	<table>
   	  	  <tr>
   	  	  	<td class='col-8'>
-  	  	  	  <input id='book-title-input' class='form-control' placeholder='Book Title'>
+  	  	  	  <input id='book-title-input' class='form-control' placeholder='Book Title' [(ngModel)]="bookTitle">
   	  	  	</td>
   	  	  	<td class='col-2'>
               
@@ -92,7 +92,7 @@
               저자
             </td>
             <td class='row-body'>
-              <input id='book-author-input' class='form-control' placeholder='Book Author'>
+              <input id='book-author-input' class='form-control' placeholder='Book Author' [(ngModel)]="bookAuthor">
             </td>
   	  	  </tr>
           <tr>
@@ -100,7 +100,7 @@
               출판사
             </td>
             <td class='row-body'>
-              <input id='book-publisher-input' class='form-control' placeholder='Book Publisher'>
+              <input id='book-publisher-input' class='form-control' placeholder='Book Publisher'  [(ngModel)]="bookPublisher">
             </td>
           </tr>
           <tr>
@@ -108,7 +108,7 @@
               출판연도
             </td>
             <td class='row-body'>
-              <input id='book-publishedYear-input' class='form-control' placeholder='Book Published Year'>
+              <input id='book-publishedYear-input' class='form-control' placeholder='Book Published Year' [(ngModel)]="bookPublishedYear">
             </td>
           </tr>
   	  	</table>

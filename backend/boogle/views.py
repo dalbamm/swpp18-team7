@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from crawler import Crawler
+from boogle.models import Account, Book
 import json
 
 
@@ -14,7 +15,7 @@ def signin(request):
         username = req_data['email']
         password = req_data['password']
         user = authenticate(request, username=username, password=password)
-
+        print("signin user: ", user)
         if user is not None:
             login(request, user)
             userJson = json.dumps({
@@ -24,6 +25,7 @@ def signin(request):
                 "name": "no_name_field_yet",
                 "signedIn": user.is_authenticated
             })
+            print('userJson:', userJson)
             return HttpResponse(userJson, status=204)
         else:
             return HttpResponse(status=401)
@@ -42,10 +44,18 @@ def signup(request):
         if User.objects.filter(username=email).exists():
             return HttpResponse('An account already exists with this email.', status=409)
         else:
-            User.objects.create_user(username=email, password=password)
+            newUser = User.objects.create_user(
+                username=email, password=password)
+            newAccount = Account(user=newUser)
+            newAccount.save()
+
             return HttpResponse(status=201)
+    elif request.method == 'OPTIONS':
+        response = HttpResponse()
+        response['allow'] = ['POST', 'OPTIONS']
+        return response
     else:
-        return HttpResponseNotAllowed(['POST'])
+        return HttpResponseNotAllowed(['POST', 'OPTIONS'])
 
 
 def signout(request):
@@ -66,26 +76,24 @@ def user(request):
         resp_json = json.dumps({
             "id": user.id,
             "email": user.username,
-            "password": user.password,
+            "password": 'NOPE',
             "name": "no_name_field_yet",
             "signed_in": user.is_authenticated
         })
 
         return HttpResponse(resp_json)
+
     elif request.method == 'PUT':
         user = request.user
 
         req_data = json.loads(request.body.decode())
 
-        print('user.username:', user.username)
-        print('req_data[email]:', req_data['email'])
         if not user.username == req_data['email']:
             if User.objects.filter(username=req_data['email']).exists():
                 return HttpResponse('An account already exists with this email.', status=409)
             else:
                 user.username = req_data['email']
 
-        # TODO: create phone attribute in user model
         user.save()
         print('username after save: ', user.username)
 
@@ -129,9 +137,38 @@ def getUsedbookList(request, **kwargs):
     else:
         return HttpResponseNotAllowed(['GET'])
 
-# @ensure_csrf_cookie
-# def token(request):
-#     if request.method == 'GET':
-#         return HttpResponse(status=204)
-#     else:
-#         return HttpResponseNotAllowed(['GET'])
+
+def interestedBook(request):
+    if request.method == 'GET':
+        user = Account.objects.get(user=request.user)
+
+        bookList = user.interestedBooks.values()
+        return JsonResponse(bookList, safe=False, status=200)
+
+    if request.method == 'POST':
+        req_data = json.loads(request.body.decode())
+
+        account = Account.objects.get(user=request.user)
+        isbn = req_data['isbn']
+        title = req_data['title']
+
+        if not Book.objects.filter(isbn=isbn).exists():
+            newBook = Book(isbn=isbn, title=title)
+            newBook.save()
+
+        book = Book.objects.get(isbn=isbn)
+
+        account.interestedBooks.add(book)
+        account.save()
+        return HttpResponse(status=204)
+
+    else:
+        return HttpResponseNotAllowed(['GET', 'POST'])
+
+
+@ensure_csrf_cookie
+def token(request):
+    if request.method == 'GET':
+        return HttpResponse(status=204)
+    else:
+        return HttpResponseNotAllowed(['GET'])

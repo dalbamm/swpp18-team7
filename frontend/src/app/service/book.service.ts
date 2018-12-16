@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpHeaders, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Response } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -11,13 +11,9 @@ import { Book } from '../models/book';
   providedIn: 'root'
 })
 export class BookService {
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      'Authorization': 'my-auth-token',
-    })
-  };
-  url = 'api/search/candidates/';
+  candidateUrl = 'https://dapi.kakao.com/v3/search/book';
+  interestedUrl = 'api/interested';
+
   constructor(
     private http: HttpClient,
     private router: Router
@@ -30,16 +26,20 @@ export class BookService {
 
   }
 
-  getCandidateList(queryFromUser: String) {
-    return this.http.get<Book[]>(this.url + queryFromUser.trim())
-    .toPromise();
+  getCandidateList(queryFromUser: string) {
+    const headers = new HttpHeaders()
+      .set('Authorization', 'KakaoAK 9bd91870c7adbc51b5973c6618123d57');
+    const params = new HttpParams()
+      .set('query', queryFromUser);
+    return this.http.get<Response>(this.candidateUrl, {headers: headers, params: params}).toPromise();
   }
 
   initBook(raw: Book) {
     // Initialize information that is undefined in backend
   }
 
-  setInterestedBook() {
+  setInterestedBook(isbn: string, title: string) {
+    return this.http.post<Response>(this.interestedUrl, {'isbn': isbn, 'title': title}).toPromise();
   }
 
 

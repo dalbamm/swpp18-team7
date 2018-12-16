@@ -36,7 +36,7 @@ export class SigninComponent implements OnInit {
           sessionStorage.setItem('sessionUser', JSON.stringify(user));
           
           this.userService.setCurrentUser(user);
-          this.router.navigateByUrl('main');
+	  this.router.navigateByUrl('main');
         });
       },
       (error: HttpErrorResponse) => {
