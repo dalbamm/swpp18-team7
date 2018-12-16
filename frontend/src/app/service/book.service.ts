@@ -43,6 +43,6 @@ export class BookService {
   }
 
   getInterestedBook() {
-    return this.http.get<Response>(this.interestedUrl);
+    return this.http.get<Book[]>(this.interestedUrl);
   }
 }

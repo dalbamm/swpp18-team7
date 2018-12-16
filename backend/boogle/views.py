@@ -142,10 +142,15 @@ def interestedBook(request):
     if request.method == 'GET':
         user = Account.objects.get(user=request.user)
 
-        bookList = user.interestedBooks.values()
+        bookListQuerySet = user.interestedBooks.values()
+        bookList = [
+            {'title': book['title'], 'ISBN': book['isbn']}
+            for book in bookListQuerySet
+        ]
+
         return JsonResponse(bookList, safe=False, status=200)
 
-    if request.method == 'POST':
+    elif request.method == 'POST':
         req_data = json.loads(request.body.decode())
 
         account = Account.objects.get(user=request.user)
@@ -162,8 +167,17 @@ def interestedBook(request):
         account.save()
         return HttpResponse(status=204)
 
+    elif request.method == 'DELETE':
+        req_data = json.loads(request.body.decode())
+
+        account = Account.objects.get(user=request.user)
+        isbn = req_data['isbn']
+
+        book = account.interestedBooks.get(isbn=isbn)
+        account.interestedBooks.remove(book)
+
     else:
-        return HttpResponseNotAllowed(['GET', 'POST'])
+        return HttpResponseNotAllowed(['GET', 'POST', 'DELETE'])
 
 
 @ensure_csrf_cookie

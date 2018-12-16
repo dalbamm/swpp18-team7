@@ -6,6 +6,7 @@ import { Response } from '@angular/http';
 import { UserService } from '../service/user.service';
 import { BookService } from '../service/book.service';
 import { User } from '../models/user';
+import { Book } from '../models/book';
 
 @Component({
   selector: 'app-user-info',
@@ -15,6 +16,7 @@ import { User } from '../models/user';
 export class UserInfoComponent implements OnInit {
 
   user: User;
+  interestedList: Book[];
 
   constructor (
    	private router: Router,
@@ -67,8 +69,11 @@ export class UserInfoComponent implements OnInit {
 
   getInterestedList(): void {
     this.bookService.getInterestedBook().subscribe(
-      (response: Response) => {
-        console.log(response);
+      (books: Book[]) => {
+        // for(var i = 0; i< books.length; i++){
+        //   console.log(books[i].title + ': ' + books[i].ISBN);
+        // }
+        this.interestedList = books;
       },
       (error: HttpErrorResponse) => {
         console.log('error in getInterestedList.');
@@ -79,5 +84,9 @@ export class UserInfoComponent implements OnInit {
   private checkEmailValidity(emailInput: string): boolean {
     const email_regex: RegExp = /^[^@\s]+@[^@\s]+\.[a-z]{2,3}$/;
     return email_regex.test(emailInput);
+  }
+
+  onClickDelete(isbn) {
+    alert('isbn: ' + isbn);
   }
 }
