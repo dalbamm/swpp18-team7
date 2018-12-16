@@ -51,5 +51,7 @@ export class BookService {
     return this.http.post<Response>(this.interestedUrl, {'isbn': isbn, 'title': title}).toPromise();
   }
 
-
+  getInterestedBook() {
+    return this.http.get<Book[]>(this.interestedUrl);
+  }
 }

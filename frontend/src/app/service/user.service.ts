@@ -18,16 +18,16 @@ signupUrl = 'api/signup';
 signoutUrl = 'api/signout';
 userUrl = 'api/user';
 
-//signinUrl = 'http://54.180.117.120:8000/api/signin';
-//signupUrl = 'http://54.180.117.120:8000/api/signup';
-//signoutUrl = 'http://54.180.117.120:8000/api/signout';
-//userUrl = 'http://54.180.117.120:8000/api/user';
+// signinUrl = 'http://54.180.117.120:8000/api/signin';
+// signupUrl = 'http://54.180.117.120:8000/api/signup';
+// signoutUrl = 'http://54.180.117.120:8000/api/signout';
+// userUrl = 'http://54.180.117.120:8000/api/user';
 
-//  url_prefix = 'http://localhost:8000';
-//  signinUrl = this.url_prefix + '/api/signin';
-//  signupUrl = this.url_prefix + '/api/signup';
-//  signoutUrl = this.url_prefix + '/api/signout';
-//  userUrl = this.url_prefix + '/api/user';
+// url_prefix = 'http://localhost:8000';
+// signinUrl = this.url_prefix + '/api/signin';
+// signupUrl = this.url_prefix + '/api/signup';
+// signoutUrl = this.url_prefix + '/api/signout';
+// userUrl = this.url_prefix + '/api/user';
   csrfToken: string; 
 
   private signedIn: boolean;

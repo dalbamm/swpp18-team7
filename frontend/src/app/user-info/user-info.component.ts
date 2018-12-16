@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../service/user.service';
-import { User } from '../models/user';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Response } from '@angular/http';
+
+import { UserService } from '../service/user.service';
+import { BookService } from '../service/book.service';
+import { User } from '../models/user';
+import { Book } from '../models/book';
 
 @Component({
   selector: 'app-user-info',
@@ -12,10 +16,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class UserInfoComponent implements OnInit {
 
   user: User;
+  interestedList: Book[];
 
   constructor (
    	private router: Router,
-   	private userService: UserService
+   	private userService: UserService,
+    private bookService: BookService
    	) {
   }
 
@@ -25,6 +31,7 @@ export class UserInfoComponent implements OnInit {
    		this.router.navigateByUrl('main');
   	} else {
    		this.user = this.userService.getCurrentUser();
+      this.getInterestedList();
    	}
   }
 
@@ -60,8 +67,26 @@ export class UserInfoComponent implements OnInit {
   	}
   }
 
+  getInterestedList(): void {
+    this.bookService.getInterestedBook().subscribe(
+      (books: Book[]) => {
+        // for(var i = 0; i< books.length; i++){
+        //   console.log(books[i].title + ': ' + books[i].ISBN);
+        // }
+        this.interestedList = books;
+      },
+      (error: HttpErrorResponse) => {
+        console.log('error in getInterestedList.');
+      }
+    );
+  }
+
   private checkEmailValidity(emailInput: string): boolean {
     const email_regex: RegExp = /^[^@\s]+@[^@\s]+\.[a-z]{2,3}$/;
     return email_regex.test(emailInput);
+  }
+
+  onClickDelete(isbn) {
+    alert('isbn: ' + isbn);
   }
 }

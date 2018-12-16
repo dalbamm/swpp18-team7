@@ -1,33 +1,53 @@
-<h3>Account Information</h3>
-<table *ngIf="user" id="account-info">
+<h3 style='margin-top:70px;'>Account Information</h3>
+<br>
+<table *ngIf="user" id="account-info" class="table table-borderless" style="width: 70%; margin-left:auto; margin-right:auto;">
 	<tr>
-		<th>
+		<th scope='col'>
 			E-mail
 		</th>
-		<td>
+		<td scope='col-6'>
 			{{user.email}}
 		</td>
-		<td>
+		<td scope='col'>
 			<button class = 'btn btn-outline-primary' (click)=onClickChangeEmail()>change</button>
 		</td>
 	</tr>
 	<tr>
-		<th>
+		<th scope="col">
 			Phone Number
 		</th>
-		<td>
+		<td scope="col-6">
 			{{user.phone}}
 		</td>
-		<td>
+		<td scope="col">
 			<button class='btn btn-outline-primary' >change</button>
 		</td>
 	</tr>
-<!-- 	<tr>
-		<th>
-			
+</table>
+<br>
+<h3>Interests</h3>
+<br>
+<table *ngIf="user" id="interested-list" class="table table-bordless" style="width: 90%;">
+	<tr>
+		<th scope="col-4">
+			Title
 		</th>
-		<td>
-			
+		<th scope="col-4">
+			ISBN
+		</th>
+		<th scope="col-2">
+			Delete
+		</th>
+	</tr>
+	<tr *ngFor="let book of interestedList">
+		<td scope="col-4">
+			{{book.title}}
 		</td>
-	</tr> -->
+		<td scope="col-4">
+			{{book.ISBN}}
+		</td>
+		<td scope="col-2">
+			<button class="btn btn-outline-primary" (click)=onClickDelete(book.ISBN)>delete</button>
+		</td>
+	</tr>
 </table>
