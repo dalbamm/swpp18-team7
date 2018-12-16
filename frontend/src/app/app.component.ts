@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Response } from '@angular/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
 
 import { User } from './models/user';
 import { UserService } from './service/user.service';
@@ -20,8 +21,10 @@ export class AppComponent {
   constructor (
     public router: Router,
     private userService: UserService,
-    private http: HttpClient
+    private http: HttpClient,
+    private titleService: Title,
     ) {
+      this.titleService.setTitle('Boogle');
       router.events.subscribe((val) => {
         if (val instanceof NavigationEnd) {
           this.user = this.userService.getCurrentUser();
@@ -32,7 +35,8 @@ export class AppComponent {
 	}
 
 
-  ngOnInit() {
+	ngOnInit() {
+
   }
 
   onClickSignin(): void {

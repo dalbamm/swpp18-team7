@@ -17,7 +17,7 @@ import { UserService } from '../service/user.service';
 })
 export class ResultViewInSearchComponent implements OnInit, OnChanges {
   resultList: Article[]; // ArticleList
-  displayResultFlag = false;
+  displayResultFlag = 0; //0: empty, 1: loading, 2: no results, 3: results
   recentSearchQueryBook: Book;
 
   constructor(
@@ -64,6 +64,7 @@ export class ResultViewInSearchComponent implements OnInit, OnChanges {
   }
 
   getSearchResult(isbn) {
+    this.displayResultFlag = 1;
     this.articleService.getExternalArticles(isbn)
     .then( response => {// Initialize to fulfill missed properties
       // return this.initExternalArticles(response);
@@ -72,7 +73,11 @@ export class ResultViewInSearchComponent implements OnInit, OnChanges {
     .then( processedResponse => {
       // Starts to display result list after the promise is resolved.
       this.resultList = processedResponse;
-      this.displayResultFlag = true;
+      if(processedResponse.length === 0){
+        this.displayResultFlag = 2;
+      }  else {
+        this.displayResultFlag = 3;
+      }
     })
     .catch(function(err) {
       console.log('error occured during getSearchResult: ' + err);
