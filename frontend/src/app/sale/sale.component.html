@@ -1,13 +1,10 @@
-<div class="status-toggle" align="right">
-  <button class="btn btn-outline-primary" id="goSearch-button" (click)="goSearchPage()">
-    구매하기
-  </button>
-</div>
-
-<h1 style='text-align:center;'>판매글 작성하기</h1>
+<h1 style='text-align:center;'>
+  판매글 작성하기
+</h1>
+<br>
 <div class='container border' style='padding: 1em'>
-  <app-book-input></app-book-input>
-  <app-article-input></app-article-input>  
+  <app-book-input (bookEmitter)="setBook($event)"></app-book-input>
+  <app-article-input [marketPrice]='marketPrice'></app-article-input>  
   <div id='sale-footer'>
     <table>
       <tr>

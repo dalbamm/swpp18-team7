@@ -124,6 +124,34 @@ def getCandidateList(request, **kwargs):
         return HttpResponseNotAllowed(['GET'])
 
 
+def usedbook(request):
+    if request.method == 'POST':
+        user = request.user
+        req_data = json.loads(request.body.decode())
+
+        if not user.username == req_data['email']:
+            if User.objects.filter(username=req_data['email']).exists():
+                return HttpResponse('An account already exists with this email.', status=409)
+            else:
+                user.username = req_data['email']
+
+        user.save()
+        print('username after save: ', user.username)
+
+        resp_json = json.dumps({
+            "id": user.id,
+            "email": user.username,
+            "password": user.password,
+            "name": "no_name_field_yet",
+            "signed_in": user.is_authenticated
+        })
+
+        return HttpResponse(resp_json, status=200)
+
+    else:
+        return HttpResponseNotAllowed(['POST'])
+
+
 def getUsedbookList(request, **kwargs):
     if request.method == 'GET':
         isbn = kwargs['isbn']

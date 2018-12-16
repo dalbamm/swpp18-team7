@@ -28,10 +28,10 @@
   	      	  <input id='my-price-input' [(ngModel)]='price' class='form-control' placeholder='Price'>
   	      	</td>
   	      	<td class='col-1' style='text-align:center;'>
-  	      	  V.S.
+  	      	  <h5>V.S.</h5>
   	      	</td>
   	      	<td class='col'>
-  	      	  <!-- 정가 정보 -->
+  	      	  <h5 *ngIf='marketPrice'>{{marketPrice}}</h5>
   	      	</td>
   	      </tr>
   	  	</table>

@@ -29,7 +29,7 @@
                         <table>
                           <tr>
                             <td>
-                              <input id='isbn-search-input' class='form-control' placeholder="ISBN">
+                              <input id='isbn-search-input' [(ngModel)]='queryString' class='form-control' placeholder="ISBN" autofocus>
                             </td>
                             <td>
                               <button type="button" class="btn btn-primary" id='isbn-search-button' (click)='onClickISBNSearch()'>
@@ -45,9 +45,26 @@
                         <h5 style="text-align: center;">검색 결과</h5>
                       </td>
                       <td>
-                        <table>
+                        <table *ngIf='this.displayFlag'>
                           <tr>
-                            <!-- 책 정보 -->
+                            <td>책 제목</td>
+                            <td>{{book.title}}</td>
+                          </tr>
+                          <tr>
+                            <td>저자</td>
+                            <td>{{book.author}}</td>
+                          </tr>
+                          <tr>
+                            <td>출판사</td>
+                            <td>{{book.publisher}}</td>
+                          </tr>
+                          <tr>
+                            <td>출판연도</td>
+                            <td>{{book.publishedYear}}</td>
+                          </tr>
+                          <tr>
+                            <td>정가</td>
+                            <td>{{book.marketPrice}}</td>
                           </tr>
                         </table>
                       </td>

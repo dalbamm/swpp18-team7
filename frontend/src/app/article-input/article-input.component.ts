@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-article-input',
@@ -10,15 +10,12 @@ export class ArticleInputComponent implements OnInit {
   title: string;
   author: string;
   price: number;
-  link: string;
   
+  @Input() marketPrice: number;
   content: string;
 
   constructor() { }
 
   ngOnInit() {
-  }
-  postArticle() {
-  	console.log('test success');	
   }
 }

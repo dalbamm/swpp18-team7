@@ -8,7 +8,7 @@ export class Article {
     title: string;
     author: string;
     price: number;
-    link: string;
+    link?: string;
 
     // boogle article
     id?: number;

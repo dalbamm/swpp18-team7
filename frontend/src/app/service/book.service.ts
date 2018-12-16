@@ -26,6 +26,15 @@ export class BookService {
 
   }
 
+  getBookByISBN(queryFromUser: string) {
+    const headers = new HttpHeaders()
+      .set('Authorization', 'KakaoAK 9bd91870c7adbc51b5973c6618123d57');
+    const params = new HttpParams()
+      .set('query', queryFromUser)
+      .set('target', 'isbn');
+    return this.http.get<Response>(this.candidateUrl, {headers: headers, params: params}).toPromise();
+  }
+
   getCandidateList(queryFromUser: string) {
     const headers = new HttpHeaders()
       .set('Authorization', 'KakaoAK 9bd91870c7adbc51b5973c6618123d57');
