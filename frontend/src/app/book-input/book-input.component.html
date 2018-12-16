@@ -11,7 +11,69 @@
   	  	  	  <input id='book-title-input' class='form-control' placeholder='Book Title'>
   	  	  	</td>
   	  	  	<td class='col-2'>
-  	  	  	  <button id='isbn-search-button' class='btn btn-outline-primary' (click)='goISBNSearchPage()'>
+              
+              <ng-template #content let-modal>
+                <div class="modal-header">
+                  <h4 class="modal-title" id="isbn-search-title">ISBN으로 도서 검색</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <table>
+                    <tr style="height:70px;">
+                      <td>
+                        <h5 style="text-align: center;">ISBN</h5>
+                      </td>
+                      <td>
+                        <table>
+                          <tr>
+                            <td>
+                              <input id='isbn-search-input' class='form-control' placeholder="ISBN">
+                            </td>
+                            <td>
+                              <button type="button" class="btn btn-primary" id='isbn-search-button' (click)='onClickISBNSearch()'>
+                                검색
+                              </button>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <h5 style="text-align: center;">검색 결과</h5>
+                      </td>
+                      <td>
+                        <table>
+                          <tr>
+                            <!-- 책 정보 -->
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <table>
+                    <tr>
+                      <td class='col-70'></td>
+                      <td class='col-15'>
+                        <button type="button" class="btn btn-outline-secondary" id="isbn-search-cancel-button" (click)="modal.close('Cancel Click');">
+                          취소
+                        </button>
+                      </td>
+                      <td class='col-15'>
+                        <button type="button" class="btn btn-outline-primary" id='isbn-search-confirm-button' (click)="onClickConfirm(); modal.close('Confirm Click');">
+                          확인
+                        </button>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </ng-template>
+
+  	  	  	  <button class="btn btn-outline-primary" (click)="open(content)">
   	  	  	  	ISBN 검색
   	  	  	  </button>
   	  	  	</td>
