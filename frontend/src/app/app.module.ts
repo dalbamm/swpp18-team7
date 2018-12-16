@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
@@ -17,7 +18,6 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { SaleComponent } from './sale/sale.component';
 import { BookInputComponent } from './book-input/book-input.component';
 import { ArticleInputComponent } from './article-input/article-input.component';
-import { IsbnSearchComponent } from './isbn-search/isbn-search.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +32,13 @@ import { IsbnSearchComponent } from './isbn-search/isbn-search.component';
     SaleComponent,
     BookInputComponent,
     ArticleInputComponent,
-    IsbnSearchComponent
   ],
   imports: [
     FormsModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    NgbModule,
     HttpClientXsrfModule.withOptions({
       cookieName: 'csrftoken',
       headerName: 'X-CSRFToken'
