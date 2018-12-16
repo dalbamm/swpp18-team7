@@ -46,14 +46,19 @@ export class ResultViewInSearchComponent implements OnInit, OnChanges {
         this.searchQueryBook.ISBN,
         this.searchQueryBook.title)
         .then(response => {
-          console.log('sucessfully posted.');
+          alert('관심책 목록에 등록되었습니다.');
           return response;
         })
         .catch(function(err) {
-          console.log('error in setInterestedBook: ' + err);
+          if(err.status===409){
+            alert('이미 관심책으로 등록된 책입니다.');
+          }
+          else{
+            console.log('error in setInterestedBook: ' + err);
+          }
         });
     } else {
-      alert('You need to be signed in to use this feature.');
+      alert('관심책 등록 기능은 로그인해야 이용할 수 있습니다.');
     }
   }
 

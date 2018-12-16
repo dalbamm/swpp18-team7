@@ -138,7 +138,7 @@ def getUsedbookList(request, **kwargs):
         return HttpResponseNotAllowed(['GET'])
 
 
-def interestedBook(request):
+def interestedBooks(request):
     if request.method == 'GET':
         user = Account.objects.get(user=request.user)
 
@@ -163,21 +163,30 @@ def interestedBook(request):
 
         book = Book.objects.get(isbn=isbn)
 
+        if account.interestedBooks.filter(isbn=isbn).exists():
+            return HttpResponse(status=409)
+
         account.interestedBooks.add(book)
         account.save()
         return HttpResponse(status=204)
 
-    elif request.method == 'DELETE':
-        req_data = json.loads(request.body.decode())
+    else:
+        return HttpResponseNotAllowed(['GET', 'POST', 'DELETE'])
 
+
+def interestedBook(request, **kwargs):
+    if request.method == 'DELETE':
         account = Account.objects.get(user=request.user)
-        isbn = req_data['isbn']
+        isbn = kwargs['isbn']
 
         book = account.interestedBooks.get(isbn=isbn)
         account.interestedBooks.remove(book)
+        account.save()
+
+        return HttpResponse(status=204)
 
     else:
-        return HttpResponseNotAllowed(['GET', 'POST', 'DELETE'])
+        return HttpResponseNotAllowed(['DELETE'])
 
 
 @ensure_csrf_cookie

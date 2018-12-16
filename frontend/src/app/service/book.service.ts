@@ -45,4 +45,8 @@ export class BookService {
   getInterestedBook() {
     return this.http.get<Book[]>(this.interestedUrl);
   }
+
+  deleteInterestedBook(isbn) {
+    return this.http.delete<Response>(this.interestedUrl+'/'+isbn);
+  }
 }

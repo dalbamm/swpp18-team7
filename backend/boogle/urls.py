@@ -9,6 +9,7 @@ urlpatterns = [
     path('search/candidates/<str:title>',
          views.getCandidateList, name='getCandidateList'),
     path('search/isbn/<str:isbn>', views.getUsedbookList, name='getUsedbookList'),
-    path('interested', views.interestedBook, name='interestedBook'),
+    path('interested', views.interestedBooks, name='interestedBooks'),
+    path('interested/<str:isbn>', views.interestedBook, name='interestedBook'),
     path('nothing', views.token, name='emptyRequest')
 ]
