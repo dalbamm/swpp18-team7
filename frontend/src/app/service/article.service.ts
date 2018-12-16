@@ -45,7 +45,7 @@ export class ArticleService {
   }
 
   addArticle(newArticle: Article) {
-    // return this.http.post<Article>(this.url, {'site': newArticle.site, 'title': newArticle.title,'author': newArticle.author,'price': newArticle.price,'link': newArticle.link},this.httpOptions)
+    return this.http.post<Article>(this.url, {'site': newArticle.site, 'title': newArticle.title,'author': newArticle.author,'price': newArticle.price,'link': newArticle.link},this.httpOptions)
   }
 
   deleteArticle(wantToDelete: Article) {

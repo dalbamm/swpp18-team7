@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Book } from '../models/book';
 
 @Component({
   selector: 'app-article-input',
@@ -11,7 +12,7 @@ export class ArticleInputComponent implements OnInit {
   author: string;
   price: number;
   
-  @Input() marketPrice: number;
+  @Input() book: Book;
   content: string;
 
   constructor() { }

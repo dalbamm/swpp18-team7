@@ -81,6 +81,8 @@ export class SaleComponent implements OnInit {
       return;
     }
 
+    if (!prompt('정말 등록하시겠습니까?')) return;
+
     if (this.book === undefined || this.book === null) {
       this.saleBook = new Book;
       this.saleBook.ISBN = this.bookInputComponent.ISBN;
@@ -100,5 +102,7 @@ export class SaleComponent implements OnInit {
     this.saleArticle.content = this.articleInputComponent.content;
   	this.saleArticle.book = this.saleBook;
     this.saleArticle.articleAuthor = this.userService.getCurrentUser();
+
+    // this.articleService.addArticle()
   }
 }
