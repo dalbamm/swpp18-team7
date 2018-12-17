@@ -31,7 +31,9 @@ export class AppComponent {
         }
       });
       console.log('hello'); 
-      this.http.get<Response>('http://54.180.117.120:8000/api/nothing').subscribe(() => console.log('hi'));	      
+      this.http.get<Response>('/api/nothing').subscribe(() =>{
+	      console.log('hi');
+	   });	      
 	}
 
 

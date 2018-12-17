@@ -104,5 +104,14 @@ export class SaleComponent implements OnInit {
     this.saleArticle.articleAuthor = this.userService.getCurrentUser();
 
     this.articleService.addArticle(this.saleArticle);
+
+  	console.log("saleBook:"+this.saleBook.ISBN);
+  	console.log("saleBook:"+this.saleBook.title);
+  	console.log("saleBook:"+this.saleBook.author);
+  	console.log("saleBook:"+this.saleBook.publisher);
+  	console.log("saleBook:"+this.saleBook.publishedYear);
+  	console.log("saleArticle:"+this.saleArticle.site);
+  	console.log("saleArticle:"+this.saleArticle.price);
+  	console.log("saleArticle:"+this.saleArticle.content);
   }
 }

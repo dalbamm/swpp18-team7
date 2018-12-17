@@ -44,6 +44,10 @@ ALLOWED_HOSTS = [
         '.amazonaws.com',
         ]
 
+CORS_ORIGIN_WHITELIST = [
+    '54.180.117.120',
+]
+
 CORS_ALLOW_HEADERS = [
             'authorization',
             'content-type',
