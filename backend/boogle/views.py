@@ -241,6 +241,7 @@ def article(request):
         newArticle.save()
         account.articles.add(newArticle)
         account.save()
+        sendAlert(isbn,title,newArticle.id)
         return HttpResponse(status=204)
     else:
         return HttpResponseNotAllowed(['GET', 'POST', 'DELETE'])
