@@ -81,7 +81,7 @@ export class SaleComponent implements OnInit {
       return;
     }
 
-    if (!prompt('정말 등록하시겠습니까?')) return;
+    if (!confirm('정말 등록하시겠습니까?')) return;
 
     if (this.book === undefined || this.book === null) {
       this.saleBook = new Book;
@@ -103,6 +103,6 @@ export class SaleComponent implements OnInit {
   	this.saleArticle.book = this.saleBook;
     this.saleArticle.articleAuthor = this.userService.getCurrentUser();
 
-    // this.articleService.addArticle()
+    this.articleService.addArticle(this.saleArticle);
   }
 }
