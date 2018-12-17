@@ -4,13 +4,13 @@ from django.contrib.auth.models import User
 
 class Book(models.Model):
     title = models.CharField(
-    	max_length=100,
-    	default='')
-    isbn = models.CharField(max_length=20)
-    author = models.CharField(max_length=30)
-    publisher = models.CharField(max_length=20)
-    publishedYear = models.IntegerField()
-    marketPrice = models.IntegerField()
+        max_length=100,
+        default='')
+    isbn = models.CharField(max_length=20, default='')
+    author = models.CharField(max_length=30, default='')
+    publisher = models.CharField(max_length=20, default='')
+    publishedYear = models.IntegerField(default=0)
+    marketPrice = models.IntegerField(default=0)
     imageLink = models.CharField(max_length=200, null=True)
 
 
@@ -21,7 +21,8 @@ class Account(models.Model):
     )
 
     interestedBooks = models.ManyToManyField(
-        Book
+        Book,
+        related_name='notificationRecipients'
     )
 
 
