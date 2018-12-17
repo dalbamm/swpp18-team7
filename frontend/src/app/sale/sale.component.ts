@@ -100,6 +100,7 @@ export class SaleComponent implements OnInit {
   	this.saleArticle.title = this.articleInputComponent.title;
   	this.saleArticle.author = this.userService.getCurrentUser().email;
   	this.saleArticle.price = this.articleInputComponent.price;
+  	this.saleArticle.link = '';
     this.saleArticle.content = this.articleInputComponent.content;
   	this.saleArticle.book = this.saleBook;
     this.saleArticle.articleAuthor = this.userService.getCurrentUser();
