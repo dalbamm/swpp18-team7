@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from crawler import Crawler
-from boogle.models import Account, Book
+from boogle.models import Account, Book, Article
 import json
 
 @ensure_csrf_cookie
@@ -215,6 +215,30 @@ def interestedBook(request, **kwargs):
 
     else:
         return HttpResponseNotAllowed(['DELETE'])
+
+def article(request):
+    if request.method == 'POST':
+        req_data = json.loads(request.body.decode())
+
+        account = Account.objects.get(user=request.user)
+        site = req_data['site']
+        title = req_data['title']
+        author = req_data['author']
+        price = req_data['price']
+        link = req_data['link']
+        content = req_data['content']
+        articleAuthor = req_data['articleAuthor']
+        isbn = req_data['isbn']
+
+        # if account.articles.filter(isbn=isbn).exists():
+        #     return HttpResponse(status=409)
+        newArticle = Article(site=site, title=title, author=author, price=price, link=link, content=content, articleAuthor=articleAuthor, isbn=isbn)
+        newArticle.save()
+        account.articles.add(newArticle)
+        account.save()
+        return HttpResponse(status=204)
+    else:
+        return HttpResponseNotAllowed(['GET', 'POST', 'DELETE'])
 
 
 @ensure_csrf_cookie

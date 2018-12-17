@@ -21,6 +21,7 @@ export class ArticleService {
     })
   };
   url = 'api/search/isbn/';
+  urlForPost = 'api/article';
   //url = 'http://54.180.117.120:8000/api/search/isbn/';
   constructor(
     private http: HttpClient,
@@ -45,7 +46,10 @@ export class ArticleService {
   }
 
   addArticle(newArticle: Article) {
-    return this.http.post<Article>(this.url + 12345, {'site': newArticle.site, 'title': newArticle.title,'author': newArticle.author,'price': newArticle.price,'link': newArticle.link},this.httpOptions)
+    return this.http.post<Article>(this.urlForPost,
+      {'site': newArticle.site, 'title': newArticle.title,'author': newArticle.author,'price': newArticle.price,
+      'link': newArticle.link, 'content': newArticle.content, 'articleAuthor': newArticle.articleAuthor,
+      'isbn': newArticle.book.ISBN}, this.httpOptions);
   }
 
   deleteArticle(wantToDelete: Article) {

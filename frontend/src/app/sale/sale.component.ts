@@ -84,8 +84,8 @@ export class SaleComponent implements OnInit {
     if (!confirm('정말 등록하시겠습니까?')) return;
 
     if (this.book === undefined || this.book === null) {
-      this.saleBook = new Book;
-      this.saleBook.ISBN = this.bookInputComponent.ISBN;
+			this.saleBook = new Book;
+			this.saleBook.ISBN = this.bookInputComponent.ISBN;
       this.saleBook.title = this.bookInputComponent.bookTitle;  
       this.saleBook.author = this.bookInputComponent.bookAuthor;  
       this.saleBook.publisher = this.bookInputComponent.bookPublisher;  
@@ -93,17 +93,18 @@ export class SaleComponent implements OnInit {
     } else {
       this.saleBook = this.book;
     }
-
+	
+      
   	this.saleArticle = new Article;
   	this.saleArticle.site = this.articleInputComponent.site;
-  	this.saleArticle.title = this.articleInputComponent.title;	
-  	this.saleArticle.author = this.articleInputComponent.author;	
-  	this.saleArticle.price = this.articleInputComponent.price;	
+  	this.saleArticle.title = this.articleInputComponent.title;
+  	this.saleArticle.author = this.userService.getCurrentUser().email;
+  	this.saleArticle.price = this.articleInputComponent.price;
     this.saleArticle.content = this.articleInputComponent.content;
   	this.saleArticle.book = this.saleBook;
     this.saleArticle.articleAuthor = this.userService.getCurrentUser();
 
-    this.articleService.addArticle(this.saleArticle);
+    this.articleService.addArticle(this.saleArticle).subscribe();
 
   	console.log("saleBook:"+this.saleBook.ISBN);
   	console.log("saleBook:"+this.saleBook.title);
