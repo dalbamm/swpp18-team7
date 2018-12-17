@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Article } from '../models/article';
@@ -17,7 +17,7 @@ export class SearchComponent implements OnInit {
   searchQueryStr: string; // Will be binded with searchInput
   enqueuedSearchQueryStr: string;
   enqueuedSearchQueryBook: Book;
-
+  
   constructor(
     private router: Router,
     private articleService: ArticleService,
@@ -27,20 +27,12 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  goSalePage() {
-    alert('goSalePage clicked');
-  }
-
   onClickSearch() {
     if (this.searchQueryStr === undefined || this.searchQueryStr === '') {
       alert('Input your query in the blank');
     } else {
       this.enqueuedSearchQueryStr = this.searchQueryStr.trim();
     }
-  }
-
-  onClickGoDirect() {
-    alert('GoDirect clicked');
   }
 
   receiveSearchStartSignal(mayBook) {

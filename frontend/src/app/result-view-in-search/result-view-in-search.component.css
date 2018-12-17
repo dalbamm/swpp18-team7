@@ -95,3 +95,9 @@ li {
     width: inherit;
     height: 55px;
 }
+.definiteFont{
+    font-weight: 500;
+    font-size: 1.25rem; 
+    color:darkcyan; 
+    display: inline-block;
+}

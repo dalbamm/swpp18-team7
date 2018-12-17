@@ -2,6 +2,10 @@
 	<div class="title" *ngIf="displayResultFlag!=0"><h4>검색 결과</h4></div>
 	<div *ngIf="displayResultFlag!=0"><h5>{{searchQueryBook.title}}</h5></div>
     <img src="assets/loading2.gif" *ngIf="displayResultFlag==1" style="margin-top:100px;">
+    <div *ngIf="displayResultFlag==3" >
+        <p class="definiteFont">{{minPrice}} 원</p>부터  <p class="definiteFont">
+          {{maxPrice}} 원</p>까지  <p class="definiteFont">{{resultSize}}</p>개의 판매 글이 있습니다. 
+    </div>
     <div class="empty" *ngIf="displayResultFlag==2">검색된 중고도서가 없습니다.<br/>
       <button class="btn btn-outline-primary" (click)="onClickInterested()">관심등록</button>으로 알림을 받아보세요!
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Response } from '@angular/http';
 
@@ -8,6 +8,7 @@ import { ArticleService } from '../service/article.service';
 import { Book } from '../models/book';
 import { BookService } from '../service/book.service';
 
+import { ResultViewInSearchComponent } from '../result-view-in-search/result-view-in-search.component';
 
 @Component({
   selector: 'app-candidate-view-in-search',
@@ -21,6 +22,8 @@ export class CandidateViewInSearchComponent implements OnInit, OnChanges {
   displayBookInfo = false;
   selectedCandidate: Book;
   recentQueryStr: string;
+  @ViewChild(ResultViewInSearchComponent)
+  private resultViewInSearchComponent: ResultViewInSearchComponent;
 
   constructor(
     private router: Router,
@@ -56,7 +59,6 @@ export class CandidateViewInSearchComponent implements OnInit, OnChanges {
       this.searchStartSignalEmitter.emit(this.selectedCandidate);
     }
   }
-
   getCandidateResult(que) {
     this.bookService.getCandidateList(que)
       .then((response: Response) => {

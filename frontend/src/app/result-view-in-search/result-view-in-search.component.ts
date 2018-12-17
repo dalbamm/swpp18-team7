@@ -9,6 +9,7 @@ import { Book } from '../models/book';
 import { BookService } from '../service/book.service';
 
 import { UserService } from '../service/user.service';
+import { listLazyRoutes } from '@angular/compiler/src/aot/lazy_routes';
 
 @Component({
   selector: 'app-result-view-in-search',
@@ -19,7 +20,9 @@ export class ResultViewInSearchComponent implements OnInit, OnChanges {
   resultList: Article[]; // ArticleList
   displayResultFlag = 0; //0: empty, 1: loading, 2: no results, 3: results
   recentSearchQueryBook: Book;
-
+  resultSize = 0;
+  minPrice = 0;
+  maxPrice = 0;
   constructor(
     private router: Router,
     private articleService: ArticleService,
@@ -77,10 +80,14 @@ export class ResultViewInSearchComponent implements OnInit, OnChanges {
     })
     .then( processedResponse => {
       // Starts to display result list after the promise is resolved.
-      this.resultList = processedResponse;
+      this.resultList = processedResponse.sort(function(a, b) { return a.price - b.price; });
       if(processedResponse.length === 0){
         this.displayResultFlag = 2;
       }  else {
+        // this.resultList = this.resultList.sort();
+        this.resultSize = this.resultList.length;
+        this.minPrice = this.resultList[0].price;
+        this.maxPrice = this.resultList[this.resultSize - 1].price;
         this.displayResultFlag = 3;
       }
     })
@@ -88,14 +95,5 @@ export class ResultViewInSearchComponent implements OnInit, OnChanges {
       console.log('error occured during getSearchResult: ' + err);
     });
   }
-
-  // Not used yet.
-  // initExternalArticles(response) {
-  //     const len = response.length;
-  //     for (let i = 0 ; i < len ; ++i) {
-  //       this.articleService.initExternalArticle(response[i]);
-  //     }
-  //     return response;
-  // }
 
 }
