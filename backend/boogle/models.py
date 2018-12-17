@@ -9,8 +9,8 @@ class Book(models.Model):
     isbn = models.CharField(max_length=20)
     author = models.CharField(max_length=30)
     publisher = models.CharField(max_length=20)
-    publishedYear = models.NumberField()
-    marketPrice = models.NumberField()
+    publishedYear = models.IntegerField()
+    marketPrice = models.IntegerField()
     imageLink = models.CharField(max_length=200, null=True)
 
 
@@ -34,8 +34,8 @@ class Article(models.Model):
         default='')
     author = models.CharField(
         max_length=30,
-        defualt='')
-    price = models.NumbrerField()
+        default='')
+    price = models.IntegerField()
     link = models.CharField(
         max_length=200,
         default='',
