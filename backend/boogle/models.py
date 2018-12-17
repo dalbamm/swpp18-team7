@@ -4,15 +4,9 @@ from django.contrib.auth.models import User
 
 class Book(models.Model):
     title = models.CharField(
-<<<<<<< HEAD
-    	max_length=100,
-    	default='')
-    isbn = models.CharField(max_length=20)
-=======
         max_length=100,
         default='')
     isbn = models.CharField(max_length=20, default='')
->>>>>>> 89d6163881b51efcfefd12454fa4f5c89f1423a2
     author = models.CharField(max_length=30, default='')
     publisher = models.CharField(max_length=20, default='')
     publishedYear = models.IntegerField(default=0)
@@ -36,7 +30,7 @@ class Article(models.Model):
         max_length=200,
         default='',
         null=True)
-    content = models.TextField(null=True)
+    content = models.TextField(null=True, default='empty')
     articleAuthor = models.CharField(
         max_length=30,
         default='',
@@ -78,6 +72,3 @@ class Account(models.Model):
         related_name='notificationRecipients'
     )
 
-    articles = models.ManyToManyField(
-        Article
-    )

@@ -224,7 +224,7 @@ def interestedBook(request, **kwargs):
 def article(request):
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())
-
+        print(req_data)
         account = Account.objects.get(user=request.user)
         site = req_data['site']
         title = req_data['title']
@@ -235,13 +235,10 @@ def article(request):
         articleAuthor = req_data['articleAuthor']
         isbn = req_data['isbn']
 
-        # if account.articles.filter(isbn=isbn).exists():
-        #     return HttpResponse(status=409)
         newArticle = Article(site=site, title=title, author=author, price=price, link=link, content=content, articleAuthor=articleAuthor, isbn=isbn)
         newArticle.save()
-        account.articles.add(newArticle)
-        account.save()
-        sendAlert(isbn,title,newArticle.id)
+
+        sendAlert(isbn, Book.objects.get(isbn=isbn).title, newArticle.id)
         return HttpResponse(status=204)
     else:
         return HttpResponseNotAllowed(['GET', 'POST', 'DELETE'])
