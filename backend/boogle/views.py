@@ -3,10 +3,12 @@ from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ObjectDoesNotExist
+from django.core import mail
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from crawler import Crawler
-from boogle.models import Account, Book
+from boogle.models import Account, Book, Article
 import json
+
 
 @ensure_csrf_cookie
 def signin(request):
@@ -26,11 +28,13 @@ def signin(request):
                 "signedIn": user.is_authenticated
             })
             print('userJson:', userJson)
+
             return HttpResponse(userJson, status=204)
         else:
             return HttpResponse(status=401)
     else:
         return HttpResponseNotAllowed(['POST'])
+
 
 @ensure_csrf_cookie
 def signup(request):
@@ -196,6 +200,7 @@ def interestedBooks(request):
 
         account.interestedBooks.add(book)
         account.save()
+
         return HttpResponse(status=204)
 
     else:
@@ -216,6 +221,31 @@ def interestedBook(request, **kwargs):
     else:
         return HttpResponseNotAllowed(['DELETE'])
 
+def article(request):
+    if request.method == 'POST':
+        req_data = json.loads(request.body.decode())
+
+        account = Account.objects.get(user=request.user)
+        site = req_data['site']
+        title = req_data['title']
+        author = req_data['author']
+        price = req_data['price']
+        link = req_data['link']
+        content = req_data['content']
+        articleAuthor = req_data['articleAuthor']
+        isbn = req_data['isbn']
+
+        # if account.articles.filter(isbn=isbn).exists():
+        #     return HttpResponse(status=409)
+        newArticle = Article(site=site, title=title, author=author, price=price, link=link, content=content, articleAuthor=articleAuthor, isbn=isbn)
+        newArticle.save()
+        account.articles.add(newArticle)
+        account.save()
+        sendAlert(isbn,title,newArticle.id)
+        return HttpResponse(status=204)
+    else:
+        return HttpResponseNotAllowed(['GET', 'POST', 'DELETE'])
+
 
 @ensure_csrf_cookie
 def token(request):
@@ -223,3 +253,17 @@ def token(request):
         return HttpResponse(status=204)
     else:
         return HttpResponseNotAllowed(['GET'])
+
+
+def sendAlert(isbn, title, article_id):
+    subject = 'Boogle 중고책 글 알림: 새 글이 등록됐어요!'
+    link = 'http://54.180.117.120/sale/{:}'.format(article_id)
+    content = 'Boogle 에서 알림 받기를 요청하신 책 {:} 에 대한 새로운 글이 등록됐습니다. 다음 주소에서 확인해 보세요: {:}'.format(
+        title, link)
+    book = Book.objects.get(isbn=isbn)
+    recipientList = [
+        User.objects.get(id=account['user_id']).username for account in book.notificationRecipients.values()]
+
+    print(recipientList)
+    mail.send_mail(subject, content,
+                   'boogle.alert@gmail.com', recipientList)

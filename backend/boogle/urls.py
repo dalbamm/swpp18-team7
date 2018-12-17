@@ -12,5 +12,6 @@ urlpatterns = [
     path('search/isbn/<str:isbn>', views.getUsedbookList, name='getUsedbookList'),
     path('interested', views.interestedBooks, name='interestedBooks'),
     path('interested/<str:isbn>', views.interestedBook, name='interestedBook'),
+    path('article', views.article, name='article'),
     path('nothing', views.token, name='emptyRequest')
 ]

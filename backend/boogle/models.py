@@ -4,25 +4,20 @@ from django.contrib.auth.models import User
 
 class Book(models.Model):
     title = models.CharField(
+<<<<<<< HEAD
     	max_length=100,
     	default='')
     isbn = models.CharField(max_length=20)
+=======
+        max_length=100,
+        default='')
+    isbn = models.CharField(max_length=20, default='')
+>>>>>>> 89d6163881b51efcfefd12454fa4f5c89f1423a2
     author = models.CharField(max_length=30, default='')
     publisher = models.CharField(max_length=20, default='')
     publishedYear = models.IntegerField(default=0)
     marketPrice = models.IntegerField(default=0)
     imageLink = models.CharField(max_length=200, null=True)
-
-
-class Account(models.Model):
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
-    )
-
-    interestedBooks = models.ManyToManyField(
-        Book
-    )
 
 
 class Article(models.Model):
@@ -34,7 +29,8 @@ class Article(models.Model):
         default='')
     author = models.CharField(
         max_length=30,
-        default='')
+        default='',
+        null=True)
     price = models.IntegerField()
     link = models.CharField(
         max_length=200,
@@ -45,16 +41,19 @@ class Article(models.Model):
         max_length=30,
         default='',
         null=True)
-    book = models.ForeignKey(
-        Book,
-        on_delete=models.CASCADE,
-        null=True
-    )
-    bookStatus = models.CharField(
-        max_length=10,
+    # book = models.ForeignKey(
+    #     Book,
+    #     on_delete=models.CASCADE,
+    #     null=True
+    # )
+    # bookStatus = models.CharField(
+    #     max_length=10,
+    #     default='',
+    #     null=True)
+    isbn = models.CharField(
+        max_length=30,
         default='',
         null=True)
-
 
 class Comment(models.Model):
     article = models.ForeignKey(
@@ -65,4 +64,20 @@ class Comment(models.Model):
     commentAuthor = models.ForeignKey(
         User,
         on_delete=models.CASCADE
+    )
+
+
+class Account(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    interestedBooks = models.ManyToManyField(
+        Book,
+        related_name='notificationRecipients'
+    )
+
+    articles = models.ManyToManyField(
+        Article
     )
