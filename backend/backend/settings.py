@@ -36,27 +36,27 @@ SESSION_COOKIE_HTTPONLY = False
 ACCESS_CONTROL_ALLOW_HEADERS = ['credentials']
 
 ALLOWED_HOSTS = [
-        'http://54.180.117.120',
-        '54.180.117.120',
-        'http://54.180.117.120:8000',
-        '54.180.117.120:8000',
-        'localhost',
-        '.amazonaws.com',
-        ]
+    'http://54.180.117.120',
+    '54.180.117.120',
+    'http://54.180.117.120:8000',
+    '54.180.117.120:8000',
+    'localhost',
+    '.amazonaws.com',
+]
 
 CORS_ORIGIN_WHITELIST = [
     '54.180.117.120',
 ]
 
 CORS_ALLOW_HEADERS = [
-            'authorization',
-            'content-type',
-            'credentials',
-            'x-csrftoken',
-        ]
+    'authorization',
+    'content-type',
+    'credentials',
+    'x-csrftoken',
+]
 CSRF_TRUSTED_ORIGINS = [
-           '54.180.117.120'
-        ]
+    '54.180.117.120'
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -149,3 +149,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 STATIC_URL = '/static/'
+
+# Email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'boogle.alert@gmail.com'
+EMAIL_HOST_PASSWORD = 'swpp18-team7'

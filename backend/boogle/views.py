@@ -3,10 +3,12 @@ from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ObjectDoesNotExist
+from django.core import mail
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from crawler import Crawler
 from boogle.models import Account, Book, Article
 import json
+
 
 @ensure_csrf_cookie
 def signin(request):
@@ -26,11 +28,13 @@ def signin(request):
                 "signedIn": user.is_authenticated
             })
             print('userJson:', userJson)
+
             return HttpResponse(userJson, status=204)
         else:
             return HttpResponse(status=401)
     else:
         return HttpResponseNotAllowed(['POST'])
+
 
 @ensure_csrf_cookie
 def signup(request):
@@ -196,6 +200,7 @@ def interestedBooks(request):
 
         account.interestedBooks.add(book)
         account.save()
+
         return HttpResponse(status=204)
 
     else:
@@ -247,3 +252,17 @@ def token(request):
         return HttpResponse(status=204)
     else:
         return HttpResponseNotAllowed(['GET'])
+
+
+def sendAlert(isbn, title, article_id):
+    subject = 'Boogle 중고책 글 알림: 새 글이 등록됐어요!'
+    link = 'http://54.180.117.120/sale/{:}'.format(article_id)
+    content = 'Boogle 에서 알림 받기를 요청하신 책 {:} 에 대한 새로운 글이 등록됐습니다. 다음 주소에서 확인해 보세요: {:}'.format(
+        title, link)
+    book = Book.objects.get(isbn=isbn)
+    recipientList = [
+        User.objects.get(id=account['user_id']).username for account in book.notificationRecipients.values()]
+
+    print(recipientList)
+    mail.send_mail(subject, content,
+                   'boogle.alert@gmail.com', recipientList)
