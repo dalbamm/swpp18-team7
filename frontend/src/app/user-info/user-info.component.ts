@@ -87,6 +87,12 @@ export class UserInfoComponent implements OnInit {
   }
 
   onClickDelete(isbn) {
-    alert('isbn: ' + isbn);
+    this.bookService.deleteInterestedBook(isbn).subscribe(
+      () => {
+        this.getInterestedList();
+      },
+      (error: HttpErrorResponse) => {
+        console.log('error while deleting interested book.');
+      });
   }
 }
