@@ -67,6 +67,12 @@
                             <td>{{book.marketPrice}}</td>
                           </tr>
                         </table>
+                        <h6 *ngIf='isFirst'>
+                          ISBN을 입력해주세요.
+                        </h6>
+                        <h5 *ngIf='!isFirst && !this.displayFlag'>
+                          해당 책이 없습니다.
+                        </h5>
                       </td>
                     </tr>
                   </table>

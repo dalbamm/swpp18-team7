@@ -21,6 +21,7 @@ export class BookInputComponent implements OnInit {
   bookPublishedYear: number;
 
   queryString: string;
+  isFirst: boolean = true;
   displayFlag: boolean;
   closeResult: string;
 
@@ -58,7 +59,7 @@ export class BookInputComponent implements OnInit {
   	this.bookService.getBookByISBN(query)
       .then((response: Response) => {
 	      this.book = this.initBook(response);
-	      this.displayFlag = true;
+	      this.displayFlag = (this.book !== null);
       })
       .catch(function(err) {
         console.log('error occurred during getBookResult: ' + err);
@@ -84,6 +85,7 @@ export class BookInputComponent implements OnInit {
   }
 
   onClickISBNSearch() {
+    this.isFirst = false;
   	this.getBookByISBN(this.queryString);
   }
 
