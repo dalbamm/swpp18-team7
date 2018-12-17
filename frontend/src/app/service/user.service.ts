@@ -33,12 +33,14 @@ userUrl = 'api/user';
   private signedIn: boolean;
   private currUser: User;
 
+
   httpOptions = {
     headers: new HttpHeaders({
     'Content-Type':  'application/json',
     'Authorization': 'my-auth-token',
     'credentials': 'include',
-    })
+    }),
+    withCredentials: true
   };
   
   constructor(

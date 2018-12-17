@@ -59,6 +59,8 @@ export class SaleComponent implements OnInit {
 	this.saleBook.publishedYear = this.bookInputComponent.bookPublishedYear;	
 	this.saleArticle.content = this.articleInputComponent.content;
 
+	this.articleService.addArticle(this.saleArticle);
+
 	console.log("saleBook:"+this.saleBook.ISBN);
 	console.log("saleBook:"+this.saleBook.title);
 	console.log("saleBook:"+this.saleBook.author);
@@ -67,5 +69,6 @@ export class SaleComponent implements OnInit {
 	console.log("saleArticle:"+this.saleArticle.site);
 	console.log("saleArticle:"+this.saleArticle.price);
 	console.log("saleArticle:"+this.saleArticle.content);
+	
   }
 }

@@ -8,7 +8,7 @@ from crawler import Crawler
 from boogle.models import Account, Book
 import json
 
-
+@ensure_csrf_cookie
 def signin(request):
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())
@@ -32,7 +32,7 @@ def signin(request):
     else:
         return HttpResponseNotAllowed(['POST'])
 
-
+@ensure_csrf_cookie
 def signup(request):
     if request.method == 'POST':
         req_data = json.loads(request.body.decode())
