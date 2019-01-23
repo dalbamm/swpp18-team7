@@ -18,6 +18,20 @@
                   <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                     <span aria-hidden="true">&times;</span>
                   </button>
+                  <button type="button" class="close" aria-label="Close" (click)="onClickTitleSearch()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <div class="title">검색 후보</div>
+        <div class="empty" *ngIf="displayCandidatesFlag===false"></div>
+        <div class="candidatesContainer" *ngIf="displayCandidatesFlag===true">
+          <ul class="candidateUl">
+            <li *ngFor="let candidate of candidateList">
+              <div class="candidateElement" (click)="onClickCandidate(candidate)">
+                  <img src="{{candidate.imageLink}}" class="candidateImage">
+              </div>
+            </li>
+         </ul>
+        </div>
                 </div>
                 <div class="modal-body">
                   <table>

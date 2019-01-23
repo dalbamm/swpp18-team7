@@ -1,6 +1,8 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { Response } from '@angular/http';
+
 import { BookInputComponent } from '../book-input/book-input.component';
 import { ArticleInputComponent } from '../article-input/article-input.component';
 import { Article } from '../models/article';
@@ -17,7 +19,7 @@ import { ArticleService } from '../service/article.service';
   styleUrls: ['./sale.component.css']
   })
 
-export class SaleComponent implements OnInit {
+export class SaleComponent implements OnInit, OnChanges {
 
   @ViewChild(BookInputComponent)
   private bookInputComponent: BookInputComponent;
@@ -27,7 +29,6 @@ export class SaleComponent implements OnInit {
 
   private saleBook: Book;
   private saleArticle: Article;
-
   book: Book;
 
   constructor(
@@ -40,7 +41,9 @@ export class SaleComponent implements OnInit {
   
   ngOnInit() {
   }
+  ngOnChanges() {
 
+  }
   onClickCancel(){
   	this.location.back();
   }
@@ -48,6 +51,7 @@ export class SaleComponent implements OnInit {
   setBook(book: Book) {
     this.book = book;
   }
+
 
   bookInputValidCheck(): boolean {
     if (this.bookInputComponent.bookTitle === undefined || 
@@ -105,7 +109,8 @@ export class SaleComponent implements OnInit {
   	this.saleArticle.book = this.saleBook;
     this.saleArticle.articleAuthor = this.userService.getCurrentUser();
 
-    this.articleService.addArticle(this.saleArticle).subscribe();
+    this.articleService.addArticle(this.saleArticle).subscribe(() => this.router.navigateByUrl('main'), () => console.log('error'));
+	  
 
   	console.log("saleBook:"+this.saleBook.ISBN);
   	console.log("saleBook:"+this.saleBook.title);

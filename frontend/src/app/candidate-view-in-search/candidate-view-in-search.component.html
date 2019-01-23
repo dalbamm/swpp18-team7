@@ -1,19 +1,31 @@
 <div class="resultPart"> 
-  <div class="container border showCandidates">
-        <div class="title">검색 후보</div>
+  <div class="showCandidates">
+        <!-- <div class="title">검색 후보</div> -->
         <div class="empty" *ngIf="displayCandidatesFlag===false"></div>
         <div class="candidatesContainer" *ngIf="displayCandidatesFlag===true">
           <ul class="candidateUl">
             <li *ngFor="let candidate of candidateList">
               <div class="candidateElement" (click)="onClickCandidate(candidate)">
                   <img src="{{candidate.imageLink}}" class="candidateImage">
+                  <div class="bookInfo"> 
+                    <!-- <div>책 정보</div> -->
+                    <div class="content">
+                      제목: {{candidate.title}}<br/>
+                      저자: {{candidate.author}}<br/>
+                      출판사: {{candidate.publisher}}<br/>
+                      출판년도: {{candidate.publishedYear}}<br/>
+                      정가: {{candidate.marketPrice}}<br/>
+                    </div>
+                    <div class="vacancy"></div>
+                    <button class="btn btn-outline-primary" (click)="onClickStartSearch()">검색 시작</button>
+                  </div>
               </div>
             </li>
          </ul>
         </div>
       </div>
-      <div class="container border bookInfo">
-        <div>책 정보</div>
+      <!-- <div class="bookInfo">
+        <div>책 정보</div> 
         <div class="content" *ngIf="selectedCandidate.title">
           제목: {{selectedCandidate.title}}<br/>
           저자: {{selectedCandidate.author}}<br/>
@@ -23,5 +35,5 @@
         </div>
         <div class="vacancy"></div>
         <button class="btn btn-outline-primary" *ngIf="selectedCandidate.title" (click)="onClickStartSearch()">검색 시작</button>
-      </div>
+      </div> -->
     </div>

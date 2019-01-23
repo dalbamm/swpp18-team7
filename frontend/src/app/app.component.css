@@ -2,3 +2,17 @@
   border: none;
   width: 150px;
 }
+.mainLink{
+  width: inherit;
+  height: inherit;
+  /* background-color: black; */
+  background-image: url("../assets/boogle_logo.png"); 
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+#mainLogo {
+  cursor: pointer;
+  max-height: 50px;
+  /* width: 100%; */
+  
+}

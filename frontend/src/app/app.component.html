@@ -6,12 +6,13 @@
 <div id="top-bar">
   <table style="width: 100%;">
     <tr>
-      <td style="width: 15%;">
+       <td > <!--style="width: 15%;" style="width: 60%;" -->
         <span *ngIf="!(this.router.url==='/main')" class="logo-text">
-          <a href="/main">{{title}}</a>
+          <!-- <a href="/main" class="mainLink" ></a> -->
+          <img src="../assets/boogle_logo.png" id="mainLogo" (click)="onClickLogo()">
         </span>
       </td>
-      <td style="width: 60%;"></td>
+      <td ></td>
       <td style="width: 15%;">
         <button *ngIf="user&&!(this.router.url==='/account')" class="btn btn-outline-primary" id="user-info-button" style="display: inline-block;" (click)="onClickUserInfo()">{{user.email}}</button>
       </td>

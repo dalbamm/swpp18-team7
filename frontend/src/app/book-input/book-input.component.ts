@@ -24,9 +24,13 @@ export class BookInputComponent implements OnInit {
   isFirst: boolean = true;
   displayFlag: boolean;
   closeResult: string;
-
+  displayFlagExternal=false;
+  private candidateList: Book[];
+  displayCandidatesFlag = false;
+  
   @Output() bookEmitter: EventEmitter<Book> = new EventEmitter();
-
+  @Output() titleEmitter: EventEmitter<string> = new EventEmitter();
+  
   constructor(
   	private modalService: NgbModal,
   	private articleService: ArticleService,
@@ -88,6 +92,18 @@ export class BookInputComponent implements OnInit {
     this.isFirst = false;
   	this.getBookByISBN(this.queryString);
   }
+  onClickTitleSearch() {
+    this.bookService.getCandidateList(this.bookTitle)
+    .then((response: Response) => {
+      this.candidateList = this.initBooks(response);
+      this.displayCandidatesFlag = true;
+    })
+    .catch(function(err) {
+      console.log('error occurred during getCandidateResult: ' + err);
+    });
+    this.displayCandidatesFlag=true;
+  	// this.getBookByISBN(this.queryString);
+  }
 
   emitBook() {
     if ( this.book === undefined || this.book === null) {
@@ -110,5 +126,36 @@ export class BookInputComponent implements OnInit {
   	this.bookPublisher = this.book['publisher'];
   	this.bookPublishedYear = this.book['publishedYear'] as number;
   	this.emitBook();
+  }
+
+  getCandidateResult(que) {
+    this.bookService.getCandidateList(que)
+      .then((response: Response) => {
+	      this.candidateList = this.initBooks(response);
+	      this.displayCandidatesFlag = true;
+      })
+      .catch(function(err) {
+        console.log('error occurred during getCandidateResult: ' + err);
+      });
+  }
+
+  initBooks(response: Response): Book[] {
+    const len = response['documents'].length;
+    var resultBooks: Book[] = [];
+
+    for (var i = 0; i < len; i++) {
+      var resp = response['documents'][i];
+      var respBook = {
+        ISBN: resp['isbn'].split(' ')[1],
+    	  imageLink: resp['thumbnail'],
+	      title: resp['title'],
+      	author: resp['authors'],
+      	publisher: resp['publisher'],
+      	publishedYear: resp['datetime'].split('-')[0],
+      	marketPrice: resp['price']
+      } as Book;
+      resultBooks.push(respBook);
+    }
+    return resultBooks;
   }
 }

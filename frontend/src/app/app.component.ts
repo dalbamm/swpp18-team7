@@ -65,4 +65,9 @@ export class AppComponent {
   onClickUserInfo(): void {
     this.router.navigateByUrl('account');
   }
+
+  onClickLogo(): void {
+    this.router.navigateByUrl('/main');
+  }
 }
+
